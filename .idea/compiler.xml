@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="SYSC4806-WDWH" />
         <module name="SYSC4806WDWH" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="SYSC4806-WDWH" target="1.5" />
       <module name="SYSC4806WDWH" target="1.5" />
     </bytecodeTargetLevel>
   </component>
