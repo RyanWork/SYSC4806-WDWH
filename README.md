@@ -8,6 +8,8 @@ A course belongs to one or many programs, and a program has many courses (in a g
 
 A user should be able to list, for a given year and for a given program: all the learning outcomes, all the categories, all the learning outcomes within a given category, all the courses covering a given category, all the learning outcomes of a given course. The user should also be able to export any of those results as a CSV (comma-separated) file. An administrator should be able to edit everything.  
 
+**Travis CI** https://travis-ci.org/sysc4806/SYSC4806-WDWH
+
 **_Current State of the Project_**
 
 |      To-Do      |   In-Progress   |      Done      |
