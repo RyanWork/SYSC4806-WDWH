@@ -14,10 +14,10 @@ A user should be able to list, for a given year and for a given program: all the
 
 |      To-Do      |   In-Progress   |      Done                               |
 |:---------------:|:----------------:|:--------------------------------------:|
-|                 |                 | #1 Implement CI                         |
-|                 |                 | #4 Create Kanban                        |
-|                 |                 | #5 Build DB Schema                      |
-|                 |                 | #12 Travis Build failing on First Build |
+|                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/1">#1 Implement CI</a> |                 
+|                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/4">#4 Create Kanban</a> |                
+|                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/5">#5 Build DB Schema</a> |              
+|                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/12">#12 Travis Build failing</a>|
 
 <br>**_Plan for Next Sprint_**
 
