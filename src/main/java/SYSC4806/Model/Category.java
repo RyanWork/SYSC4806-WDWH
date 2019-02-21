@@ -4,11 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.List;
+import java.util.ArrayList;
 
 
 /**
- * Model class used to map between learning outcomes and categories.
+ * Category is a model class that represents a group of learning outcomes.
  */
 @Entity
 public class Category {
@@ -17,7 +17,7 @@ public class Category {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
     private String name;
-    private List<LearningOutcome> learningOutcomes;
+    private ArrayList<LearningOutcome> learningOutcomes;
 
     public Category() {
     }
@@ -38,11 +38,11 @@ public class Category {
         this.name = name;
     }
 
-    public List<LearningOutcome> getLearningOutcomes() {
+    public ArrayList<LearningOutcome> getLearningOutcomes() {
         return learningOutcomes;
     }
 
-    public void setLearningOutcomes(List<LearningOutcome> learningOutcomes) {
+    public void setLearningOutcomes(ArrayList<LearningOutcome> learningOutcomes) {
         this.learningOutcomes = learningOutcomes;
     }
 }

@@ -4,10 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
- * Model class used to map between learning outcomes, programs and courses.
+ * Course is a model class that represents a course a student can take.
+ * A course belongs to many programs and a student should acquire certain learning outcomes by taking this course.
  */
 @Entity
 public class Course {
@@ -18,8 +19,8 @@ public class Course {
     private int year;
     private String name;
     private String code;
-    private List<LearningOutcome> learningOutcomes;
-    private List<Program> programs;
+    private ArrayList<LearningOutcome> learningOutcomes;
+    private ArrayList<Program> programs;
 
     public Course() {
     }
@@ -56,19 +57,19 @@ public class Course {
         this.code = code;
     }
 
-    public List<LearningOutcome> getLearningOutcomes() {
+    public ArrayList<LearningOutcome> getLearningOutcomes() {
         return learningOutcomes;
     }
 
-    public void setLearningOutcomes(List<LearningOutcome> learningOutcomes) {
+    public void setLearningOutcomes(ArrayList<LearningOutcome> learningOutcomes) {
         this.learningOutcomes = learningOutcomes;
     }
 
-    public List<Program> getPrograms() {
+    public ArrayList<Program> getPrograms() {
         return programs;
     }
 
-    public void setPrograms(List<Program> programs) {
+    public void setPrograms(ArrayList<Program> programs) {
         this.programs = programs;
     }
 }

@@ -4,11 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.List;
+import java.util.ArrayList;
 
 
 /**
- * Model class used to map between categories, courses and learning outcomes.
+ *  LearningOutcome is a model class that represents skills a student should acquire after completing a course.
+ *  A learning outcome belongs to many categories and a student acquire's certain learning outcomes by taking courses.
  */
 @Entity
 public class LearningOutcome {
@@ -17,8 +18,8 @@ public class LearningOutcome {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
     private String name;
-    private List<Category> category;
-    private List<Course> courses;
+    private ArrayList<Category> category;
+    private ArrayList<Course> courses;
 
     public LearningOutcome() {
     }
@@ -39,19 +40,19 @@ public class LearningOutcome {
         this.name = name;
     }
 
-    public List<Category> getCategory() {
+    public ArrayList<Category> getCategory() {
         return category;
     }
 
-    public void setCategory(List<Category> category) {
+    public void setCategory(ArrayList<Category> category) {
         this.category = category;
     }
 
-    public List<Course> getCourses() {
+    public ArrayList<Course> getCourses() {
         return courses;
     }
 
-    public void setCourses(List<Course> courses) {
+    public void setCourses(ArrayList<Course> courses) {
         this.courses = courses;
     }
 }

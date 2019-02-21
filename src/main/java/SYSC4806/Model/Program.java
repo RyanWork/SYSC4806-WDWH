@@ -4,11 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.List;
+import java.util.ArrayList;
 
 
 /**
- * Model class used to map between courses and programs.
+ * Program is a model class that represent a group of courses.
  */
 @Entity
 public class Program {
@@ -17,7 +17,7 @@ public class Program {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
     private String name;
-    private List<Course> listCourse;
+    private ArrayList<Course> listCourse;
 
     public Program() {
     }
@@ -38,11 +38,11 @@ public class Program {
         this.name = name;
     }
 
-    public List<Course> getListCourse() {
+    public ArrayList<Course> getListCourse() {
         return listCourse;
     }
 
-    public void setListCourse(List<Course> listCourse) {
+    public void setListCourse(ArrayList<Course> listCourse) {
         this.listCourse = listCourse;
     }
 }
