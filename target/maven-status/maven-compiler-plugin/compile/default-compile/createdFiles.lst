@@ -1,0 +1,6 @@
+SYSC4806\Model\Course.class
+SYSC4806\Model\LearningOutcome.class
+SYSC4806\Model\Category.class
+SYSC4806\Model\Program.class
+SYSC4806\HomeController.class
+SYSC4806\Application.class
