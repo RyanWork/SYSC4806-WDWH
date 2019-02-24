@@ -1,4 +1,4 @@
-package SYSC4806;
+package SYSC4806.Controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
