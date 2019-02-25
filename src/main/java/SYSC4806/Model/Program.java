@@ -15,7 +15,7 @@ public class Program {
     private long id;
     private String name;
 
-    @OneToMany
+    @ManyToMany(mappedBy = "programs")
     private ArrayList<Course> listCourse;
 
     public Program() {
