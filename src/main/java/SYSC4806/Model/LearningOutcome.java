@@ -16,7 +16,7 @@ public class LearningOutcome {
     private long id;
     private String name;
 
-    @ManyToMany
+    @ManyToOne
     private ArrayList<Category> category;
 
     @ManyToMany

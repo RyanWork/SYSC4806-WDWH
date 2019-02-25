@@ -20,7 +20,12 @@ public class Course {
     @ManyToMany
     private ArrayList<LearningOutcome> learningOutcomes;
 
-    @ManyToMany
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "program_course",
+            joinColumns = @JoinColumn(name = "program_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id",
+                    referencedColumnName = "id"))
     private ArrayList<Program> programs;
 
     public Course() {
