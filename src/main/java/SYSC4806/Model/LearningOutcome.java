@@ -1,9 +1,6 @@
 package SYSC4806.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 
 
@@ -18,7 +15,11 @@ public class LearningOutcome {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
     private String name;
+
+    @ManyToMany
     private ArrayList<Category> category;
+
+    @ManyToMany
     private ArrayList<Course> courses;
 
     public LearningOutcome() {

@@ -1,9 +1,6 @@
 package SYSC4806.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +16,11 @@ public class Course {
     private int year;
     private String name;
     private String code;
+
+    @ManyToMany
     private ArrayList<LearningOutcome> learningOutcomes;
+
+    @ManyToMany
     private ArrayList<Program> programs;
 
     public Course() {
