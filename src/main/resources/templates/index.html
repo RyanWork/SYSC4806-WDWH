@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learning Outcomes Management System</title>
+
+    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="../static/css/index.css" rel="stylesheet" th:href="@{/css/index.css}"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+        <a class="navbar-brand" href="#">Learning Outcomes Management System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <button class="btn btn-outline-light my-2 my-sm-0 offset-lg-10" type="button">Admin Login</button>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row programYearSelect">
+            <div class="col">
+                <div class="card border-primary bg-light">
+                    <div class="card-header bg-primary">
+                        Program and Year Selection
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-row align-items-center">
+                                <div class="col-md col-lg-4">
+                                    <label  for="programSelect"> Choose program: </label>
+                                    <select class="custom-select select2 mr-sm-2" id="programSelect">
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                        <option value="4">Four</option>
+                                        <option value="5">Five</option>
+                                    </select>
+                                </div>
+                                <div class="col-md col-lg-4">
+                                    <label for="yearSelect"> Choose year:</label>
+                                    <select class="custom-select select2 mr-sm-2" id="yearSelect">
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                        <option value="4">Four</option>
+                                        <option value="5">Five</option>
+                                    </select>
+                                </div>
+                                <div class="col-md col-lg-2 offset-lg-1">
+                                    <button type="submit" class="btn btn-info btn-block">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row filters">
+            <div class="col">
+                <div class="card bg-light">
+                    <div class="card-header">
+                        Filters
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-row align-items-center">
+                                <div class="col-md col-lg-4">
+                                    <label  for="programSelect"> Choose course(s): </label>
+                                    <select class="form-control select2" id="courseSelect" multiple="multiple" size="5">
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                        <option value="4">Four</option>
+                                        <option value="5">Five</option>
+                                    </select>
+                                </div>
+                                <div class="col-md col-lg-4">
+                                    <label  for="programSelect"> Choose categories: </label>
+                                    <select class="form-control select2" id="categorySelect" multiple="multiple">
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                        <option value="4">Four</option>
+                                        <option value="5">Five</option>
+                                    </select>
+                                </div>
+                                <div class="col-md col-lg-2 offset-lg-1">
+                                    <button type="submit" class="btn btn-info btn-block">Apply Filter(s)</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row results">
+            <div class="col">
+                <div class="card" onlick="active();">
+                    <div class="card-header">
+                        Results
+                        <!-- Button trigger modal -->
+                        <button id="exportBtn" type="button" class="btn btn-info export" data-toggle="modal" data-target="#exampleModalCenter">
+                            Export <i class="fas fa-download"></i>
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalCenterTitle">Export to CSV</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="card bg-light">
+                                            <div class="card-header">
+                                                Columns
+                                            </div>
+                                            <div class="card-body">
+                                                <form>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="courseCheck" checked>
+                                                        <label class="custom-control-label" for="courseCheck">Course</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="categoryCheck" checked>
+                                                        <label class="custom-control-label" for="categoryCheck">Category</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="loCheck" checked>
+                                                        <label class="custom-control-label" for="loCheck">Learning Outcomes</label>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Export</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Larry</td>
+                                <td>the Bird</td>
+                                <td>@twitter</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
+    <script src="/js/index.js" th:href="@{/js/index.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+    <!--Starting jQuery library select2 for searchable select boxes https://select2.org/-->
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: 'Choose...',
+                allowClear: true
+            });
+        });
+    </script>
+</body>
+</html>
