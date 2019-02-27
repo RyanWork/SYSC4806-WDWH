@@ -2,6 +2,7 @@ package SYSC4806.Model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -16,7 +17,7 @@ public class Program {
     private String name;
 
     @ManyToMany(mappedBy = "programs")
-    private ArrayList<Course> listCourse;
+    private List<Course> listCourse;
 
     public Program() {
     }
@@ -37,11 +38,11 @@ public class Program {
         this.name = name;
     }
 
-    public ArrayList<Course> getListCourse() {
+    public List<Course> getListCourse() {
         return listCourse;
     }
 
-    public void setListCourse(ArrayList<Course> listCourse) {
+    public void setListCourse(List<Course> listCourse) {
         this.listCourse = listCourse;
     }
 }

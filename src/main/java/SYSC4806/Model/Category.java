@@ -2,6 +2,7 @@ package SYSC4806.Model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -15,8 +16,8 @@ public class Category {
     private long id;
     private String name;
 
-    @OneToMany
-    private ArrayList<LearningOutcome> learningOutcomes;
+    @OneToMany(mappedBy = "category")
+    private List<LearningOutcome> learningOutcomes;
 
     public Category() {
     }
@@ -37,11 +38,11 @@ public class Category {
         this.name = name;
     }
 
-    public ArrayList<LearningOutcome> getLearningOutcomes() {
+    public List<LearningOutcome> getLearningOutcomes() {
         return learningOutcomes;
     }
 
-    public void setLearningOutcomes(ArrayList<LearningOutcome> learningOutcomes) {
+    public void setLearningOutcomes(List<LearningOutcome> learningOutcomes) {
         this.learningOutcomes = learningOutcomes;
     }
 }

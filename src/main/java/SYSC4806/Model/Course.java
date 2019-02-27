@@ -2,6 +2,7 @@ package SYSC4806.Model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Course is a model class that represents a course a student can take.
@@ -18,7 +19,7 @@ public class Course {
     private String code;
 
     @ManyToMany
-    private ArrayList<LearningOutcome> learningOutcomes;
+    private List<LearningOutcome> learningOutcomes;
 
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -26,7 +27,7 @@ public class Course {
             joinColumns = @JoinColumn(name = "program_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "course_id",
                     referencedColumnName = "id"))
-    private ArrayList<Program> programs;
+    private List<Program> programs;
 
     public Course() {
     }
@@ -63,19 +64,19 @@ public class Course {
         this.code = code;
     }
 
-    public ArrayList<LearningOutcome> getLearningOutcomes() {
+    public List<LearningOutcome> getLearningOutcomes() {
         return learningOutcomes;
     }
 
-    public void setLearningOutcomes(ArrayList<LearningOutcome> learningOutcomes) {
+    public void setLearningOutcomes(List<LearningOutcome> learningOutcomes) {
         this.learningOutcomes = learningOutcomes;
     }
 
-    public ArrayList<Program> getPrograms() {
+    public List<Program> getPrograms() {
         return programs;
     }
 
-    public void setPrograms(ArrayList<Program> programs) {
+    public void setPrograms(List<Program> programs) {
         this.programs = programs;
     }
 }
