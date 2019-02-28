@@ -1,10 +1,8 @@
 package SYSC4806.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -17,9 +15,16 @@ public class Program {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
     private String name;
-    private ArrayList<Course> listCourse;
+
+    @ManyToMany(mappedBy = "programs")
+    private List<Course> listCourse;
 
     public Program() {
+    }
+
+    public Program(String name, List<Course> listCourse) {
+        this.name = name;
+        this.listCourse = listCourse;
     }
 
     public long getId() {
@@ -38,11 +43,11 @@ public class Program {
         this.name = name;
     }
 
-    public ArrayList<Course> getListCourse() {
+    public List<Course> getListCourse() {
         return listCourse;
     }
 
-    public void setListCourse(ArrayList<Course> listCourse) {
+    public void setListCourse(List<Course> listCourse) {
         this.listCourse = listCourse;
     }
 }

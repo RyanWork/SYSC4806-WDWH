@@ -1,10 +1,8 @@
 package SYSC4806.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -18,10 +16,25 @@ public class LearningOutcome {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
     private String name;
-    private ArrayList<Category> category;
-    private ArrayList<Course> courses;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="category_id")
+    private Category category;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "course_learningoutcome",
+            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "learningoutcome_id",
+                    referencedColumnName = "id"))
+    private List<Course> courses;
 
     public LearningOutcome() {
+    }
+
+    public LearningOutcome(String name, Category category, List<Course> courses) {
+        this.name = name;
+        this.category = category;
+        this.courses = courses;
     }
 
     public long getId() {
@@ -40,19 +53,19 @@ public class LearningOutcome {
         this.name = name;
     }
 
-    public ArrayList<Category> getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(ArrayList<Category> category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    public ArrayList<Course> getCourses() {
+    public List<Course> getCourses() {
         return courses;
     }
 
-    public void setCourses(ArrayList<Course> courses) {
+    public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
 }

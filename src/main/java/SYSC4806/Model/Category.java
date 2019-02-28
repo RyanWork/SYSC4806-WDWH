@@ -1,10 +1,8 @@
 package SYSC4806.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -17,9 +15,16 @@ public class Category {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
     private String name;
-    private ArrayList<LearningOutcome> learningOutcomes;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<LearningOutcome> learningOutcomes;
 
     public Category() {
+    }
+
+    public Category(String name, List<LearningOutcome> learningOutcomes) {
+        this.name = name;
+        this.learningOutcomes = learningOutcomes;
     }
 
     public long getId() {
@@ -38,11 +43,11 @@ public class Category {
         this.name = name;
     }
 
-    public ArrayList<LearningOutcome> getLearningOutcomes() {
+    public List<LearningOutcome> getLearningOutcomes() {
         return learningOutcomes;
     }
 
-    public void setLearningOutcomes(ArrayList<LearningOutcome> learningOutcomes) {
+    public void setLearningOutcomes(List<LearningOutcome> learningOutcomes) {
         this.learningOutcomes = learningOutcomes;
     }
 }

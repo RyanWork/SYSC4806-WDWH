@@ -1,10 +1,8 @@
 package SYSC4806.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Course is a model class that represents a course a student can take.
@@ -19,10 +17,27 @@ public class Course {
     private int year;
     private String name;
     private String code;
-    private ArrayList<LearningOutcome> learningOutcomes;
-    private ArrayList<Program> programs;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<LearningOutcome> learningOutcomes;
+
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "program_course",
+            joinColumns = @JoinColumn(name = "program_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id",
+                    referencedColumnName = "id"))
+    private List<Program> programs;
 
     public Course() {
+    }
+
+    public Course(int year, String name, String code, List<LearningOutcome> learningOutcomes, List<Program> programs) {
+        this.year = year;
+        this.name = name;
+        this.code = code;
+        this.learningOutcomes = learningOutcomes;
+        this.programs = programs;
     }
 
     public long getId() {
@@ -57,19 +72,19 @@ public class Course {
         this.code = code;
     }
 
-    public ArrayList<LearningOutcome> getLearningOutcomes() {
+    public List<LearningOutcome> getLearningOutcomes() {
         return learningOutcomes;
     }
 
-    public void setLearningOutcomes(ArrayList<LearningOutcome> learningOutcomes) {
+    public void setLearningOutcomes(List<LearningOutcome> learningOutcomes) {
         this.learningOutcomes = learningOutcomes;
     }
 
-    public ArrayList<Program> getPrograms() {
+    public List<Program> getPrograms() {
         return programs;
     }
 
-    public void setPrograms(ArrayList<Program> programs) {
+    public void setPrograms(List<Program> programs) {
         this.programs = programs;
     }
 }
