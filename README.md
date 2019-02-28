@@ -26,6 +26,10 @@ A user should be able to list, for a given year and for a given program: all the
 |                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/17">#24 Create Main Feature View</a> |
 
 
-<br>**_Plan for Next Sprint_**
+<br>**_Plan for Next Sprint_**<br>
+- <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/19">#19 Filtering</a>
+- <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/20">#20 Sorting</a>
+- <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/21">#21 Admin Rights</a>
+- <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/16">#16 Export to CSV</a>
 
 <br>**_Current DB Schema_**
