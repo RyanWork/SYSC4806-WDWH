@@ -17,14 +17,24 @@ public class LearningOutcome {
     private long id;
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="category_id")
     private Category category;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "course_learningoutcome",
+            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "learningoutcome_id",
+                    referencedColumnName = "id"))
     private List<Course> courses;
 
     public LearningOutcome() {
+    }
+
+    public LearningOutcome(String name, Category category, List<Course> courses) {
+        this.name = name;
+        this.category = category;
+        this.courses = courses;
     }
 
     public long getId() {

@@ -22,6 +22,11 @@ public class Program {
     public Program() {
     }
 
+    public Program(String name, List<Course> listCourse) {
+        this.name = name;
+        this.listCourse = listCourse;
+    }
+
     public long getId() {
         return id;
     }

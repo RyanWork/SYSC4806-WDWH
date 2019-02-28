@@ -18,7 +18,7 @@ public class Course {
     private String name;
     private String code;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<LearningOutcome> learningOutcomes;
 
 
@@ -30,6 +30,14 @@ public class Course {
     private List<Program> programs;
 
     public Course() {
+    }
+
+    public Course(int year, String name, String code, List<LearningOutcome> learningOutcomes, List<Program> programs) {
+        this.year = year;
+        this.name = name;
+        this.code = code;
+        this.learningOutcomes = learningOutcomes;
+        this.programs = programs;
     }
 
     public long getId() {

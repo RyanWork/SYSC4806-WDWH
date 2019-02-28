@@ -16,10 +16,15 @@ public class Category {
     private long id;
     private String name;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<LearningOutcome> learningOutcomes;
 
     public Category() {
+    }
+
+    public Category(String name, List<LearningOutcome> learningOutcomes) {
+        this.name = name;
+        this.learningOutcomes = learningOutcomes;
     }
 
     public long getId() {
