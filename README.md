@@ -14,14 +14,16 @@ A user should be able to list, for a given year and for a given program: all the
 
 |      To-Do      |   In-Progress   |      Done                               |
 |:---------------:|:----------------:|:--------------------------------------:|
-|                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/1">#1 Implement CI</a> |                 
+|                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/1">#1 Implement CI</a> |
+|                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/2">#2 Deploy on Heroku</a> |
 |                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/4">#4 Create Kanban</a> |                
 |                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/5">#5 Build DB Schema</a> |
+|                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/6">#6 Create Feature Branches</a> |
+|                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/7">#7 Scrum, Feb 25</a> |
 |                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/11">#11 Features/UI Breakdown</a>|
 |                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/12">#12 Travis Build failing</a> |
-|                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/7">#7 Scrum, Feb 25</a> |
-|                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/6">#6 Create Feature Branches</a> |
 |                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/17">#17 Create Skeleton Models</a> |
+|                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/17">#24 Create Main Feature View</a> |
 
 
 <br>**_Plan for Next Sprint_**
