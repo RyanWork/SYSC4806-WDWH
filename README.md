@@ -25,6 +25,7 @@ A user should be able to list, for a given year and for a given program: all the
 |                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/17">#17 Create Skeleton Models</a> |
 |                 |                 | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/17">#24 Create Main Feature View</a> |
 |                 |                 |<a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/18">#18 Create Model DB Connections</a>|
+|                 |                 |<a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/28">#28 Test Cases for Model DB Connections</a>|
 
 
 <br>**_Plan for Next Sprint_**<br>
