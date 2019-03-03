@@ -12,19 +12,18 @@ import java.util.List;
 public class Program {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
     private String name;
 
     @ManyToMany(mappedBy = "programs")
-    private List<Course> listCourse;
+    private List<Course> courses = new ArrayList<>();
 
     public Program() {
     }
 
-    public Program(String name, List<Course> listCourse) {
+    public Program(String name) {
         this.name = name;
-        this.listCourse = listCourse;
     }
 
     public long getId() {
@@ -43,11 +42,19 @@ public class Program {
         this.name = name;
     }
 
-    public List<Course> getListCourse() {
-        return listCourse;
+    public List<Course> getCourses() {
+        return courses;
     }
 
-    public void setListCourse(List<Course> listCourse) {
-        this.listCourse = listCourse;
+    public void setCourses(List<Course> listCourse) {
+        this.courses = listCourse;
+    }
+
+    public void addCourse(Course course) {
+        this.courses.add(course);
+    }
+
+    public void removeCourse(Course course) {
+        this.courses.remove(course);
     }
 }

@@ -35,34 +35,6 @@ public class CourseTest {
     @Before
     public void setUp() throws Exception {
 
-        List<LearningOutcome> lo = new ArrayList<>();
-        List<LearningOutcome> lo2 = new ArrayList<>();
-        List<LearningOutcome> lo3 = new ArrayList<>();
-
-        lo.add(new LearningOutcome());
-        lo.add(new LearningOutcome());
-        lo.add(new LearningOutcome());
-        lo.add(new LearningOutcome());
-        lo2.add(new LearningOutcome());
-        lo2.add(new LearningOutcome());
-        lo3.add(new LearningOutcome());
-
-        List<Program> p1 = new ArrayList<>();
-        List<Program> p2 = new ArrayList<>();
-        List<Program> p3 = new ArrayList<>();
-
-        p1.add(new Program());
-        p1.add(new Program());
-        p2.add(new Program());
-        p3.add(new Program());
-
-        Course c1 = new Course(2010, "OS", "4806", lo, p1);
-        Course c2 = new Course(2018, "MATH", "4507", lo2, p2);
-        Course c3 = new Course(2018, "ELEC", "4502", lo3, p2);
-
-        courseRepository.save(c1);
-        courseRepository.save(c2);
-        courseRepository.save(c3);
     }
 
     /**
@@ -70,7 +42,7 @@ public class CourseTest {
      */
     @After
     public void tearDown() throws Exception {
-        courseRepository.deleteAll();
+
     }
 
     @Test
@@ -82,37 +54,37 @@ public class CourseTest {
     @Test
     @Transactional
     public void testFindByName(){
-        Course course = courseRepository.findByName("OS");
-        assertEquals(course.getName(), "OS");
+        Course course = courseRepository.findByName("Software Engineering Lab");
+        assertEquals(course.getName(), "Software Engineering Lab");
         assertEquals(course.getCode(), "4806");
     }
 
     @Test
     @Transactional
     public void testFindByCode(){
-        Course course = courseRepository.findByCode("4507");
-        assertEquals(course.getCode(), "4507");
-        assertEquals(course.getName(), "MATH");
+        Course course = courseRepository.findByCode("4806");
+        assertEquals(course.getCode(), "4806");
+        assertEquals(course.getName(), "Software Engineering Lab");
     }
 
     @Test
     @Transactional
     public void testFindByYear(){
-        List<Course> course = courseRepository.findByYear(2018);
+        List<Course> course = courseRepository.findByYear(3);
         assertEquals(course.size(), 2);
     }
 
     @Test
     @Transactional
     public void testNumberOfLearningOutcomes(){
-        Course course = courseRepository.findByName("ELEC");
+        Course course = courseRepository.findByName("Software Engineering Lab");
         assertEquals(course.getLearningOutcomes().size(), 1);
     }
 
     @Test
     @Transactional
     public void testNumberOfPrograms(){
-        Course course = courseRepository.findByName("OS");
-        assertEquals(course.getPrograms().size(), 2);
+        Course course = courseRepository.findByName("Software Engineering Lab");
+        assertEquals(course.getPrograms().size(), 1);
     }
 }

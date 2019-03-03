@@ -35,15 +35,6 @@ public class LearningOutcomeTest {
      */
     @Before
     public void setUp() throws Exception {
-        List<Course> courses = new ArrayList<>();
-        courses.add(new Course());
-        courses.add(new Course());
-
-        LearningOutcome lo1 = new LearningOutcome("Deploy app", new Category(), courses);
-        LearningOutcome lo2 = new LearningOutcome("Knows design patterns", new Category(), courses);
-
-        learningOutcomeRepository.save(lo1);
-        learningOutcomeRepository.save(lo2);
     }
 
     /**
@@ -51,7 +42,7 @@ public class LearningOutcomeTest {
      */
     @After
     public void tearDown() throws Exception {
-        learningOutcomeRepository.deleteAll();
+
     }
 
     @Test
@@ -63,14 +54,14 @@ public class LearningOutcomeTest {
     @Test
     @Transactional
     public void testFindByName(){
-        LearningOutcome lo = learningOutcomeRepository.findByName("Deploy app");
-        assertEquals(lo.getName(), "Deploy app");
+        LearningOutcome lo = learningOutcomeRepository.findByName("Web Application Coding");
+        assertEquals(lo.getName(), "Web Application Coding");
     }
 
     @Test
     @Transactional
     public void testNumberOfCourses(){
-        LearningOutcome lo = learningOutcomeRepository.findByName("Knows design patterns");
-        assertEquals(lo.getCourses().size(), 2);
+        LearningOutcome lo = learningOutcomeRepository.findByName("Web Application Coding");
+        assertEquals(lo.getCourses().size(), 1);
     }
 }
