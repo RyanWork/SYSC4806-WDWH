@@ -21,7 +21,9 @@ public class LearningOutcome {
     @JoinColumn(name="category_id")
     private Category category;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(
+            mappedBy = "learningOutcomes",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Course> courses = new ArrayList<>();
 
     public LearningOutcome() {
