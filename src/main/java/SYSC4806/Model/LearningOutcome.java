@@ -13,7 +13,7 @@ import java.util.List;
 public class LearningOutcome {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
     private String name;
 
@@ -22,19 +22,14 @@ public class LearningOutcome {
     private Category category;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "course_learningoutcome",
-            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "learningoutcome_id",
-                    referencedColumnName = "id"))
-    private List<Course> courses;
+    private List<Course> courses = new ArrayList<>();
 
     public LearningOutcome() {
     }
 
-    public LearningOutcome(String name, Category category, List<Course> courses) {
+    public LearningOutcome(String name, Category category) {
         this.name = name;
         this.category = category;
-        this.courses = courses;
     }
 
     public long getId() {
@@ -67,5 +62,13 @@ public class LearningOutcome {
 
     public void setCourses(List<Course> courses) {
         this.courses = courses;
+    }
+
+    public void addCourse(Course course) {
+        this.courses.add(course);
+    }
+
+    public void removeCourse(Course course) {
+        this.courses.remove(course);
     }
 }

@@ -12,32 +12,26 @@ import java.util.List;
 public class Course {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private int year;
     private String name;
     private String code;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<LearningOutcome> learningOutcomes;
+    @ManyToMany(mappedBy = "courses")
+    private List<LearningOutcome> learningOutcomes = new ArrayList<>();
 
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "program_course",
-            joinColumns = @JoinColumn(name = "program_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id",
-                    referencedColumnName = "id"))
-    private List<Program> programs;
+    private List<Program> programs = new ArrayList<>();
 
     public Course() {
     }
 
-    public Course(int year, String name, String code, List<LearningOutcome> learningOutcomes, List<Program> programs) {
+    public Course(int year, String name, String code) {
         this.year = year;
         this.name = name;
         this.code = code;
-        this.learningOutcomes = learningOutcomes;
-        this.programs = programs;
     }
 
     public long getId() {
@@ -80,11 +74,27 @@ public class Course {
         this.learningOutcomes = learningOutcomes;
     }
 
+    public void addLO(LearningOutcome lo) {
+        this.learningOutcomes.add(lo);
+    }
+
+    public void removeLO(LearningOutcome lo) {
+        this.learningOutcomes.remove(lo);
+    }
+
     public List<Program> getPrograms() {
         return programs;
     }
 
     public void setPrograms(List<Program> programs) {
         this.programs = programs;
+    }
+
+    public void addProgram(Program program) {
+        this.programs.add(program);
+    }
+
+    public void removeProgram(Program program) {
+        this.programs.remove(program);
     }
 }

@@ -12,19 +12,18 @@ import java.util.List;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<LearningOutcome> learningOutcomes;
+    private List<LearningOutcome> learningOutcomes = new ArrayList<>();
 
     public Category() {
     }
 
-    public Category(String name, List<LearningOutcome> learningOutcomes) {
+    public Category(String name) {
         this.name = name;
-        this.learningOutcomes = learningOutcomes;
     }
 
     public long getId() {
@@ -49,5 +48,13 @@ public class Category {
 
     public void setLearningOutcomes(List<LearningOutcome> learningOutcomes) {
         this.learningOutcomes = learningOutcomes;
+    }
+
+    public void addLO(LearningOutcome lo) {
+        learningOutcomes.add(lo);
+    }
+
+    public void removeLO(LearningOutcome lo) {
+        learningOutcomes.remove(lo);
     }
 }

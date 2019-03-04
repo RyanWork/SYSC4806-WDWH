@@ -35,21 +35,6 @@ public class CategoryTest {
      */
     @Before
     public void setUp() throws Exception {
-        List<LearningOutcome> lo1 = new ArrayList<>();
-        List<LearningOutcome> lo2 = new ArrayList<>();
-
-        lo1.add(new LearningOutcome());
-        lo1.add(new LearningOutcome());
-        lo1.add(new LearningOutcome());
-        lo1.add(new LearningOutcome());
-        lo2.add(new LearningOutcome());
-        lo2.add(new LearningOutcome());
-
-        Category c1 = new Category("Category1", lo1);
-        Category c2 = new Category("Category2", lo2);
-
-        categoryRepository.save(c1);
-        categoryRepository.save(c2);
     }
 
     /**
@@ -57,7 +42,7 @@ public class CategoryTest {
      */
     @After
     public void tearDown(){
-        categoryRepository.deleteAll();
+
     }
 
     @Test
@@ -69,14 +54,14 @@ public class CategoryTest {
     @Test
     @Transactional
     public void testFindByName(){
-        Category cat1 = categoryRepository.findByName("Category2");
-        assertEquals(cat1.getName(), "Category2");
+        Category cat1 = categoryRepository.findByName("Programming");
+        assertEquals(cat1.getName(), "Programming");
     }
 
     @Test
     @Transactional
     public void testLearningOutcomes(){
-        Category cat = categoryRepository.findByName("Category1");
-        assertEquals(cat.getLearningOutcomes().size(), 4);
+        Category cat = categoryRepository.findByName("Programming");
+        assertEquals(cat.getLearningOutcomes().size(), 1);
     }
 }

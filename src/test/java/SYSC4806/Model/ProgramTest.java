@@ -34,15 +34,7 @@ public class ProgramTest {
      */
     @Before
     public void setUp() throws Exception {
-        List<Course> courses = new ArrayList<>();
-        courses.add(new Course());
-        courses.add(new Course());
 
-        Program p1 = new Program("Software Engineering",courses);
-        Program p2 = new Program("Electrical Engineering",courses);
-
-        programRepository.save(p1);
-        programRepository.save(p2);
     }
 
     /**
@@ -50,7 +42,7 @@ public class ProgramTest {
      */
     @After
     public void tearDown() throws Exception {
-        programRepository.deleteAll();
+
     }
 
     @Test
@@ -70,7 +62,7 @@ public class ProgramTest {
     @Transactional
     public void testNumberOfCourses(){
         Program prog1 = programRepository.findByName("Software Engineering");
-        assertEquals(prog1.getListCourse().size(), 2);
+        assertEquals(prog1.getCourses().size(), 1);
     }
 
 }
