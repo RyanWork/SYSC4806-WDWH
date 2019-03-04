@@ -42,8 +42,6 @@ public class Application {
             Program program3 = new Program("Computer System Engineering");
 
             category.addLO(learningOutcome);
-
-            learningOutcome.setCategory(category);
             learningOutcome.addCourse(course);
 
             course.addLO(learningOutcome);
