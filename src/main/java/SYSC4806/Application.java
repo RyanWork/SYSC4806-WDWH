@@ -35,8 +35,8 @@ public class Application {
             Category category3 = new Category("Logic Algorithm");
             LearningOutcome learningOutcome = new LearningOutcome("Web Application Coding", category);
             Course course = new Course(4, "Software Engineering Lab", "4806");
-            Course course2 = new Course(3, "Real-Time Concurrent System", "1111");
-            Course course3 = new Course(3, "Operating Systems", "2222");
+            Course course2 = new Course(3, "Real-Time Concurrent System", "3303");
+            Course course3 = new Course(3, "Operating Systems", "4001");
             Program program = new Program("Software Engineering");
             Program program2 = new Program("Civil Engineering");
             Program program3 = new Program("Computer System Engineering");
