@@ -62,6 +62,6 @@ public class LearningOutcomeTest {
     @Transactional
     public void testNumberOfCourses(){
         LearningOutcome lo = learningOutcomeRepository.findByName("Web Application Coding");
-        assertEquals(lo.getCourses().size(), 1);
+        assertEquals(lo.getCourses().size(), 4);
     }
 }

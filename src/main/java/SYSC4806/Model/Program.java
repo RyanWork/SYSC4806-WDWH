@@ -16,7 +16,8 @@ public class Program {
     private long id;
     private String name;
 
-    @ManyToMany(mappedBy = "programs")
+    @ManyToMany(
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Course> courses = new ArrayList<>();
 
     public Program() {
@@ -52,9 +53,11 @@ public class Program {
 
     public void addCourse(Course course) {
         this.courses.add(course);
+        course.addProgram(this);
     }
 
     public void removeCourse(Course course) {
         this.courses.remove(course);
+        course.removeProgram(this);
     }
 }

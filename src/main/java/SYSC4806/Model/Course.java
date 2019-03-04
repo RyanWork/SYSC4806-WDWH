@@ -18,11 +18,12 @@ public class Course {
     private String name;
     private String code;
 
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<LearningOutcome> learningOutcomes = new ArrayList<>();
 
-
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(
+            mappedBy = "courses",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Program> programs = new ArrayList<>();
 
     public Course() {
@@ -76,6 +77,7 @@ public class Course {
 
     public void addLO(LearningOutcome lo) {
         this.learningOutcomes.add(lo);
+        lo.addCourse(this);
     }
 
     public void removeLO(LearningOutcome lo) {

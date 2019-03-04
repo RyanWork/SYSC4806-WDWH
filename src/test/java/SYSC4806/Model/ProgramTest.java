@@ -62,7 +62,7 @@ public class ProgramTest {
     @Transactional
     public void testNumberOfCourses(){
         Program prog1 = programRepository.findByName("Software Engineering");
-        assertEquals(prog1.getCourses().size(), 1);
+        assertEquals(prog1.getCourses().size(), 6);
     }
 
 }
