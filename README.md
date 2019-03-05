@@ -31,4 +31,5 @@ A user should be able to list, for a given year and for a given program: all the
 |<a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/28">#28 Test Cases for Model DB Connections</a>|
 |<a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/28">#33 Connect DB to View</a>|
 
-<br>**_Current DB Schema_**
+<br>**_Current DB Schema_**<br>
+![image](https://user-images.githubusercontent.com/15951317/53824917-0faf0d80-3f43-11e9-8e2b-ee262940208a.png)
