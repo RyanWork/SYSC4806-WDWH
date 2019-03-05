@@ -55,6 +55,8 @@ public class ProgramTest {
     @Transactional
     public void testFindByName(){
         Program prog1 = programRepository.findByName("Software Engineering");
+
+        assertNotNull(prog1);
         assertEquals(prog1.getName(), "Software Engineering");
     }
 
@@ -62,7 +64,9 @@ public class ProgramTest {
     @Transactional
     public void testNumberOfCourses(){
         Program prog1 = programRepository.findByName("Software Engineering");
-        assertEquals(prog1.getCourses().size(), 6);
-    }
 
+        assertNotNull(prog1);
+        assertNotNull(prog1.getCourses());
+        assertFalse(prog1.getCourses().isEmpty());
+    }
 }
