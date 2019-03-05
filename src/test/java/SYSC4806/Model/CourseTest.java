@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -55,6 +54,8 @@ public class CourseTest {
     @Transactional
     public void testFindByName(){
         Course course = courseRepository.findByName("Software Engineering Lab");
+
+        assertNotNull(course);
         assertEquals(course.getName(), "Software Engineering Lab");
         assertEquals(course.getCode(), "4806");
     }
@@ -63,6 +64,8 @@ public class CourseTest {
     @Transactional
     public void testFindByCode(){
         Course course = courseRepository.findByCode("4806");
+
+        assertNotNull(course);
         assertEquals(course.getCode(), "4806");
         assertEquals(course.getName(), "Software Engineering Lab");
     }
@@ -71,20 +74,28 @@ public class CourseTest {
     @Transactional
     public void testFindByYear(){
         List<Course> course = courseRepository.findByYear(3);
-        assertEquals(course.size(), 2);
+
+        assertNotNull(course);
+        assertFalse(course.isEmpty());
     }
 
     @Test
     @Transactional
     public void testNumberOfLearningOutcomes(){
         Course course = courseRepository.findByName("Software Engineering Lab");
-        assertEquals(course.getLearningOutcomes().size(), 1);
+
+        assertNotNull(course);
+        assertNotNull(course.getLearningOutcomes());
+        assertFalse(course.getLearningOutcomes().isEmpty());
     }
 
     @Test
     @Transactional
     public void testNumberOfPrograms(){
         Course course = courseRepository.findByName("Software Engineering Lab");
-        assertEquals(course.getPrograms().size(), 1);
+
+        assertNotNull(course);
+        assertNotNull(course.getPrograms());
+        assertFalse(course.getPrograms().isEmpty());
     }
 }

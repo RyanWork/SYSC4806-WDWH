@@ -1,6 +1,5 @@
 package SYSC4806.Model;
 
-import SYSC4806.Repository.CourseRepository;
 import SYSC4806.Repository.LearningOutcomeRepository;
 import org.junit.After;
 import org.junit.Before;
@@ -10,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -55,6 +51,8 @@ public class LearningOutcomeTest {
     @Transactional
     public void testFindByName(){
         LearningOutcome lo = learningOutcomeRepository.findByName("Web Application Coding");
+
+        assertNotNull(lo);
         assertEquals(lo.getName(), "Web Application Coding");
     }
 
@@ -62,6 +60,8 @@ public class LearningOutcomeTest {
     @Transactional
     public void testNumberOfCourses(){
         LearningOutcome lo = learningOutcomeRepository.findByName("Web Application Coding");
-        assertEquals(lo.getCourses().size(), 4);
+
+        assertNotNull(lo);
+        assertFalse(lo.getCourses().isEmpty());
     }
 }
