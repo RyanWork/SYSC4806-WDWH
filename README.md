@@ -33,3 +33,6 @@ A user should be able to list, for a given year and for a given program: all the
 
 <br>**_Current DB Schema_**<br>
 ![image](https://user-images.githubusercontent.com/15951317/53824917-0faf0d80-3f43-11e9-8e2b-ee262940208a.png)
+
+<br>**_UML Class Diagram_**<br>
+![umlClassDiagram](https://raw.githubusercontent.com/sysc4806/SYSC4806-WDWH/master/Images/UMLClassDiagram.png)
