@@ -55,6 +55,8 @@ public class CategoryTest {
     @Transactional
     public void testFindByName(){
         Category cat1 = categoryRepository.findByName("Programming");
+
+        assertNotNull(cat1);
         assertEquals(cat1.getName(), "Programming");
     }
 
@@ -62,6 +64,9 @@ public class CategoryTest {
     @Transactional
     public void testLearningOutcomes(){
         Category cat = categoryRepository.findByName("Programming");
-        assertEquals(cat.getLearningOutcomes().size(), 1);
+
+        assertNotNull(cat);
+        assertNotNull(cat.getLearningOutcomes());
+        assertFalse(cat.getLearningOutcomes().isEmpty());
     }
 }
