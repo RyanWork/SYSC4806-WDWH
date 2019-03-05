@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"
+         version="3.1">
+    <enterprise-beans>
+        <entity id="CategoryEntity">
+            <ejb-name>CategoryEntity</ejb-name>
+            <ejb-class>SYSC4806.Model.Category</ejb-class>
+        </entity>
+        <entity id="CourseEntity">
+            <ejb-name>CourseEntity</ejb-name>
+            <ejb-class>SYSC4806.Model.Course</ejb-class>
+        </entity>
+        <entity id="LearningOutcomeEntity">
+            <ejb-name>LearningOutcomeEntity</ejb-name>
+            <ejb-class>SYSC4806.Model.LearningOutcome</ejb-class>
+        </entity>
+        <entity id="ProgramEntity">
+            <ejb-name>ProgramEntity</ejb-name>
+            <ejb-class>SYSC4806.Model.Program</ejb-class>
+        </entity>
+    </enterprise-beans>
+</ejb-jar>
