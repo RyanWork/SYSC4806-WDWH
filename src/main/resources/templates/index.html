@@ -158,14 +158,14 @@
                                 <th th:text = "${course.id}"></th>
                                 <td th:text = "${course.name}"></td>
                                 <td th:text = "${course.code}"></td>
-                                <td th:each="allPrograms: ${course.programs}"
-                                    th:text = "${allPrograms.name}">
+                                <td>
+                                    <span th:each="allPrograms: ${course.programs}" th:utext = "${allPrograms.name + '&lt;br /&gt;'} "></span>
                                 </td>
-                                <td th:each="allOutcomes: ${course.learningOutcomes}"
-                                    th:text = "${allOutcomes.name}">
+                                <td>
+                                    <span th:each="allOutcomes: ${course.learningOutcomes}" th:utext = "${allOutcomes.name + '&lt;br /&gt;'}"></span>
                                 </td>
-                                <td th:each="allOutcomes: ${course.learningOutcomes}"
-                                    th:text="${allOutcomes.category.name}">
+                                <td>
+                                    <span th:each="allOutcomes: ${course.learningOutcomes}" th:utext="${allOutcomes.category.name + '&lt;br /&gt;'}"></span>
                                 </td>
                             </tr>
                             </tbody>
