@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Learning Outcomes Management System</title>
@@ -72,13 +71,13 @@
                                 <div class="col-md col-lg-4">
                                     <label  for="programSelect"> Choose course(s): </label>
                                     <select class="form-control select2" id="courseSelect" multiple="multiple" size="5">
-                                        <option th:each="course: ${courses}" th:text="${course.name}"></option>
+                                        <option th:each="course: ${courses}" th:value="${course.name}" th:text="${course.name}"></option>
                                     </select>
                                 </div>
                                 <div class="col-md col-lg-4">
                                     <label  for="programSelect"> Choose categories: </label>
                                     <select class="form-control select2" id="categorySelect" multiple="multiple">
-                                        <option th:each="category: ${categories}" th:text="${category.name}"></option>
+                                        <option th:each="category: ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
                                     </select>
                                 </div>
                                 <div class="col-md col-lg-2 offset-lg-1">
@@ -159,14 +158,14 @@
                                 <th th:text = "${course.id}"></th>
                                 <td th:text = "${course.name}"></td>
                                 <td th:text = "${course.code}"></td>
-                                <td th:each="allPrograms: ${course.programs}"
-                                    th:text = "${allPrograms.name}">
+                                <td>
+                                    <span th:each="allPrograms: ${course.programs}" th:utext = "${allPrograms.name + '&lt;br /&gt;'} "></span>
                                 </td>
-                                <td th:each="allOutcomes: ${course.learningOutcomes}"
-                                    th:text = "${allOutcomes.name}">
+                                <td>
+                                    <span th:each="allOutcomes: ${course.learningOutcomes}" th:utext = "${allOutcomes.name + '&lt;br /&gt;'}"></span>
                                 </td>
-                                <td th:each="allOutcomes: ${course.learningOutcomes}"
-                                    th:text="${allOutcomes.category.name}">
+                                <td>
+                                    <span th:each="allOutcomes: ${course.learningOutcomes}" th:utext="${allOutcomes.category.name + '&lt;br /&gt;'}"></span>
                                 </td>
                             </tr>
                             </tbody>
