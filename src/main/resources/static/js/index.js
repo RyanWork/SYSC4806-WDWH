@@ -18,3 +18,12 @@ $(function () {
 
     });
 });
+
+function getResults() {
+    var url = '/results/';
+    var program = $("#programSelect option:selected").text();
+    var year = $("#yearSelect option:selected").text();
+    url += program + '/' + year;
+
+    $("#results").load(encodeURI(url));
+}
