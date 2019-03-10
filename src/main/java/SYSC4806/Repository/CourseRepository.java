@@ -34,6 +34,12 @@ public interface CourseRepository extends PagingAndSortingRepository<Course, Lon
      */
     List<Course> findByYear(@Param("year") int year);
 
+    /**
+     * Find all course names that are offered in a given program and year
+     * @param p_id The program id that the course should be chosen from
+     * @param year  The year to search through
+     * @return      A list of all course names offered in the requested year and program
+     */
     @Query(value = "SELECT c.name FROM COURSE as c INNER JOIN PROGRAM_COURSES as p_c ON c.id = p_c.courses_id WHERE p_c.programs_id = ?1 AND c.year = ?2", nativeQuery = true)
     List<String> findCourseByProgramAndYear(Long p_id, int year);
 
