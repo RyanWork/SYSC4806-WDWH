@@ -49,6 +49,8 @@ public class Application {
             Program program4 = new Program("Electrical Engineering");
 
             course.addLO(learningOutcome);
+            course.addLO(learningOutcome2);
+            course.addLO(learningOutcome3);
             course2.addLO(learningOutcome);
             course3.addLO(learningOutcome);
             course4.addLO(learningOutcome3);
