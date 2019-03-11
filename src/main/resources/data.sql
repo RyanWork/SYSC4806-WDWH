@@ -2,7 +2,7 @@ INSERT INTO category (name) VALUES ('Programming');
 INSERT INTO CATEGORY (name) VALUES ('Software Architecture');
 INSERT INTO CATEGORY (name) VALUES ('Logic Algorithm');
 
-INSERT INTO LEARNING_OUTCOME (name, category_id) VALUES ('Programming', 1);
+INSERT INTO LEARNING_OUTCOME (name, category_id) VALUES ('Web Application Coding', 1);
 INSERT INTO LEARNING_OUTCOME (name, category_id) VALUES ('Design Software System', 2);
 INSERT INTO LEARNING_OUTCOME (name, category_id) VALUES ('Logic Gates', 3);
 
