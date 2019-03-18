@@ -2,14 +2,16 @@ function exportToCSV() {
 
     var url = "/export/";
 
-    //get the selected values for export CSV
+    //get the selected values to export CSV
     var selectedVals = $("div.card-body input:checked").next('label').map(function () {
         return $(this).text();
     }).get();
 
+    //checking if any values were selected
     if (selectedVals.length !== 0) {
         var csvExportValsArr = [];
 
+        //populate the array as per the selected values
         if (selectedVals.includes("Course")) {
             csvExportValsArr.push("Course: ");
             populateCsvVals(csvExportValsArr, "td:eq(0)");
@@ -23,7 +25,6 @@ function exportToCSV() {
         if (selectedVals.includes("Learning Outcomes")) {
             csvExportValsArr.push("Learning Outcomes: ");
             populateCsvVals(csvExportValsArr, "td:eq(3)");
-            csvExportValsArr.push("$");
         }
 
         var joinedVals = csvExportValsArr.join(" , ");
@@ -32,6 +33,7 @@ function exportToCSV() {
         url += " ";
     }
 
+    //replaces the specific fragment
     $("#exportCsv").load(encodeURI(url));
 
 }

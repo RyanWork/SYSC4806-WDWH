@@ -59,7 +59,8 @@ public class HomeController {
     }
 
     /*
-     * Exports to CSV
+     * Based on the selected values of Course, Category or Learning Outcomes
+     * a CSV files is generated with that data
      */
     @GetMapping("/export/{csvoption}")
     public String export(Model model, @PathVariable("csvoption") String csvoption) {
