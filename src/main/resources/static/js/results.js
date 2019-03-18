@@ -9,26 +9,23 @@ function exportToCSV() {
 
     //since getting in coloumn, first one is always empty
     if (selectedVals.includes("Course")) {
-        // alert("1");
-        //  csvoption += "Course, ";//fix
-
+        csvExportValsArr.push("Course: ");
         populateCsvVals(csvExportValsArr,"td:eq(0)");
+        csvExportValsArr.push("$");
     }
     if (selectedVals.includes("Category")) {
-        //   csvoption += "Category, ";//fix
-
+        csvExportValsArr.push("Category: ");
         populateCsvVals(csvExportValsArr,"td:eq(2)");
+        csvExportValsArr.push("$");
     }
     if (selectedVals.includes("Learning Outcomes")) {
-        // alert("3");
-        //   csvoption += "Learning Outcomes, ";
+        csvExportValsArr.push("Learning Outcomes: ");
         populateCsvVals(csvExportValsArr,"td:eq(3)");
+        csvExportValsArr.push("$");
     }
 
     var joinedVals = csvExportValsArr.join(", ");
-
     var url = "/export/" + joinedVals;
-
 
     $("#exampleModalCenter").load(encodeURI(url));
 
@@ -36,9 +33,11 @@ function exportToCSV() {
 
 function populateCsvVals(csvExportValsArr, colNum){
     $("#courseResults tr").each(function () {
-        var catStr = $(this).find(colNum).text();
-        var trimmer = $.trim(catStr);
-        csvExportValsArr.push(trimmer);
+        var cellVal = $(this).find(colNum).text(); //gets the value of a individual cell
+        var trimmer = $.trim(cellVal);  //trims whitespace
+        if(!(trimmer === "")){
+            csvExportValsArr.push(trimmer); //push the value in the array
+        }
         return csvExportValsArr;
     });
 }

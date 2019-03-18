@@ -1,4 +1,5 @@
 package SYSC4806.Controller;
+
 import SYSC4806.Model.Course;
 import SYSC4806.Repository.CategoryRepository;
 import SYSC4806.Repository.CourseRepository;
@@ -41,16 +42,15 @@ public class HomeController {
     }
 
     /*
-    * Selects courses based on chosen program and year and returns them to view
-    * to refresh results table
+     * Selects courses based on chosen program and year and returns them to view
+     * to refresh results table
      */
     @GetMapping("/results/{program}/{year}")
-    public String showResults(Model model, @PathVariable("program") String p, @PathVariable String year)
-    {
+    public String showResults(Model model, @PathVariable("program") String p, @PathVariable String year) {
         long p_id = programRepository.findByName(p).getId();
         List<String> courseNames = courseRepository.findCourseByProgramAndYear(p_id, Integer.parseInt(year));
         ArrayList<Course> courses = new ArrayList<>();
-        for(String cName : courseNames) {
+        for (String cName : courseNames) {
             Course c = courseRepository.findByName(cName);
             courses.add(c);
         }
@@ -62,22 +62,20 @@ public class HomeController {
      * Exports to CSV
      */
     @GetMapping("/export/{csvoption}")
-    public String export(@PathVariable("csvoption") String csvoption)
-    {
-        //Edge case: if none selected and pressed export
+    public String export(@PathVariable("csvoption") String csvoption) {
+        if (!csvoption.isEmpty()) {
+            try (PrintWriter writer = new PrintWriter(new File("Learning Outcomes.csv"))) {
 
-        System.out.println("csvoption: " +csvoption);
+                String csvDataNL = csvoption.replace(", $,", "\r\n");
 
-        try (PrintWriter writer = new PrintWriter(new File("Learning Outcomes.csv"))) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(csvDataNL);
 
-            StringBuilder sb = new StringBuilder();
-            sb.append(csvoption+"");
-
-            writer.write(sb.toString());
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+                writer.write(sb.toString());
+            } catch (FileNotFoundException e) {
+                System.out.println(e.getMessage());
+            }
         }
-
         return "fragments/results :: exportCsv";
     }
 }
