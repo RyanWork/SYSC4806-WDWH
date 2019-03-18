@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -42,10 +44,17 @@ public class HomeController {
     * to refresh results table
      */
     @GetMapping("/results/{program}/{year}")
-    public String showResults(Model model, @PathVariable("program") String p, @PathVariable String year)
+    public String showResults(Model model, @PathVariable("program") String p, @PathVariable String year, @RequestParam(value = "courses", required = false) String co)
     {
         long p_id = programRepository.findByName(p).getId();
         List<String> courseNames = courseRepository.findCourseByProgramAndYear(p_id, Integer.parseInt(year));
+
+        //Edge case: filter doesnt come up with something
+        if(co!=null){
+            List<String> courseNamesFilter = Arrays.asList(co.split("\\s*,\\s*"));
+            courseNames.retainAll(courseNamesFilter);
+        }
+
         ArrayList<Course> courses = new ArrayList<>();
         for(String cName : courseNames) {
             Course c = courseRepository.findByName(cName);

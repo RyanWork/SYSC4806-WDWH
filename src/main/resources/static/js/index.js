@@ -42,3 +42,18 @@ function getResults() {
         }
     );
 }
+
+/*
+*   Reloads results table based on selected program, year and courses
+ */
+function getCourseFilterResults() {
+    var url = '/results/';
+    var program = $("#programSelect option:selected").text();
+    var year = $("#yearSelect option:selected").text();
+    var courses = $("#courseSelect").val();
+    url += program + '/' + year + '/' +'?courses='+courses;
+
+    // reloads only that HTML fragment
+    $("#results").load(encodeURI(url));
+ 	}
+
