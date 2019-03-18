@@ -1,3 +1,10 @@
+/*
+* Load jquery DataTables on results table (for sorting)
+ */
+$(document).ready( function () {
+    $('#results-table').DataTable();
+} );
+
 $(function () {
     $(".card").click(function () {
         // remove accent colours from all
@@ -29,5 +36,9 @@ function getResults() {
     url += program + '/' + year;
 
     // reloads only that HTML fragment
-    $("#results").load(encodeURI(url));
+    $("#results").load(encodeURI(url),
+        function() {
+            $('#results-table').DataTable();    // reload sorting on table
+        }
+    );
 }

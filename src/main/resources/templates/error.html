@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #ffc107;
+            font-family: 'Didact Gothic', sans-serif;
+        }
+
+        .sad img{
+            display: inline-block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 8vw;
+        }
+
+        .sad {
+            text-align: center;
+        }
+
+        #status {
+            margin-top: 10vh;
+            margin-bottom: 1vh;
+            font-size: 6rem;
+        }
+
+        .sad p {
+            font-size: 2.5rem;
+            margin-top: 2vh;
+        }
+
+        a {
+            margin-top: 10vh;
+        }
+
+    </style>
+</head>
+<body>
+<div class="sad">
+    <p id="status" th:text="${status}"></p>
+    <img th:src="@{/img/frown-open-regular.png}"/>
+    <img th:src="@{/img/sad-cry-regular.png}"/>
+    <img th:src="@{/img/sad-tear-regular.png}"/>
+    <p th:text="${error}"></p>
+    <a href="/" class="btn btn-dark">GO HOME</a>
+</div>
+
+<script src="/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
+</body>
+</html>

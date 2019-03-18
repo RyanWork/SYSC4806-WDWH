@@ -10,11 +10,16 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-        <a class="navbar-brand" href="#">Learning Outcomes Management System</a>
+        <a class="navbar-brand" href="#"><i class="fas fa-graduation-cap"></i> Learning Outcomes Management System</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -96,9 +101,9 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
-    <script src="/js/index.js" th:href="@{/js/index.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+        <script src="/js/index.js" th:href="@{/js/index.js}"></script>
     <!--Starting jQuery library select2 for searchable select boxes https://select2.org/-->
     <script>
         $(document).ready(function() {
