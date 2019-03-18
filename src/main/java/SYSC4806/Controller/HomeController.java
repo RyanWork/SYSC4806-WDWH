@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,5 +56,28 @@ public class HomeController {
         }
         model.addAttribute("courses", courses);
         return "fragments/results :: resultsTable";
+    }
+
+    /*
+     * Exports to CSV
+     */
+    @GetMapping("/export/{csvoption}")
+    public String export(@PathVariable("csvoption") String csvoption)
+    {
+        //Edge case: if none selected and pressed export
+
+        System.out.println("csvoption: " +csvoption);
+
+        try (PrintWriter writer = new PrintWriter(new File("Learning Outcomes.csv"))) {
+
+            StringBuilder sb = new StringBuilder();
+            sb.append(csvoption+"");
+
+            writer.write(sb.toString());
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return "fragments/results :: exportCsv";
     }
 }

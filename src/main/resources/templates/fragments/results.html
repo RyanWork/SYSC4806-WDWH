@@ -11,6 +11,7 @@
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/results.js" th:href="@{/js/results.js}"></script>
 </head>
 <body>
     <div class="results" id="results" th:fragment="resultsTable">
@@ -41,15 +42,15 @@
                                     <div class="card-body">
                                         <form>
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="courseCheck" checked>
+                                                <input type="checkbox" class="custom-control-input" id="courseCheck">
                                                 <label class="custom-control-label" for="courseCheck">Course</label>
                                             </div>
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="categoryCheck" checked>
+                                                <input type="checkbox" class="custom-control-input" id="categoryCheck">
                                                 <label class="custom-control-label" for="categoryCheck">Category</label>
                                             </div>
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="loCheck" checked>
+                                                <input type="checkbox" class="custom-control-input" id="loCheck">
                                                 <label class="custom-control-label" for="loCheck">Learning Outcomes</label>
                                             </div>
                                         </form>
@@ -58,15 +59,18 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Export</button>
+                                <button type="button" class="btn btn-primary" onclick="exportToCSV();">Export</button>
                             </div>
+                            <div class="modal-footer" th:fragment="exportCsv">
+                            </div>
+
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-striped">
+                <table class="table table-striped" id="courseResults">
                     <thead>
                     <tr>
                         <!--<th scope="col">Course ID</th>-->

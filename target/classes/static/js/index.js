@@ -18,3 +18,16 @@ $(function () {
 
     });
 });
+
+/*
+*   Reloads results table based on selected program and year
+ */
+function getResults() {
+    var url = '/results/';
+    var program = $("#programSelect option:selected").text();
+    var year = $("#yearSelect option:selected").text();
+    url += program + '/' + year;
+
+    // reloads only that HTML fragment
+    $("#results").load(encodeURI(url));
+}
