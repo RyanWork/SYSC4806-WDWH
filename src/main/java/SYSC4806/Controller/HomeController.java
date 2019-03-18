@@ -62,11 +62,14 @@ public class HomeController {
      * Exports to CSV
      */
     @GetMapping("/export/{csvoption}")
-    public String export(@PathVariable("csvoption") String csvoption) {
-        if (!csvoption.isEmpty()) {
+    public String export(Model model, @PathVariable("csvoption") String csvoption) {
+
+        if (!csvoption.equals(" ")) {
             try (PrintWriter writer = new PrintWriter(new File("Learning Outcomes.csv"))) {
 
-                String csvDataNL = csvoption.replace(", $,", "\r\n");
+                String csvDataNL = csvoption
+                        .replace(", $ ,", "\r\n")
+                        .replace(", $", "");
 
                 StringBuilder sb = new StringBuilder();
                 sb.append(csvDataNL);
@@ -75,7 +78,11 @@ public class HomeController {
             } catch (FileNotFoundException e) {
                 System.out.println(e.getMessage());
             }
+            model.addAttribute("exported", "File has been exported");
+        }else{
+            model.addAttribute("exported", "No values selected to export");
         }
+
         return "fragments/results :: exportCsv";
     }
 }
