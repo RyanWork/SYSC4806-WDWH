@@ -1,26 +1,28 @@
 package SYSC4806.Model;
 
+import SYSC4806.TestHelpers.InstanceTestClassListener;
 import SYSC4806.Repository.ProgramRepository;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import SYSC4806.TestHelpers.SpringInstanceTestClassRunner;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.junit.runner.RunWith;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 /**
  * Tests for the Program Model class to ensure that the courses persist in the database.
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class ProgramTest {
+@RunWith(SpringInstanceTestClassRunner.class)
+@ContextConfiguration
+@EnableJpaRepositories(basePackages = "SYSC4806.Repository")
+@ComponentScan(basePackages = "SYSC4806")
+public class ProgramTest implements InstanceTestClassListener {
 
     /**
      * Repository used to save data about programs
@@ -29,20 +31,31 @@ public class ProgramTest {
     private ProgramRepository programRepository;
 
     /**
+     * Program to be added to repository
+     */
+    private Program p = new Program("TEST_PROGRAM");
+
+    /**
+     * Test course to be used for tests
+     */
+    private Course c = new Course(1, "TEST_PROGRAM_COURSE_NAME", "TEST_PROGRAM_COURSE_CODE");
+
+    /**
      * Setting up dummy information for programs
      * @throws Exception
      */
-    @Before
-    public void setUp() throws Exception {
-
+    @Override
+    public void beforeClassSetup() {
+        p.addCourse(c);
+        programRepository.save(p);
     }
 
     /**
      * Deleting the saved information for programs
      */
-    @After
-    public void tearDown() throws Exception {
-
+    @Override
+    public void afterClassSetup() {
+        programRepository.delete(p);
     }
 
     @Test
@@ -54,16 +67,16 @@ public class ProgramTest {
     @Test
     @Transactional
     public void testFindByName(){
-        Program prog1 = programRepository.findByName("Software Engineering");
+        Program prog1 = programRepository.findByName("TEST_PROGRAM");
 
         assertNotNull(prog1);
-        assertEquals(prog1.getName(), "Software Engineering");
+        assertEquals(prog1.getName(), p.getName());
     }
 
     @Test
     @Transactional
     public void testNumberOfCourses(){
-        Program prog1 = programRepository.findByName("Software Engineering");
+        Program prog1 = programRepository.findByName("TEST_PROGRAM");
 
         assertNotNull(prog1);
         assertNotNull(prog1.getCourses());

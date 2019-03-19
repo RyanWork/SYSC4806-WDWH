@@ -16,19 +16,19 @@
 
         <!--/*@thymesVar id="param" type=""*/-->
         <!--/*@thymesVar id="error" type=""*/-->
-        <div th:if="${param.error}">
+        <div class="alert alert-danger" th:if="${param.error}">
             Invalid username and password.
         </div>
 
-        <div th:if="${param.logout}">
+        <div class="alert alert-info" th:if="${param.logout}">
             You have been logged out.
         </div>
         <!-- Tabs Titles -->
 
         <!-- Icon Unsure how to fix this part, image not appearing-->
-        <!--<div class="fadeIn first">-->
-            <!--<img th:src="@{/img/school-cap.png}"/>-->
-        <!--</div>-->
+        <div class="fadeIn first">
+            <img src="../static/img/school-cap.png" style="width: 10%; height: auto;" th:src="@{/img/school-cap.png}"/>
+        </div>
 
         <!-- Login Form -->
         <form th:action="@{/login}" method="post">
@@ -39,7 +39,7 @@
 
         <!-- Remind Password -->
         <div id="formFooter">
-            <a class="underlineHover" href="#">Forgot Password?</a>
+            <a class="underlineHover" href="/">Go Back To Home</a>
         </div>
 
     </div>

@@ -22,7 +22,6 @@ public class LearningOutcome {
     private Category category;
 
     @ManyToMany(
-            mappedBy = "learningOutcomes",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Course> courses = new ArrayList<>();
 
