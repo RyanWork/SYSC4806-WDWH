@@ -11,9 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,34 +53,5 @@ public class HomeController {
         }
         model.addAttribute("courses", courses);
         return "fragments/results :: resultsTable";
-    }
-
-    /*
-     * Based on the selected values of Course, Category or Learning Outcomes
-     * a CSV files is generated with that data
-     */
-    @GetMapping("/export/{csvoption}")
-    public String export(Model model, @PathVariable("csvoption") String csvoption) {
-
-        if (!csvoption.equals(" ")) {
-            try (PrintWriter writer = new PrintWriter(new File("Learning Outcomes.csv"))) {
-
-                String csvDataNL = csvoption
-                        .replace(", $ ,", "\r\n")
-                        .replace(", $", "");
-
-                StringBuilder sb = new StringBuilder();
-                sb.append(csvDataNL);
-
-                writer.write(sb.toString());
-            } catch (FileNotFoundException e) {
-                System.out.println(e.getMessage());
-            }
-            model.addAttribute("exported", "File has been exported");
-        }else{
-            model.addAttribute("exported", "No values selected to export");
-        }
-
-        return "fragments/results :: exportCsv";
     }
 }
