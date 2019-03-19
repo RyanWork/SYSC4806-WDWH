@@ -1,4 +1,6 @@
 package SYSC4806.Controller;
+
+import SYSC4806.Model.Category;
 import SYSC4806.Model.Course;
 import SYSC4806.Repository.CategoryRepository;
 import SYSC4806.Repository.CourseRepository;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,27 +43,73 @@ public class HomeController {
     }
 
     /*
-    * Selects courses based on chosen program and year and returns them to view
-    * to refresh results table
+     * Selects courses based on chosen program, year, courses and catagories and returns them to view
+     * to refresh results table
      */
     @GetMapping("/results/{program}/{year}")
-    public String showResults(Model model, @PathVariable("program") String p, @PathVariable String year, @RequestParam(value = "courses", required = false) String co)
-    {
+    public String showResults(Model model, @PathVariable("program") String p, @PathVariable String year,
+                              @RequestParam(value = "courses", required = false) String co,
+                              @RequestParam(value = "categories", required = false) String ca) {
+
         long p_id = programRepository.findByName(p).getId();
         List<String> courseNames = courseRepository.findCourseByProgramAndYear(p_id, Integer.parseInt(year));
 
-        //Edge case: filter doesnt come up with something
-        if(co!=null){
+        if (co != null && !(co.isEmpty())) {
             List<String> courseNamesFilter = Arrays.asList(co.split("\\s*,\\s*"));
             courseNames.retainAll(courseNamesFilter);
         }
 
+        if (ca != null && !(ca.isEmpty())) {
+            List<String> catNamesFilter = Arrays.asList(ca.split("\\s*,\\s*"));
+
+            //As per the category, finding the list of learning outcomes
+            ArrayList<Long> loListId = new ArrayList<>();
+            for (String cName : catNamesFilter) {
+                Category category = categoryRepository.findByName(cName);
+                loListId.add(learningOutcomeRepository.findByCategoryId(category.getId()).getId());
+            }
+
+            //As per the list of learning outcomes, find the list of course id's
+            ArrayList<BigInteger> courseIdsList = new ArrayList<>();
+            for (Long lo : loListId) {
+                List<BigInteger> courseIds = learningOutcomeRepository.findByLearningOutcomeId(lo);
+                courseIdsList.addAll(courseIds);
+            }
+
+            //As per course ids, find the course names
+            ArrayList<BigInteger> courseIdsListUnique = removeDuplicates(courseIdsList); //remove duplicates
+            ArrayList<String> coursesCatFilter = new ArrayList<>();
+            for (BigInteger courseId : courseIdsListUnique) {
+                Course c = courseRepository.findById(courseId.longValue()).orElse(null);
+                coursesCatFilter.add(c.getName());
+            }
+
+            courseNames.retainAll(coursesCatFilter);
+        }
+
         ArrayList<Course> courses = new ArrayList<>();
-        for(String cName : courseNames) {
+        for (String cName : courseNames) {
             Course c = courseRepository.findByName(cName);
             courses.add(c);
         }
         model.addAttribute("courses", courses);
         return "fragments/results :: resultsTable";
     }
+
+
+    // Function to remove duplicates from an ArrayList
+    private <T> ArrayList<T> removeDuplicates(ArrayList<T> list) {
+
+        ArrayList<T> newList = new ArrayList<T>();
+
+        for (T element : list) {
+            if (!newList.contains(element)) {
+
+                newList.add(element);
+            }
+        }
+
+        return newList;
+    }
+
 }

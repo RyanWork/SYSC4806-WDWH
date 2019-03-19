@@ -24,6 +24,7 @@ INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (
 INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (1, 3);
 INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (2, 1);
 INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (3, 1);
+INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (3, 2);
 INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (4, 3);
 INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (5, 3);
 INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (6, 1);

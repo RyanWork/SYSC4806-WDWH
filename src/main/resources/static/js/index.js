@@ -1,9 +1,9 @@
 /*
 * Load jquery DataTables on results table (for sorting)
  */
-$(document).ready( function () {
+$(document).ready(function () {
     $('#results-table').DataTable();
-} );
+});
 
 $(function () {
     $(".card").click(function () {
@@ -37,7 +37,7 @@ function getResults() {
 
     // reloads only that HTML fragment
     $("#results").load(encodeURI(url),
-        function() {
+        function () {
             $('#results-table').DataTable();    // reload sorting on table
         }
     );
@@ -46,14 +46,20 @@ function getResults() {
 /*
 *   Reloads results table based on selected program, year and courses
  */
-function getCourseFilterResults() {
+function getFilterResults() {
     var url = '/results/';
     var program = $("#programSelect option:selected").text();
     var year = $("#yearSelect option:selected").text();
     var courses = $("#courseSelect").val();
-    url += program + '/' + year + '/' +'?courses='+courses;
+    var categories = $("#categorySelect").val();
 
+    url += program + '/' + year + '/' + '?courses=' + courses + '&' + 'categories=' + categories;
+    
     // reloads only that HTML fragment
-    $("#results").load(encodeURI(url));
- 	}
+    $("#results").load(encodeURI(url),
+        function () {
+            $('#results-table').DataTable();    // reload sorting on table
+        }
+    );
+}
 
