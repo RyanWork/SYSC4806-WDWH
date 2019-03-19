@@ -1,28 +1,25 @@
 package SYSC4806.Model;
 
+import SYSC4806.TestHelpers.InstanceTestClassListener;
 import SYSC4806.Repository.CategoryRepository;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import SYSC4806.TestHelpers.SpringInstanceTestClassRunner;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.junit.runner.RunWith;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-
-/**
- * Tests for the Category Model class to ensure that the learning outcomes persist in the database.
- */
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class CategoryTest {
-
+@RunWith(SpringInstanceTestClassRunner.class)
+@ContextConfiguration
+@EnableJpaRepositories(basePackages = "SYSC4806.Repository")
+@ComponentScan(basePackages = "SYSC4806")
+public class CategoryTest implements InstanceTestClassListener {
     /**
      * Repository used to save data about categories
      */
@@ -30,43 +27,47 @@ public class CategoryTest {
     private CategoryRepository categoryRepository;
 
     /**
-     * Setting up dummy information for categories
-     * @throws Exception
+     * Test Category to be used for tests
      */
-    @Before
-    public void setUp() throws Exception {
+    private Category c = new Category("TEST_CATEGORY");
+
+    /**
+     * Learning outcome to be used for tests
+     */
+    private LearningOutcome lo = new LearningOutcome("TEST_CATEGORY_LEARNING_OUTCOME", c);
+
+    /**
+     * Add the test category to the repository
+     */
+    @Override
+    public void beforeClassSetup() {
+        c.addLO(lo);
+        categoryRepository.save(c);
     }
 
     /**
-     * Deleting the saved information for categories
+     * Delete the test category from the repository
      */
-    @After
-    public void tearDown(){
-
-    }
-
-    @Test
-    @Transactional
-    public void contextLoads(){
-        assertNotNull(categoryRepository);
+    @Override
+    public void afterClassSetup() {
+        categoryRepository.delete(c);
     }
 
     @Test
     @Transactional
     public void testFindByName(){
-        Category cat1 = categoryRepository.findByName("Programming");
-
-        assertNotNull(cat1);
-        assertEquals(cat1.getName(), "Programming");
+        Category testCategory = categoryRepository.findByName("TEST_CATEGORY");
+        assertNotNull(testCategory);
+        assertEquals(testCategory.getName(), c.getName());
     }
 
     @Test
     @Transactional
     public void testLearningOutcomes(){
-        Category cat = categoryRepository.findByName("Programming");
+        Category testCategory = categoryRepository.findByName("TEST_CATEGORY");
 
-        assertNotNull(cat);
-        assertNotNull(cat.getLearningOutcomes());
-        assertFalse(cat.getLearningOutcomes().isEmpty());
+        assertNotNull(testCategory);
+        assertNotNull(testCategory.getLearningOutcomes());
+        assertFalse(testCategory.getLearningOutcomes().isEmpty());
     }
 }
