@@ -18,7 +18,8 @@ public class Course {
     private String name;
     private String code;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(mappedBy = "courses",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<LearningOutcome> learningOutcomes = new ArrayList<>();
 
     @ManyToMany(

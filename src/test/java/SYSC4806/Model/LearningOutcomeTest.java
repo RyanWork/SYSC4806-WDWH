@@ -1,23 +1,27 @@
 package SYSC4806.Model;
 
+import SYSC4806.TestHelpers.InstanceTestClassListener;
 import SYSC4806.Repository.LearningOutcomeRepository;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import SYSC4806.TestHelpers.SpringInstanceTestClassRunner;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+import org.junit.Test;
 
+import static org.junit.Assert.*;
 /**
  * Tests for the LearningOutcomes Model class to ensure that the category and courses persist in the database.
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class LearningOutcomeTest {
+@RunWith(SpringInstanceTestClassRunner.class)
+@ContextConfiguration
+@EnableJpaRepositories(basePackages = "SYSC4806.Repository")
+@ComponentScan(basePackages = "SYSC4806")
+public class LearningOutcomeTest implements InstanceTestClassListener {
 
     /**
      * Repository used to save data about learning outcomes
@@ -26,19 +30,35 @@ public class LearningOutcomeTest {
     private LearningOutcomeRepository learningOutcomeRepository;
 
     /**
-     * Setting up dummy information for learningoutcomes
-     * @throws Exception
+     * Test course to be used for tests
      */
-    @Before
-    public void setUp() throws Exception {
+    private Course c = new Course(1, "TEST_LEARNING_OUTCOME_COURSE_NAME", "TEST_LEARNING_OUTCOME_COURSE_CODE");
+
+    /**
+     * Test Category to be used for tests
+     */
+    private Category category = new Category("TEST_LEARNING_OUTCOME_CATEGORY");
+
+    /**
+     * Instance of learning outcome to add to repo
+     */
+    private LearningOutcome testLO = new LearningOutcome("TEST_LEARNING_OUTCOME", category);
+
+    /**
+     * Setting up dummy information for learningoutcomes
+     */
+    @Override
+    public void beforeClassSetup() {
+        testLO.addCourse(c);
+        learningOutcomeRepository.save(testLO);
     }
 
     /**
      * Deleting the saved information for learningoutcomes
      */
-    @After
-    public void tearDown() throws Exception {
-
+    @Override
+    public void afterClassSetup() {
+        learningOutcomeRepository.delete(testLO);
     }
 
     @Test
@@ -50,16 +70,16 @@ public class LearningOutcomeTest {
     @Test
     @Transactional
     public void testFindByName(){
-        LearningOutcome lo = learningOutcomeRepository.findByName("Web Application Coding");
+        LearningOutcome lo = learningOutcomeRepository.findByName("TEST_LEARNING_OUTCOME");
 
         assertNotNull(lo);
-        assertEquals(lo.getName(), "Web Application Coding");
+        assertEquals(lo.getName(), lo.getName());
     }
 
     @Test
     @Transactional
     public void testNumberOfCourses(){
-        LearningOutcome lo = learningOutcomeRepository.findByName("Web Application Coding");
+        LearningOutcome lo = learningOutcomeRepository.findByName("TEST_LEARNING_OUTCOME");
 
         assertNotNull(lo);
         assertFalse(lo.getCourses().isEmpty());

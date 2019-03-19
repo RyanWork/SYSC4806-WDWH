@@ -19,15 +19,15 @@ INSERT INTO PROGRAM (name) VALUES ('Civil Engineering');
 INSERT INTO PROGRAM (name) VALUES ('Computer System Engineering');
 INSERT INTO PROGRAM (name) VALUES ('Electrical Engineering');
 
-INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (1, 1);
-INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (1, 2);
-INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (1, 3);
-INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (2, 1);
-INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (3, 1);
-INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (4, 3);
-INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (5, 3);
-INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (6, 1);
-INSERT INTO COURSE_LEARNING_OUTCOMES (courses_id, learning_outcomes_id) VALUES (7, 2);
+INSERT INTO LEARNING_OUTCOME_COURSES (courses_id, learning_outcomes_id) VALUES (1, 1);
+INSERT INTO LEARNING_OUTCOME_COURSES (courses_id, learning_outcomes_id) VALUES (1, 2);
+INSERT INTO LEARNING_OUTCOME_COURSES (courses_id, learning_outcomes_id) VALUES (1, 3);
+INSERT INTO LEARNING_OUTCOME_COURSES (courses_id, learning_outcomes_id) VALUES (2, 1);
+INSERT INTO LEARNING_OUTCOME_COURSES (courses_id, learning_outcomes_id) VALUES (3, 1);
+INSERT INTO LEARNING_OUTCOME_COURSES (courses_id, learning_outcomes_id) VALUES (4, 3);
+INSERT INTO LEARNING_OUTCOME_COURSES (courses_id, learning_outcomes_id) VALUES (5, 3);
+INSERT INTO LEARNING_OUTCOME_COURSES (courses_id, learning_outcomes_id) VALUES (6, 1);
+INSERT INTO LEARNING_OUTCOME_COURSES (courses_id, learning_outcomes_id) VALUES (7, 2);
 
 INSERT INTO PROGRAM_COURSES (programs_id, courses_id) VALUES (1, 1);
 INSERT INTO PROGRAM_COURSES (programs_id, courses_id) VALUES (1, 2);
