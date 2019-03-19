@@ -1,3 +1,10 @@
+/*
+* Load jquery DataTables on results table (for sorting)
+ */
+$(document).ready( function () {
+    $('#results-table').DataTable();
+} );
+
 $(function () {
     $(".card").click(function () {
         // remove accent colours from all
@@ -18,3 +25,20 @@ $(function () {
 
     });
 });
+
+/*
+*   Reloads results table based on selected program and year
+ */
+function getResults() {
+    var url = '/results/';
+    var program = $("#programSelect option:selected").text();
+    var year = $("#yearSelect option:selected").text();
+    url += program + '/' + year;
+
+    // reloads only that HTML fragment
+    $("#results").load(encodeURI(url),
+        function() {
+            $('#results-table').DataTable();    // reload sorting on table
+        }
+    );
+}

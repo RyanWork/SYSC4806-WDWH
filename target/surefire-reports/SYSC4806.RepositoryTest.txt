@@ -1,4 +1,44 @@
 -------------------------------------------------------------------------------
 Test set: SYSC4806.RepositoryTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.664 s - in SYSC4806.RepositoryTest
+Tests run: 8, Failures: 8, Errors: 0, Skipped: 0, Time elapsed: 6.597 s <<< FAILURE! - in SYSC4806.RepositoryTest
+CreateNewCourses(SYSC4806.RepositoryTest)  Time elapsed: 0.119 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<201> but was:<403>
+	at SYSC4806.RepositoryTest.PostRequest(RepositoryTest.java:143)
+	at SYSC4806.RepositoryTest.CreateNewCourses(RepositoryTest.java:87)
+
+GetPrograms(SYSC4806.RepositoryTest)  Time elapsed: 0.05 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<401>
+	at SYSC4806.RepositoryTest.GetRequest(RepositoryTest.java:124)
+	at SYSC4806.RepositoryTest.GetPrograms(RepositoryTest.java:104)
+
+CreateNewLearningOutcome(SYSC4806.RepositoryTest)  Time elapsed: 0.197 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<201> but was:<403>
+	at SYSC4806.RepositoryTest.PostRequest(RepositoryTest.java:143)
+	at SYSC4806.RepositoryTest.CreateNewLearningOutcome(RepositoryTest.java:99)
+
+GetCourses(SYSC4806.RepositoryTest)  Time elapsed: 0.007 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<401>
+	at SYSC4806.RepositoryTest.GetRequest(RepositoryTest.java:124)
+	at SYSC4806.RepositoryTest.GetCourses(RepositoryTest.java:80)
+
+CreateNewProgram(SYSC4806.RepositoryTest)  Time elapsed: 0.004 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<201> but was:<403>
+	at SYSC4806.RepositoryTest.PostRequest(RepositoryTest.java:143)
+	at SYSC4806.RepositoryTest.CreateNewProgram(RepositoryTest.java:111)
+
+GetLearningOutcomes(SYSC4806.RepositoryTest)  Time elapsed: 0.003 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<401>
+	at SYSC4806.RepositoryTest.GetRequest(RepositoryTest.java:124)
+	at SYSC4806.RepositoryTest.GetLearningOutcomes(RepositoryTest.java:92)
+
+CreateNewCategory(SYSC4806.RepositoryTest)  Time elapsed: 0.005 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<201> but was:<403>
+	at SYSC4806.RepositoryTest.PostRequest(RepositoryTest.java:143)
+	at SYSC4806.RepositoryTest.CreateNewCategory(RepositoryTest.java:75)
+
+GetCategories(SYSC4806.RepositoryTest)  Time elapsed: 0.005 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<401>
+	at SYSC4806.RepositoryTest.GetRequest(RepositoryTest.java:124)
+	at SYSC4806.RepositoryTest.GetCategories(RepositoryTest.java:66)
+

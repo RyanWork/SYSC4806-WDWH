@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: SYSC4806.Model.ProgramTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.038 s - in SYSC4806.Model.ProgramTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s - in SYSC4806.Model.ProgramTest
