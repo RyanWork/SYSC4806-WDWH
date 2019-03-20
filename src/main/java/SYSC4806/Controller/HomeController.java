@@ -55,12 +55,12 @@ public class HomeController {
         List<String> courseNames = courseRepository.findCourseByProgramAndYear(p_id, Integer.parseInt(year));
         
         if (co != null && !(co.isEmpty())) {
-            List<String> courseNamesFilter = Arrays.asList(co.split("\\s*,\\s*"));
+            List<String> courseNamesFilter = Arrays.asList(co.split(","));
             courseNames.retainAll(courseNamesFilter);
         }
 
         if (ca != null && !(ca.isEmpty())) {
-            List<String> catNamesFilter = Arrays.asList(ca.split("\\s*,\\s*"));
+            List<String> catNamesFilter = Arrays.asList(ca.split(","));
 
             //As per the category, finding the list of learning outcomes
             ArrayList<Long> loListId = new ArrayList<>();
