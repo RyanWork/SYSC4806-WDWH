@@ -47,7 +47,7 @@
                     <button id="filterBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#filterModalCenter">
                         Apply Filter(s) <i class="fas fa-sync"></i>
                     </button>
-                    <button id="populateBtn" type="button" class="btn btn-info">
+                    <button id="populateBtn" type="button" class="btn btn-info" onclick="getFilterResults()">
                         Populate Table <i class="far fa-paper-plane"></i>
                     </button>
                 </div>
@@ -141,15 +141,12 @@
                                                 <div class="form-group">
 
                                                     <!-- We will want database to populate these options-->
-                                                    <label for="testSelect1"> Select Program(s)</label>
-                                                    <select multiple class="form-control" id='testSelect1'>
-                                                        <option value='1'>Item 1</option>
-                                                        <option value='2'>Item 2</option>
-                                                        <option value='3'>Item 3</option>
-                                                        <option value='4'>Item 4</option>
-                                                        <option value='5'>Item 5</option>
+                                                    <label for="programSelect"> Select Program(s)</label>
+                                                    <select class="form-control select2" id="programSelect" multiple="multiple">
+                                                        <option th:each="program: ${programs}" th:value="${program.name}" th:text="${program.name}"></option>
                                                     </select>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -188,13 +185,9 @@
                                             <div class="form-group">
 
                                                 <!-- We will want database to populate these options-->
-                                                <label for="testSelect2"> Select Category(s)</label>
-                                                <select multiple class="form-control" id='testSelect2'>
-                                                    <option value='1'>Item 1</option>
-                                                    <option value='2'>Item 2</option>
-                                                    <option value='3'>Item 3</option>
-                                                    <option value='4'>Item 4</option>
-                                                    <option value='5'>Item 5</option>
+                                                <label for="categorySelect"> Select Category(s)</label>
+                                                <select class="form-control select2" id="categorySelect" multiple="multiple">
+                                                    <option th:each="category: ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
                                                 </select>
                                             </div>
                                         </div>
@@ -209,20 +202,16 @@
                                             <div class="form-group">
 
                                                 <!-- We will want database to populate these options-->
-                                                <label for="testSelect3"> Select Learning Outcome(s)</label>
-                                                <select multiple class="form-control" id='testSelect3'>
-                                                    <option value='1'>Item 1</option>
-                                                    <option value='2'>Item 2</option>
-                                                    <option value='3'>Item 3</option>
-                                                    <option value='4'>Item 4</option>
-                                                    <option value='5'>Item 5</option>
+                                                <label for="lOSelect"> Select Learning Outcome(s)</label>
+                                                <select class="form-control select2" id="lOSelect" multiple="multiple">
+                                                    <option th:each="lo: ${learningoutcomes}" th:value="${lo.name}" th:text="${lo.name}"></option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Apply</button>
+                                        <button type="button" class="btn btn-primary"  data-dismiss="modal">Apply</button>
                                     </div>
                                 </form>
                             </div>
@@ -246,25 +235,26 @@
                         <th scope="col">Program</th>
                         <th scope="col">Category</th>
                         <th scope="col">Learning Outcomes</th>
-                        <th scope="col">Edit</th> <!-- We want to add edit on each row to allow edits on the data -->
+                        <th scope="col">Edit</th>
                     </tr>
                     </thead>
-                    <!--<tbody>-->
-                    <!--<tr th:each = "course: ${courses}">-->
-                    <!--&lt;!&ndash;<th th:text = "${course.id}"></th>&ndash;&gt;-->
-                    <!--<td th:text = "${course.name}"></td>-->
-                    <!--<td th:text = "${course.code}"></td>-->
-                    <!--&lt;!&ndash;<td>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<span th:each="allPrograms: ${course.programs}" th:utext = "${allPrograms.name + '&lt;br /&gt;'} "></span>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</td>&ndash;&gt;-->
-                    <!--<td>-->
-                    <!--<span th:each="allOutcomes: ${course.learningOutcomes}" th:utext="${allOutcomes.category.name + '&lt;br /&gt;'}"></span>-->
-                    <!--</td>-->
-                    <!--<td>-->
-                    <!--<span th:each="allOutcomes: ${course.learningOutcomes}" th:utext = "${allOutcomes.name + '&lt;br /&gt;'}"></span>-->
-                    <!--</td>-->
-                    <!--</tr>-->
-                    <!--</tbody>-->
+                    <tbody>
+                    <tr th:each = "course: ${courses}">
+                        <th th:text = "${course.id}"></th>
+                        <td th:text = "${course.name}"></td>
+                        <td th:text = "${course.code}"></td>
+                        <td>
+                        <span th:each="allPrograms: ${course.programs}" th:utext = "${allPrograms.name + '&lt;br /&gt;'} "></span>
+                        </td>
+                        <td>
+                            <span th:each="allOutcomes: ${course.learningOutcomes}" th:utext="${allOutcomes.category.name + '&lt;br /&gt;'}"></span>
+                        </td>
+                        <td>
+                            <span th:each="allOutcomes: ${course.learningOutcomes}" th:utext = "${allOutcomes.name + '&lt;br /&gt;'}"></span>
+                        </td>
+                        <td><button class="btn btn-info"  type="submit">Edit</button></td>
+                    </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -274,8 +264,8 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
+<script src="/js/index.js" th:href="@{/js/index.js}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-<script src="/js/index.js" th:href="@{/js/index.js}"></script>
 </body>
 </html>

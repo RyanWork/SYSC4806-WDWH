@@ -1,6 +1,9 @@
 package SYSC4806.Controller;
 
+import SYSC4806.Model.Category;
 import SYSC4806.Model.Course;
+import SYSC4806.Model.LearningOutcome;
+import SYSC4806.Model.Program;
 import SYSC4806.Repository.CategoryRepository;
 import SYSC4806.Repository.CourseRepository;
 import SYSC4806.Repository.LearningOutcomeRepository;
@@ -51,10 +54,9 @@ public class HomeController {
      * to refresh results table
      */
     @GetMapping("/results/{program}/{year}")
-    public String showResults(Model model, @PathVariable("program") String p, @PathVariable String year,
+    public String showResults(Model model, @PathVariable("program") String p, @PathVariable("year") String year,
                               @RequestParam(value = "courses", required = false) String co,
                               @RequestParam(value = "categories", required = false) String ca) {
-
         long p_id = programRepository.findByName(p).getId();
         List<String> courseNames = courseRepository.findCourseByProgramAndYear(p_id, Integer.parseInt(year));
 
@@ -101,8 +103,37 @@ public class HomeController {
         return "fragments/results :: resultsTable";
     }
 
+
+    @GetMapping("/add/{name}/{code}/{year}/{category}/{learningO}/{program}")
+    public String add(Model model, @PathVariable("name") String n, @PathVariable("code") String co, @PathVariable("year")
+            String y, @PathVariable("category") String ca, @PathVariable("learningO") String lo,
+                      @PathVariable("program") String p)
+    {
+        Category cat = new Category(ca);
+        categoryRepository.save(cat);
+
+        Course course =  new Course(Integer.parseInt(y), n, co);
+        courseRepository.save(course);
+
+        LearningOutcome outcome = new LearningOutcome(lo, cat);
+        outcome.addCourse(course);
+        learningOutcomeRepository.save(outcome);
+
+        Program pro = new Program(p);
+        pro.addCourse(course);
+        programRepository.save(pro);
+
+        this.home(model);
+        return "admin";
+    }
+
     @GetMapping("/admin")
-    public String getAdmin() {
+    public String getAdmin(Model model)
+    {
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("courses", courseRepository.findAll());
+        model.addAttribute("learningoutcomes", learningOutcomeRepository.findAll());
+        model.addAttribute("programs", programRepository.findAll());
         return "admin";
     }
 

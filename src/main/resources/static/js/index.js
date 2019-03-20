@@ -62,3 +62,18 @@ function getFilterResults() {
         }
     );
 }
+
+function add() {
+    var url = '/add/';
+    var name = $("#courseNameAdd").val();
+    var code = $("#codeAdd").val();
+    var year = $("#yearAdd option:selected").text();
+    var category = $("#categoryAdd").val();
+    var learningO = $("#loAdd").val();
+    var program = $("#programAdd").val();
+
+    url += name + '/' + code + '/' + year + '/' + category + '/' + learningO + '/' + program;
+    console.log(url);
+
+    $("#add").load(encodeURI(url));
+}
