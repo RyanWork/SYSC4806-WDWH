@@ -14,6 +14,8 @@ A user should be able to list, for a given year and for a given program: all the
 The features that have been implemented are: <br>
   * filter by program and year
   * sorting of columns
+  * filter by course and categories
+  * Export with CSV
   
 The features that are currently being reviewed are: <br>
   * Admin's add feature
