@@ -16,9 +16,7 @@ The features that have been implemented are: <br>
   * sorting of columns
   
 The features that are currently being reviewed are: <br>
-  * admin login
-  * export to CSV
-  * filtering based on course/category
+  * Admin's add feature
 
 **_Plan for Final Sprint_** <br>
  * finishing admin features including adding/removing/editing courses, programs, categories and LO's
