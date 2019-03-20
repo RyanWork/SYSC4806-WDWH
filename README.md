@@ -10,26 +10,22 @@ A user should be able to list, for a given year and for a given program: all the
 
 **Travis CI** https://travis-ci.org/sysc4806/SYSC4806-WDWH
 
-**_Current State of the Project_**
+**_Current State of the Project_** <br>
+The features that have been implemented are: <br>
+  * filter by program and year
+  * sorting of columns
+  
+The features that are currently being reviewed are: <br>
+  * admin login
+  * export to CSV
+  * filtering based on course/category
 
-|      Current State of the Project (Done)                                         | Plan for Next Sprint              |
-|:--------------------------------------------------------------------------------:|----------------------------------:|
-| <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/1">#1 Implement CI</a> | improve test cases              |
-| <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/2">#2 Deploy on Heroku</a> | discuss persisiting data with PostgreSQL or using data.sql |
-| <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/4">#4 Create Kanban</a> | complete diagrams |               
-| <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/5">#5 Build DB Schema</a> | reload view upon form submit |
-| <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/6">#6 Create Feature Branches</a> | organize tables in view |
-| <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/7">#7 Scrum, Feb 25</a> | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/19">#19 Filtering</a> |
-| <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/11">#11 Features/UI Breakdown</a>| <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/20">#20 Sorting</a> |
-| <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/12">#12 Travis Build failing</a> | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/21">#21 Admin Rights</a>|
-| <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/15">#15 Implement DB Schema</a> | <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/16">#16 Export to CSV</a> |
-| <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/17">#17 Create Skeleton Models</a> |
-|<a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/18">#18 Create Model DB Connections</a>|
-|<a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/22">#22 Populate DB with Data</a>|
-| <a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/24">#24 Create Main Feature View</a> |
-|<a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/26">#26 Scrum March 1</a>|
-|<a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/28">#28 Test Cases for Model DB Connections</a>|
-|<a href="https://github.com/sysc4806/SYSC4806-WDWH/issues/28">#33 Connect DB to View</a>|
+**_Plan for Final Sprint_** <br>
+ * finishing admin features including adding/removing/editing courses, programs, categories and LO's
+ * improve UI to for more data
+ * finalize the features being reviewed 
+ * implement validation for data being entered
+ * fixing any other bugs we find along the way 
 
 <br>**_Current DB Schema_**<br>
 ![image](https://user-images.githubusercontent.com/15951317/53824917-0faf0d80-3f43-11e9-8e2b-ee262940208a.png)
