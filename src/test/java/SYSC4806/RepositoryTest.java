@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -62,11 +63,13 @@ public class RepositoryTest {
     private MockMvc mvc;
 
     @Test
+    @WithMockUser
     public void GetCategories() throws Exception {
         this.GetRequest(this.API_CATEGORIES);
     }
 
     @Test
+    @WithMockUser
     public void CreateNewCategory() throws Exception {
         // Create the test object instance
         Category c = new Category();
@@ -76,11 +79,13 @@ public class RepositoryTest {
     }
 
     @Test
+    @WithMockUser
     public void GetCourses() throws Exception {
         this.GetRequest(this.API_COURSES);
     }
 
     @Test
+    @WithMockUser
     public void CreateNewCourses() throws Exception {
         Course course = new Course();
 
@@ -88,11 +93,13 @@ public class RepositoryTest {
     }
 
     @Test
+    @WithMockUser
     public void GetLearningOutcomes() throws Exception {
         this.GetRequest(this.API_LEARNING_OUTCOMES);
     }
 
     @Test
+    @WithMockUser
     public void CreateNewLearningOutcome() throws Exception {
         LearningOutcome lo = new LearningOutcome();
 
@@ -100,11 +107,13 @@ public class RepositoryTest {
     }
 
     @Test
+    @WithMockUser
     public void GetPrograms() throws Exception {
         this.GetRequest(this.API_PROGRAMS);
     }
 
     @Test
+    @WithMockUser
     public void CreateNewProgram() throws Exception {
         Program p = new Program();
 
