@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -53,7 +54,7 @@ public class HomeController {
 
         long p_id = programRepository.findByName(p).getId();
         List<String> courseNames = courseRepository.findCourseByProgramAndYear(p_id, Integer.parseInt(year));
-
+        
         if (co != null && !(co.isEmpty())) {
             List<String> courseNamesFilter = Arrays.asList(co.split("\\s*,\\s*"));
             courseNames.retainAll(courseNamesFilter);
@@ -65,21 +66,22 @@ public class HomeController {
             //As per the category, finding the list of learning outcomes
             ArrayList<Long> loListId = new ArrayList<>();
             for (String cName : catNamesFilter) {
-                Category category = categoryRepository.findByName(cName);
-                loListId.add(learningOutcomeRepository.findByCategoryId(category.getId()).getId());
+                List<BigInteger> loIdList = learningOutcomeRepository.findByCategoryName(cName);
+                for (BigInteger loID : loIdList) {
+                    loListId.add(loID.longValue());
+                }
             }
 
             //As per the list of learning outcomes, find the list of course id's
-            ArrayList<BigInteger> courseIdsList = new ArrayList<>();
+            HashSet<BigInteger> courseIdsList = new HashSet<>();
             for (Long lo : loListId) {
                 List<BigInteger> courseIds = learningOutcomeRepository.findByLearningOutcomeId(lo);
                 courseIdsList.addAll(courseIds);
             }
 
             //As per course ids, find the course names
-            ArrayList<BigInteger> courseIdsListUnique = removeDuplicates(courseIdsList); //remove duplicates
             ArrayList<String> coursesCatFilter = new ArrayList<>();
-            for (BigInteger courseId : courseIdsListUnique) {
+            for (BigInteger courseId : courseIdsList) {
                 Course c = courseRepository.findById(courseId.longValue()).orElse(null);
                 coursesCatFilter.add(c.getName());
             }
@@ -94,22 +96,6 @@ public class HomeController {
         }
         model.addAttribute("courses", courses);
         return "fragments/results :: resultsTable";
-    }
-
-
-    // Function to remove duplicates from an ArrayList
-    private <T> ArrayList<T> removeDuplicates(ArrayList<T> list) {
-
-        ArrayList<T> newList = new ArrayList<T>();
-
-        for (T element : list) {
-            if (!newList.contains(element)) {
-
-                newList.add(element);
-            }
-        }
-
-        return newList;
     }
 
 }
