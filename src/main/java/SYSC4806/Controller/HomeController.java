@@ -1,6 +1,9 @@
 package SYSC4806.Controller;
 
+<<<<<<< HEAD
 import SYSC4806.Model.Category;
+=======
+>>>>>>> master
 import SYSC4806.Model.Course;
 import SYSC4806.Repository.CategoryRepository;
 import SYSC4806.Repository.CourseRepository;

@@ -25,12 +25,13 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+
                             <div class="modal-body">
                                 <div class="card bg-light">
                                     <div class="card-header">
                                         Columns
                                     </div>
-                                    <div class="card-body">
+                                    <div id="cvsExportVals" class="card-body">
                                         <form>
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="courseCheck" checked>
@@ -50,8 +51,11 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Export</button>
+                                <button type="button" class="btn btn-primary" onclick="exportToCSV();">Export</button>
                             </div>
+                            <div class="modal-footer">
+                            </div>
+
                             </form>
                         </div>
                     </div>
