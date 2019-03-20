@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>Learning Outcomes Management System</title>
@@ -25,7 +27,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <button class="btn btn-outline-light my-2 my-sm-0 offset-lg-10" type="button">Admin Login</button>
+            <button class="btn btn-outline-light my-2 my-sm-0 offset-lg-10" type="button"><a style="text-decoration: none; color: inherit;" th:href="@{/admin}">Admin Portal</a></button>
         </div>
     </nav>
 
@@ -95,6 +97,7 @@
             </div>
         </div>
         <div class="row results" th:replace="fragments/results :: resultsTable">
+        </div>
     </div>
 
     <!-- ======================================================================================== -->

@@ -21,17 +21,21 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
+
+    private final CourseRepository courseRepository;
+
+    private final LearningOutcomeRepository learningOutcomeRepository;
+
+    private final ProgramRepository programRepository;
 
     @Autowired
-    private CourseRepository courseRepository;
-
-    @Autowired
-    private LearningOutcomeRepository learningOutcomeRepository;
-
-    @Autowired
-    private ProgramRepository programRepository;
+    public HomeController(CategoryRepository categoryRepository, CourseRepository courseRepository, LearningOutcomeRepository learningOutcomeRepository, ProgramRepository programRepository) {
+        this.categoryRepository = categoryRepository;
+        this.courseRepository = courseRepository;
+        this.learningOutcomeRepository = learningOutcomeRepository;
+        this.programRepository = programRepository;
+    }
 
     @GetMapping("/")
     public String home(Model model) {
@@ -53,7 +57,7 @@ public class HomeController {
 
         long p_id = programRepository.findByName(p).getId();
         List<String> courseNames = courseRepository.findCourseByProgramAndYear(p_id, Integer.parseInt(year));
-        
+
         if (co != null && !(co.isEmpty())) {
             List<String> courseNamesFilter = Arrays.asList(co.split(","));
             courseNames.retainAll(courseNamesFilter);
@@ -97,4 +101,13 @@ public class HomeController {
         return "fragments/results :: resultsTable";
     }
 
+    @GetMapping("/admin")
+    public String getAdmin() {
+        return "admin";
+    }
+
+    @GetMapping("/login")
+    public String getLogin() {
+        return "login";
+    }
 }
