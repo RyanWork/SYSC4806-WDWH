@@ -9,12 +9,13 @@ import SYSC4806.Repository.CourseRepository;
 import SYSC4806.Repository.LearningOutcomeRepository;
 import SYSC4806.Repository.ProgramRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import SYSC4806.Model.RequestWrapper;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -103,6 +104,34 @@ public class HomeController {
         return "fragments/results :: resultsTable";
     }
 
+
+    /**
+     * Request Mapping for handling adding a new entry in the admin table
+     * @param requestWrapper The wrapper object that holds a Course, Category, LearningOutcome, and Program
+     * @return The request wrapper and a valid http status
+     */
+    @RequestMapping(value="add", method=RequestMethod.POST, headers = "Content-Type=application/json")
+    public ResponseEntity<RequestWrapper> addData(@RequestBody RequestWrapper requestWrapper) {
+        // Save the Category
+        Category cat = requestWrapper.getCategory();
+        categoryRepository.save(cat);
+
+        // Save the Course
+        Course course = requestWrapper.getCourse();
+        courseRepository.save(course);
+
+        // Save the Learning Outcome
+        LearningOutcome outcome = requestWrapper.getLearningOutcome();
+        outcome.addCourse(course);
+        learningOutcomeRepository.save(outcome);
+
+        // Save the Program
+        Program pro = requestWrapper.getProgram();
+        pro.addCourse(course);
+        programRepository.save(pro);
+
+        return new ResponseEntity<RequestWrapper>(requestWrapper, HttpStatus.OK);
+    }
 
     @GetMapping("/add/{name}/{code}/{year}/{category}/{learningO}/{program}")
     public String add(Model model, @PathVariable("name") String n, @PathVariable("code") String co, @PathVariable("year")

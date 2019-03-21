@@ -72,8 +72,40 @@ function add() {
     var learningO = $("#loAdd").val();
     var program = $("#programAdd").val();
 
-    url += name + '/' + code + '/' + year + '/' + category + '/' + learningO + '/' + program;
+    // url += name + '/' + code + '/' + year + '/' + category + '/' + learningO + '/' + program;
+
+    var newData = {};
+    newData.course = {
+        "name": name,
+        "code": code,
+        "year": year
+    };
+    newData.category = {"name": category};
+    newData.learningOutcome = {"name": learningO};
+    newData.program = {"name": program};
+
+    console.log(newData);
     console.log(url);
+
+    console.log(JSON.stringify(newData));
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: JSON.stringify(newData),
+        dataType : "json",
+        contentType: "application/json",
+        success: function(response){
+            console.log("Successfully added");
+
+        },
+        error: function(xhr, ajaxOptions, thrownError){
+            console.log(xhr);
+            console.log(ajaxOptions);
+            console.log(thrownError);
+            console.log("Failed to post");
+        }
+    })
 
     $("#add").load(encodeURI(url));
 }
