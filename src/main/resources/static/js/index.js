@@ -1,9 +1,33 @@
-/*
-* Load jquery DataTables on results table (for sorting)
- */
 $(document).ready(function () {
+    // Load jquery DataTables on results table (for sorting)
     $('#results-table').DataTable();
+
+    // Starting jQuery library select2 for searchable select boxes https://select2.org/
+    $('.select2').select2({
+        placeholder: 'Choose...',
+        allowClear: true
+    });
 });
+
+$('#programSelect').change( function() {
+        var program = $("#programSelect option:selected").text();
+        let newOptions = [];
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: encodeURI("/results/" + program),
+            async: false,
+            success: function (result) {
+                newOptions = result;
+
+            }
+        });
+
+        $('#yearSelect').empty().select2({
+            data: newOptions
+        });
+    }
+);
 
 $(function () {
     $(".card").click(function () {
