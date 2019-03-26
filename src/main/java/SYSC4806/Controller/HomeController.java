@@ -5,7 +5,6 @@ import SYSC4806.Repository.CategoryRepository;
 import SYSC4806.Repository.CourseRepository;
 import SYSC4806.Repository.LearningOutcomeRepository;
 import SYSC4806.Repository.ProgramRepository;
-import com.sun.media.jfxmedia.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
