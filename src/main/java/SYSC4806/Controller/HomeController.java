@@ -101,7 +101,6 @@ public class HomeController {
         return "fragments/results :: resultsTable";
     }
 
-
     /**
      * Request Mapping for handling adding a new entry in the admin table
      * @param model Model to add attributes and update view
@@ -134,6 +133,21 @@ public class HomeController {
         model.addAttribute("courses", courses);
 
         return "fragments/adminResults :: resultsTable";
+    }
+
+    /*
+    *   Selects years that exists for a given program
+    *   @param p Name of program selected
+    *   @return List of years
+     */
+    @GetMapping("/results/{program}")
+    public ResponseEntity<Object> getYears(@PathVariable("program") String p) {
+        List<Course> courses = programRepository.findByName(p).getCourses();
+        HashSet<Integer> years = new HashSet<>();
+        for(Course c: courses) {
+            years.add(c.getYear());
+        }
+        return new ResponseEntity<Object>(years, HttpStatus.OK);
     }
 
     @GetMapping("/admin")

@@ -49,12 +49,11 @@
                                 </div>
                                 <div class="col-md col-lg-4">
                                     <label for="yearSelect"> Choose year:</label>
-                                    <select class="custom-select select2 mr-sm-2" id="yearSelect">
+                                    <select class="custom-select mr-sm-2" id="yearSelect">
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
-                                        <option value="5">5</option>
                                     </select>
                                 </div>
                                 <div class="col-md col-lg-2 offset-lg-1">
@@ -108,14 +107,5 @@
     <script src="/js/results.js" th:href="@{/js/results.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-    <!--Starting jQuery library select2 for searchable select boxes https://select2.org/-->
-    <script>
-        $(document).ready(function() {
-            $('.select2').select2({
-                placeholder: 'Choose...',
-                allowClear: true
-            });
-        });
-    </script>
 </body>
 </html>
