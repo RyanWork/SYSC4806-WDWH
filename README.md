@@ -14,11 +14,11 @@ A user should be able to list, for a given year and for a given program: all the
 The features that have been implemented are: <br>
   * filter by program and year
   * sorting of columns
+  * filter by course and categories
+  * export with CSV
   
 The features that are currently being reviewed are: <br>
-  * admin login
-  * export to CSV
-  * filtering based on course/category
+  * admin's add feature
 
 **_Plan for Final Sprint_** <br>
  * finishing admin features including adding/removing/editing courses, programs, categories and LO's
