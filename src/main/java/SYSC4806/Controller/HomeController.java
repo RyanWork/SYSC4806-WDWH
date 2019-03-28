@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import SYSC4806.Model.RequestWrapper;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class HomeController {
@@ -107,24 +104,19 @@ public class HomeController {
 
     /**
      * Request Mapping for handling adding a new entry in the admin table
+     * @param model Model to add attributes and update view
      * @param requestWrapper The wrapper object that holds a Course, Category, LearningOutcome, and Program
      * @return The request wrapper and a valid http status
      */
     @RequestMapping(value="add", method=RequestMethod.POST, headers = "Content-Type=application/json")
-    public ResponseEntity<RequestWrapper> addData(@RequestBody RequestWrapper requestWrapper) {
-        // Get the Course
+    public String addData(Model model, @RequestBody RequestWrapper requestWrapper) {
+        // Get all the submitted info from the wrapper
         Course course = requestWrapper.getCourse();
-
-        // Get the Learning Outcome
         LearningOutcome outcome = requestWrapper.getLearningOutcome();
-
-        // Get the Category
         Category cat = requestWrapper.getCategory();
-
-        // Get the Program
         Program pro = requestWrapper.getProgram();
 
-        // Build the relationships
+        // Build the model relationships
         course.addLO(outcome);
         outcome.setCategory(cat);
         pro.addCourse(course);
@@ -135,7 +127,13 @@ public class HomeController {
         categoryRepository.save(cat);
         programRepository.save(pro);
 
-        return new ResponseEntity<RequestWrapper>(requestWrapper, HttpStatus.OK);
+        // Update the list of courses for table
+        Iterable<Course> coursesIter = courseRepository.findAll();
+        List<Course> courses = new ArrayList<Course>();
+        coursesIter.forEach(courses::add);
+        model.addAttribute("courses", courses);
+
+        return "fragments/adminResults :: resultsTable";
     }
 
     @GetMapping("/admin")

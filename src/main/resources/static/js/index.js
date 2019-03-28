@@ -74,11 +74,7 @@ function add() {
 
     // Build the object to post
     let newData = {};
-    newData.course = {
-        "name": name,
-        "code": code,
-        "year": year
-    };
+    newData.course = {"name": name, "code": code, "year": year};
     newData.category = {"name": category};
     newData.learningOutcome = {"name": learningO};
     newData.program = {"name": program};
@@ -88,15 +84,15 @@ function add() {
         type: "POST",
         url: url,
         data: JSON.stringify(newData),
-        dataType : "json",
+        dataType : "text",
         contentType: "application/json",
-        success: function(response){
-            console.log("Successfully added");
+        success: function(data) {
+            // Update the table
+            $("#results").html(data);
+            $('#results-table').DataTable();
         },
-        error: function(xhr, ajaxOptions, thrownError){
-            console.log("Failed to post");
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log("Failed to add new entry.")
         }
-    })
-
-    $("#add").load(encodeURI(url));
+    });
 }

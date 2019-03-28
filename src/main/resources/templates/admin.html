@@ -33,7 +33,7 @@
         </form>
     </div>
 </nav>
-<div class="results" id="results">
+<div class="results">
     <div class="col">
         <div class="card" onlick="active();">
             <div class="card-header">
@@ -226,36 +226,7 @@
                 <!-- We will want Edit to appear beside each row of data to allow edit option -->
             </div>
             <div class="card-body">
-                <table id="results-table" class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Course ID</th>
-                        <th scope="col">Course</th>
-                        <th scope="col">Code</th>
-                        <th scope="col">Program</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Learning Outcomes</th>
-                        <th scope="col">Edit</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each = "course: ${courses}">
-                        <th th:text = "${course.id}"></th>
-                        <td th:text = "${course.name}"></td>
-                        <td th:text = "${course.code}"></td>
-                        <td>
-                        <span th:each="allPrograms: ${course.programs}" th:utext = "${allPrograms.name + '&lt;br /&gt;'} "></span>
-                        </td>
-                        <td>
-                            <span th:each="allOutcomes: ${course.learningOutcomes}" th:utext="${allOutcomes.category.name + '&lt;br /&gt;'}"></span>
-                        </td>
-                        <td>
-                            <span th:each="allOutcomes: ${course.learningOutcomes}" th:utext = "${allOutcomes.name + '&lt;br /&gt;'}"></span>
-                        </td>
-                        <td><button class="btn btn-dark"  type="submit"><i class="fas fa-pencil-alt"></i></button></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="row results" th:replace="fragments/adminResults :: resultsTable">
             </div>
         </div>
     </div>
