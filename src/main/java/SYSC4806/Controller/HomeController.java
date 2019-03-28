@@ -112,22 +112,27 @@ public class HomeController {
      */
     @RequestMapping(value="add", method=RequestMethod.POST, headers = "Content-Type=application/json")
     public ResponseEntity<RequestWrapper> addData(@RequestBody RequestWrapper requestWrapper) {
-        // Save the Category
-        Category cat = requestWrapper.getCategory();
-        categoryRepository.save(cat);
-
-        // Save the Course
+        // Get the Course
         Course course = requestWrapper.getCourse();
-        courseRepository.save(course);
 
-        // Save the Learning Outcome
+        // Get the Learning Outcome
         LearningOutcome outcome = requestWrapper.getLearningOutcome();
-        outcome.addCourse(course);
-        learningOutcomeRepository.save(outcome);
 
-        // Save the Program
+        // Get the Category
+        Category cat = requestWrapper.getCategory();
+
+        // Get the Program
         Program pro = requestWrapper.getProgram();
+
+        // Build the relationships
+        course.addLO(outcome);
+        outcome.setCategory(cat);
         pro.addCourse(course);
+
+        // Save the new object to the db
+        courseRepository.save(course);
+        learningOutcomeRepository.save(outcome);
+        categoryRepository.save(cat);
         programRepository.save(pro);
 
         return new ResponseEntity<RequestWrapper>(requestWrapper, HttpStatus.OK);
