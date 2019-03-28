@@ -6,6 +6,8 @@ import SYSC4806.Repository.CourseRepository;
 import SYSC4806.Repository.LearningOutcomeRepository;
 import SYSC4806.Repository.ProgramRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -100,6 +102,22 @@ public class HomeController {
         model.addAttribute("courses", courses);
         return "fragments/results :: resultsTable";
     }
+
+    /*
+    *   Selects years that exists for a given program
+    *   @param p Name of program selected
+    *   @return List of years
+     */
+    @GetMapping("/results/{program}")
+    public ResponseEntity<Object> getYears(@PathVariable("program") String p) {
+        List<Course> courses = programRepository.findByName(p).getCourses();
+        HashSet<Integer> years = new HashSet<>();
+        for(Course c: courses) {
+            years.add(c.getYear());
+        }
+        return new ResponseEntity<Object>(years, HttpStatus.OK);
+    }
+
 
     @GetMapping("/admin")
     public String getAdmin() {
