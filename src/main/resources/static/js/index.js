@@ -64,17 +64,16 @@ function getFilterResults() {
 }
 
 function add() {
-    var url = '/add/';
-    var name = $("#courseNameAdd").val();
-    var code = $("#codeAdd").val();
-    var year = $("#yearAdd option:selected").text();
-    var category = $("#categoryAdd").val();
-    var learningO = $("#loAdd").val();
-    var program = $("#programAdd").val();
+    let url = '/add/';
+    let name = $("#courseNameAdd").val();
+    let code = $("#codeAdd").val();
+    let year = $("#yearAdd option:selected").text();
+    let category = $("#categoryAdd").val();
+    let learningO = $("#loAdd").val();
+    let program = $("#programAdd").val();
 
-    // url += name + '/' + code + '/' + year + '/' + category + '/' + learningO + '/' + program;
-
-    var newData = {};
+    // Build the object to post
+    let newData = {};
     newData.course = {
         "name": name,
         "code": code,
@@ -84,11 +83,7 @@ function add() {
     newData.learningOutcome = {"name": learningO};
     newData.program = {"name": program};
 
-    console.log(newData);
-    console.log(url);
-
-    console.log(JSON.stringify(newData));
-
+    // Post object to add to table
     $.ajax({
         type: "POST",
         url: url,
@@ -97,12 +92,8 @@ function add() {
         contentType: "application/json",
         success: function(response){
             console.log("Successfully added");
-
         },
         error: function(xhr, ajaxOptions, thrownError){
-            console.log(xhr);
-            console.log(ajaxOptions);
-            console.log(thrownError);
             console.log("Failed to post");
         }
     })

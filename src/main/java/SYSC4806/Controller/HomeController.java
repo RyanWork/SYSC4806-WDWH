@@ -133,29 +133,6 @@ public class HomeController {
         return new ResponseEntity<RequestWrapper>(requestWrapper, HttpStatus.OK);
     }
 
-    @GetMapping("/add/{name}/{code}/{year}/{category}/{learningO}/{program}")
-    public String add(Model model, @PathVariable("name") String n, @PathVariable("code") String co, @PathVariable("year")
-            String y, @PathVariable("category") String ca, @PathVariable("learningO") String lo,
-                      @PathVariable("program") String p)
-    {
-        Category cat = new Category(ca);
-        categoryRepository.save(cat);
-
-        Course course =  new Course(Integer.parseInt(y), n, co);
-        courseRepository.save(course);
-
-        LearningOutcome outcome = new LearningOutcome(lo, cat);
-        outcome.addCourse(course);
-        learningOutcomeRepository.save(outcome);
-
-        Program pro = new Program(p);
-        pro.addCourse(course);
-        programRepository.save(pro);
-
-        this.home(model);
-        return "admin";
-    }
-
     @GetMapping("/admin")
     public String getAdmin(Model model)
     {
