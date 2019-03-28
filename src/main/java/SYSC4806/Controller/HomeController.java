@@ -103,6 +103,11 @@ public class HomeController {
         return "fragments/results :: resultsTable";
     }
 
+    /*
+    *   Selects years that exists for a given program
+    *   @param p Name of program selected
+    *   @return List of years
+     */
     @GetMapping("/results/{program}")
     public ResponseEntity<Object> getYears(@PathVariable("program") String p) {
         List<Course> courses = programRepository.findByName(p).getCourses();

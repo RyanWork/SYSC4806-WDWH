@@ -9,6 +9,9 @@ $(document).ready(function () {
     });
 });
 
+/*
+*   When the select for program changes, repopulates year select based on years available
+ */
 $('#programSelect').change( function() {
         var program = $("#programSelect option:selected").text();
         let newOptions = [];
