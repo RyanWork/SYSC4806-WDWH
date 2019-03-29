@@ -17,226 +17,136 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info justify-content-between">
+        <a class="navbar-brand" href="#"><i class="fas fa-graduation-cap"></i> Learning Outcomes Management System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-info justify-content-between">
-    <a class="navbar-brand" href="#"><i class="fas fa-graduation-cap"></i> Learning Outcomes Management System</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse mr-auto" id="navbarSupportedContent">
-        <form class="form-inline my-2 my-sm-0 offset-lg-8" th:action="@{/logout}" method="post">
-            <div class="form-check-inline form-row">
-                <h6 style="margin-right: 6px; margin-top: 8px;" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h6>
-                <button class="btn btn-outline-light my-2 my-sm-2" type="submit">Log Out</button>
-            </div>
-        </form>
-    </div>
-</nav>
-<div class="results">
-    <div class="col">
-        <div class="card" onlick="active();">
-            <div class="card-header">
-                Data Editor - Full Results
-                <!-- Button trigger modal -->
-                <!-- This apply filter is different than the first. We want to Filter even more specific data -->
-                <div class="my-2 my-sm-0 offset-lg-8">
-                    <button id="addBtn" type="button" class="btn btn-dark" data-toggle="modal" data-target="#addModal">
-                        Add <i class="fas fa-plus"></i>
-                    </button>
-                    <button id="filterBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#filterModalCenter">
-                        Apply Filter(s) <i class="fas fa-sync"></i>
-                    </button>
-                    <button id="populateBtn" type="button" class="btn btn-info" onclick="getFilterResults()">
-                        Populate Table <i class="far fa-paper-plane"></i>
-                    </button>
+        <div class="collapse navbar-collapse mr-auto" id="navbarSupportedContent">
+            <form class="form-inline my-2 my-sm-0 offset-lg-8" th:action="@{/logout}" method="post">
+                <div class="form-check-inline form-row">
+                    <h6 style="margin-right: 6px; margin-top: 8px;" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h6>
+                    <button class="btn btn-outline-light my-2 my-sm-2" type="submit">Log Out</button>
                 </div>
-
-                <!-- Modal Add - Once Add button is pressed this will open up -->
-                <div class="modal fade bd-example-modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="addModalLabel">Add New Data Entry</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <form>
-                                <div class="modal-body">
-                                    <div class="form-group row">
-                                        <label for="courseNameAdd" class="col-sm-4 col-form-label">Course Name</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="courseNameAdd" placeholder="ex: Operating Systems">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="codeAdd" class="col-sm-4 col-form-label">Course Code</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="codeAdd" placeholder="ex: 4001">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="yearAdd" class="col-sm-4 col-form-label"> Choose year:</label>
-                                        <div class="col-sm-10">
-                                            <select class="custom-select select2 mr-sm-2" id="yearAdd">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="categoryAdd" class="col-sm-4 col-form-label">Category</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="categoryAdd" placeholder="ex: Programming">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="loAdd" class="col-sm-4 col-form-label">Learning Outcomes</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="loAdd" placeholder="ex: Web Application Coding">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="loAdd" class="col-sm-4 col-form-label">Program</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="programAdd" placeholder="ex: Software Engineering">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" onclick="add();" data-dismiss="modal">Add New</button>
-                                </div>
-                            </form>
+            </form>
+        </div>
+    </nav>
+    <div class="results">
+        <div class="col">
+            <div class="card" onlick="active();">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="my-2 col-11">Data Editor - Full Results</div>
+                        <div class="col-1">
+                            <button id="addBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addModal">
+                            Add <i class="fas fa-plus"></i></button>
                         </div>
                     </div>
-                </div>
-                <!-- End of Modal Add Code -->
+                    <!--Data Editor - Full Results-->
+                    <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
+                    <!--<button id="addBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addModal">-->
+                        <!--Add <i class="fas fa-plus"></i>-->
+                    <!--</button>-->
 
-                <!-- Modal Filter - Once Filter button is pressed this will open up -->
-                <div class="modal fade" id="filterModalCenter" tabindex="-1" role="dialog" aria-labelledby="filterModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="filterModalCenterTitle">Filter</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
 
-                                <!-- Form for Filter -->
+                    <!-- Modal Add - Once Add button is pressed this will open up -->
+                    <div class="modal fade bd-example-modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addModalLabel">Add New Data Entry</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                                 <form>
-                                    <!-- Programs -->
-                                    <div class="card bg-light">
-                                        <div class="card bg-light">
-                                            <div class="card-header">
-                                                Programs
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="form-group">
-
-                                                    <!-- We will want database to populate these options-->
-                                                    <label for="programSelect"> Select Program(s)</label>
-                                                    <select class="form-control select2" id="programSelect" multiple="multiple">
-                                                        <option th:each="program: ${programs}" th:value="${program.name}" th:text="${program.name}"></option>
-                                                    </select>
-                                                </div>
-
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label for="courseNameAdd" class="col-sm-4 col-form-label">Course Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="courseNameAdd" placeholder="ex: Operating Systems">
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <!-- Course Code -->
-                                    <div class="card bg-light">
-                                        <div class="card-header">
-                                            Course Code
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="form-check form-check-inline">
-                                                <input type="checkbox" class="form-check-input" id="courseYr1Check" unchecked>
-                                                <label class="form-check-label" for="courseYr1Check">1xxx</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input type="checkbox" class="form-check-input" id="courseYr2Check" unchecked>
-                                                <label class="form-check-label" for="courseYr2Check">2xxx</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input type="checkbox" class="form-check-input" id="courseYr3Check" unchecked>
-                                                <label class="form-check-label" for="courseYr3Check">3xxx</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input type="checkbox" class="form-check-input" id="courseYr4Check" unchecked>
-                                                <label class="form-check-label" for="courseYr4Check">4xxx</label>
+                                        <div class="form-group row">
+                                            <label for="codeAdd" class="col-sm-4 col-form-label">Course Code</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="codeAdd" placeholder="ex: 4001">
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <!-- Category -->
-                                    <div class="card bg-light">
-                                        <div class="card-header">
-                                            Category
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="form-group">
-
-                                                <!-- We will want database to populate these options-->
-                                                <label for="categorySelect"> Select Category(s)</label>
-                                                <select class="form-control select2" id="categorySelect" multiple="multiple">
-                                                    <option th:each="category: ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
+                                        <div class="form-group row">
+                                            <label for="yearAdd" class="col-sm-4 col-form-label"> Choose year:</label>
+                                            <div class="col-sm-10">
+                                                <select class="custom-select select2 mr-sm-2" id="yearAdd">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <!-- Learning Outcomes -->
-                                    <div class="card bg-light">
-                                        <div class="card-header">
-                                            Learning Outcomes
+                                        <div class="form-group row">
+                                            <label for="categoryAdd" class="col-sm-4 col-form-label">Category</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="categoryAdd" placeholder="ex: Programming">
+                                            </div>
                                         </div>
-                                        <div class="card-body">
-                                            <div class="form-group">
-
-                                                <!-- We will want database to populate these options-->
-                                                <label for="lOSelect"> Select Learning Outcome(s)</label>
-                                                <select class="form-control select2" id="lOSelect" multiple="multiple">
-                                                    <option th:each="lo: ${learningoutcomes}" th:value="${lo.name}" th:text="${lo.name}"></option>
-                                                </select>
+                                        <div class="form-group row">
+                                            <label for="loAdd" class="col-sm-4 col-form-label">Learning Outcomes</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="loAdd" placeholder="ex: Web Application Coding">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="loAdd" class="col-sm-4 col-form-label">Program</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="programAdd" placeholder="ex: Software Engineering">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary"  data-dismiss="modal">Apply</button>
+                                        <button type="button" class="btn btn-primary" onclick="add();" data-dismiss="modal">Add New</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- End of Modal Filter Code -->
+                    <!-- End of Modal Add Code -->
 
-                <!-- Direct Copy n Paste from index.html -->
-                <!-- Will need to change this part -->
-                <!-- We will want the table to populate based on the filter we made from above and once Populate button is pressed, show data -->
-                <!-- We will want Edit to appear beside each row of data to allow edit option -->
-            </div>
-            <div class="card-body">
-                <div class="row results" th:replace="fragments/adminResults :: resultsTable">
+                </div>
+                <div class="card-body">
+                    <div class="row results" th:replace="fragments/adminResults :: resultsTable"></div>
+                </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete?</h5>
+                    </div>
+                    <div class="modal-body">
+                        The detail of that selected course. Or an indication (Course ID: #)
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-</div>
-<!-- ======================================================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
-<script src="/js/index.js" th:href="@{/js/index.js}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <!-- ======================================================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
+    <script src="/js/index.js" th:href="@{/js/index.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 </body>
 </html>

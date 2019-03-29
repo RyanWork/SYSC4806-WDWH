@@ -15,7 +15,7 @@
                 <th scope="col">Program</th>
                 <th scope="col">Category</th>
                 <th scope="col">Learning Outcomes</th>
-                <th scope="col">Edit</th>
+                <th scope="col">Edit/Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -32,7 +32,10 @@
                 <td>
                     <span th:each="allOutcomes: ${course.learningOutcomes}" th:utext = "${allOutcomes.name + '&lt;br /&gt;'}"></span>
                 </td>
-                <td><button class="btn btn-dark"  type="submit"><i class="fas fa-pencil-alt"></i></button></td>
+                <td>
+                    <button class="btn btn-dark"  type="submit"><i style="height: 20px; width: 20px;" class="fas fa-pencil-alt"></i></button>
+                    <button class="btn btn-danger"  type="button" data-toggle="modal" data-target="#deleteModal"><i style="height: 20px; width: 20px;" class="fas fa-times"></i></button>
+                </td>
             </tr>
             </tbody>
         </table>
