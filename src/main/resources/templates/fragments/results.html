@@ -88,7 +88,7 @@
                                 <span th:if="${iter.index <= 2}" th:utext = "${allOutcomes.name + '&lt;br /&gt;'}"></span>
                                 <span th:unless="${iter.index <= 2}" th:class="${course.code}" style="display: none;" th:utext = "${allOutcomes.name + '&lt;br /&gt;'}"></span>
                             </span>
-                            <span th:if="${#lists.size(course.learningOutcomes) > 2}">
+                            <span th:if="${#lists.size(course.learningOutcomes) > 3}">
                                     <button th:id="${course.code}" class="btn btn-info" style="padding-top: 5px;" onclick="showLOs(this.getAttribute('id'))">Show More!</button>
                             </span>
                         </td>
