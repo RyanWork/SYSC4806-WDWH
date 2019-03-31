@@ -75,17 +75,22 @@
                     </thead>
                     <tbody>
                     <tr th:each = "course: ${courses}">
-                        <!--<th th:text = "${course.id}"></th>-->
                         <td th:text = "${course.name}"></td>
                         <td th:text = "${course.code}"></td>
-                        <!--<td>-->
-                            <!--<span th:each="allPrograms: ${course.programs}" th:utext = "${allPrograms.name + '&lt;br /&gt;'} "></span>-->
-                        <!--</td>-->
                         <td>
-                            <span th:each="allOutcomes: ${course.learningOutcomes}" th:utext="${allOutcomes.category.name + '&lt;br /&gt;'}"></span>
+                            <span th:each="allOutcomes, iter : ${course.learningOutcomes}">
+                                <span th:if="${iter.index <= 2}" th:utext="${allOutcomes.category.name + '&lt;br /&gt;'}"></span>
+                                <span th:unless="${iter.index <= 2}" th:class="${course.code}" style="display: none;" th:utext="${allOutcomes.category.name + '&lt;br /&gt;'}"></span>
+                            </span>
                         </td>
                         <td>
-                            <span th:each="allOutcomes: ${course.learningOutcomes}" th:utext = "${allOutcomes.name + '&lt;br /&gt;'}"></span>
+                            <span th:each="allOutcomes, iter : ${course.learningOutcomes}">
+                                <span th:if="${iter.index <= 2}" th:utext = "${allOutcomes.name + '&lt;br /&gt;'}"></span>
+                                <span th:unless="${iter.index <= 2}" th:class="${course.code}" style="display: none;" th:utext = "${allOutcomes.name + '&lt;br /&gt;'}"></span>
+                            </span>
+                            <span th:if="${#lists.size(course.learningOutcomes) > 3}">
+                                    <button th:id="${course.code}" class="btn btn-info" style="padding-top: 5px;" onclick="showLOs(this.getAttribute('id'))">Show More!</button>
+                            </span>
                         </td>
                     </tr>
                     </tbody>

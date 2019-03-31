@@ -93,4 +93,19 @@ function downloadCsvFile(csvData){
     document.body.removeChild(downloadLink);
 }
 
+/*
+*   If more than 3 Learning Outcomes for a course, toggles show hide of remaining
+ */
+function showLOs(classVal) {
+    if($("#" + classVal).text() == "Show More!") {
+        $("." + classVal).css("display", "block");
+        $("#" + classVal).text("Show Less!");
+    }
+    else {
+        $("." + classVal).css("display", "none");
+        $("#" + classVal).text("Show More!");
+    }
+
+}
+
 
