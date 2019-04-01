@@ -91,13 +91,14 @@ function getFilterResults() {
 }
 
 function add() {
+
     let url = '/add/';
     let name = $("#courseNameAdd").val();
     let code = $("#codeAdd").val();
     let year = $("#yearAdd option:selected").text();
-    let category = $("#categoryAdd").val();
-    let learningO = $("#loAdd").val();
-    let program = $("#programAdd").val();
+    let category = $("#categoryAdd option:selected").val();
+    let learningO = $("#loAdd option:selected").val();
+    let program = $("#programAdd option:selected").val();
 
     // Build the object to post
     let newData = {};
@@ -122,4 +123,26 @@ function add() {
             console.log("Failed to add new entry.")
         }
     });
+
+}
+
+function success() {
+    let button = document.getElementById('button');
+    let name = $("#courseNameAdd").val();
+    let code = $("#codeAdd").val();
+    let category = $("#categoryAdd option:selected").val();
+    let learningO = $("#loAdd option:selected").val();
+    let program = $("#programAdd option:selected").val();
+
+    if(name == "" || name==null || code =="" || code == null || category =="" || category == null || learningO =="" ||
+            learningO == null || program =="" || program == null) {
+        button.disabled = true;
+    } else if(code.length <4 || code.length >4 || isNaN(code)==true){
+        document.getElementById('codeAdd').style.backgroundColor = "rgb(246,215,218)";
+        button.disabled = true;
+    } else{
+        document.getElementById('codeAdd').style.backgroundColor = "rgb(255,255,255)";
+        button.disabled = false
+    }
+
 }
