@@ -89,6 +89,8 @@ public class RepositoryTest {
     public void CreateNewCourses() throws Exception {
         Course course = new Course();
         course.setName("c1");
+        course.setCode("1234");
+        course.setYear(2);
 
         this.PostRequest(this.API_COURSES, course);
     }
@@ -103,7 +105,8 @@ public class RepositoryTest {
     @WithMockUser
     public void CreateNewLearningOutcome() throws Exception {
         LearningOutcome lo = new LearningOutcome();
-        lo.setName("lo11");
+        lo.setName("lo1");
+
         this.PostRequest(this.API_LEARNING_OUTCOMES, lo);
     }
 
@@ -118,6 +121,7 @@ public class RepositoryTest {
     public void CreateNewProgram() throws Exception {
         Program p = new Program();
         p.setName("p1");
+
         this.PostRequest(this.API_PROGRAMS, p);
     }
 
