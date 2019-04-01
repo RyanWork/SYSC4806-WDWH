@@ -1,6 +1,7 @@
 package SYSC4806.Model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,8 @@ public class Course {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private int year;
+
+    @NotNull(message = "Name cannot be null")
     private String name;
     private String code;
 

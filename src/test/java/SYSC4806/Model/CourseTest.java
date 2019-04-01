@@ -53,6 +53,8 @@ public class CourseTest implements InstanceTestClassListener {
      */
     @Override
     public void beforeClassSetup() {
+        lo.setName("lo1");
+        p.setName("p1");
         c.addLO(lo);
         c.addProgram(p);
         courseRepository.save(c);

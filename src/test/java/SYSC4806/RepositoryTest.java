@@ -88,6 +88,7 @@ public class RepositoryTest {
     @WithMockUser
     public void CreateNewCourses() throws Exception {
         Course course = new Course();
+        course.setName("c1");
 
         this.PostRequest(this.API_COURSES, course);
     }
@@ -102,7 +103,7 @@ public class RepositoryTest {
     @WithMockUser
     public void CreateNewLearningOutcome() throws Exception {
         LearningOutcome lo = new LearningOutcome();
-
+        lo.setName("lo11");
         this.PostRequest(this.API_LEARNING_OUTCOMES, lo);
     }
 
@@ -116,17 +117,18 @@ public class RepositoryTest {
     @WithMockUser
     public void CreateNewProgram() throws Exception {
         Program p = new Program();
-
+        p.setName("p1");
         this.PostRequest(this.API_PROGRAMS, p);
     }
 
     /**
      * Helper Method to perform a get request to the specified url.
      * Request should return status 200
-     * @param api   The url of the API to make the request
+     *
+     * @param api The url of the API to make the request
      * @throws Exception
      */
-    public void GetRequest(String api) throws Exception{
+    public void GetRequest(String api) throws Exception {
         // Perform a get request
         mvc.perform(MockMvcRequestBuilders.get(api)
                 .accept(MediaType.APPLICATION_JSON))
@@ -136,8 +138,9 @@ public class RepositoryTest {
     /**
      * Helper method to perform a post request to the specified url with the
      * provided object. It should create an object and return status 201
-     * @param api   The url of the API to make the request
-     * @param data  The object to serialize and post
+     *
+     * @param api  The url of the API to make the request
+     * @param data The object to serialize and post
      * @throws Exception
      */
     public void PostRequest(String api, Object data) throws Exception {
