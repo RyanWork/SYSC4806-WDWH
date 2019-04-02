@@ -37,11 +37,25 @@
             <div class="card" onlick="active();">
                 <div class="card-header">
                     <div class="row">
-                        <div class="my-2 col-11">Data Editor - Full Results</div>
-                        <div class="col-1">
-                            <button id="addBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addModal">
-                                Add <i class="fas fa-plus"></i></button>
+                        <div class="my-2 col-4">Data Editor - Full Results</div>
+                        <div class="col-2">
+                            <button id="addCourseBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addCourseModal">
+                                Add Course <i class="fas fa-plus"></i></button>
                         </div>
+                        <div class="col-2">
+                            <button id="addCategoryBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addCategoryModal">
+                                Add Category <i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="col-2">
+                            <button id="addLearningOBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addLOModal">
+                                Add Learning Outcome <i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="col-2">
+                            <button id="addProgramBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addProgramModal">
+                                Add Program <i class="fas fa-plus"></i></button>
+                        </div>
+
+
                     </div>
                     <!--Data Editor - Full Results-->
                     <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
@@ -51,11 +65,11 @@
 
 
                     <!-- Modal Add - Once Add button is pressed this will open up -->
-                    <div class="modal fade bd-example-modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+                    <div class="modal fade bd-example-modal-lg" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="addModalLabel">Add New Data Entry (No entry can be empty)</h5>
+                                    <h5 class="modal-title" id="addCourseLabel">Add New Course Entry (No entry can be empty)</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -65,13 +79,13 @@
                                         <div class="form-group row">
                                             <label for="courseNameAdd" class="col-sm-4 col-form-label">Course Name</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="courseNameAdd" onchange="success()" onkeyup="success()"  placeholder="ex: Operating Systems">
+                                                <input type="email" class="form-control" id="courseNameAdd" onchange="successCourse()" onkeyup="successCourse()"  placeholder="ex: Operating Systems">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="codeAdd" class="col-sm-4 col-form-label">Course Code</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="codeAdd" onchange="success()" onkeyup="success()"  placeholder="ex: 4001">
+                                                <input type="email" class="form-control" id="codeAdd" onchange="successCourse()" onkeyup="successCourse()"  placeholder="ex: 4001">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -82,40 +96,21 @@
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
                                                     <option value="4">4</option>
-                                                    <option value="5">5</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="categoryAdd" class="col-sm-4 col-form-label">Category</label>
-                                            <div class="col-form-label">
-                                                <button id="addNewCategory" type="button" class="btn btn-info" data-toggle="modal" data-target="#addModal">Add New Category <i class="fas fa-plus"></i></button>
-                                            </div>
-                                            <div class="col-sm-10">
-                                                <select type='email' class="select2" id="categoryAdd" onchange="success()" style="width: 100%" multiple="multiple">
-                                                    <option th:each="category: ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
-                                                </select>
-                                            </div>
-                                        </div>
-
                                         <div class="form-group row">
                                             <label for="loAdd" class="col-sm-4 col-form-label">Learning Outcomes</label>
-                                            <div class="col-form-label">
-                                                <button id="addNewLo" type="button" class="btn btn-info" data-toggle="modal" data-target="#addModal">Add New Learning Outcome <i class="fas fa-plus"></i></button>
-                                            </div>
                                             <div class="col-sm-10">
-                                                <select type='email' class="select2" id="loAdd" onchange="success()" style="width: 100%" multiple="multiple">
+                                                <select type='email' class="select2" id="loAdd" onchange="successCourse()" style="width: 100%" multiple="multiple">
                                                     <option th:each="learningO: ${learningoutcomes}" th:value="${learningO.name}" th:text="${learningO.name}"></option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="programAdd" class="col-sm-4 col-form-label" style="align-self: end">Program</label>
-                                            <div class="col-form-label">
-                                                <button id="addNewProgram" type="button" class="btn btn-info" data-toggle="modal" data-target="#addModal">Add New Program <i class="fas fa-plus"></i></button>
-                                            </div>
                                             <div class="col-sm-10">
-                                                <select type='email' class="select2" id="programAdd" onchange="success()" style="width: 100%" multiple="multiple">
+                                                <select type='email' class="select2" id="programAdd" onchange="successCourse()" style="width: 100%" multiple="multiple">
                                                     <option th:each="program: ${programs}" th:value="${program.name}" th:text="${program.name}"></option>
                                                 </select>
                                             </div>
@@ -123,7 +118,101 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" id="button" onclick="add();" data-dismiss="modal" disabled>Add New</button>
+                                        <button type="button" class="btn btn-primary" id="buttonCourse" onclick="addCourse();" data-dismiss="modal" disabled>Add New</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade bd-example-modal-lg" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addCategoryLabel">Add New Category Entry (No entry can be empty)</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form>
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label for="courseNameAdd" class="col-sm-4 col-form-label">Category Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="categoryNameAdd" onchange="successCategory()" onkeyup="successCategory()"  placeholder="ex: Software Architecture">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="buttonCategory" onclick="addCategory();" data-dismiss="modal" disabled>Add New</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade bd-example-modal-lg" id="addLOModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addLOLabel">Add New Learning Outcome Entry (No entry can be empty)</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form>
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label for="courseNameAdd" class="col-sm-4 col-form-label">Learning Outcome Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="loNameAdd" onchange="successLO()" onkeyup="successLO()"  placeholder="ex: Design Software Systems">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="loCategoryAdd" class="col-sm-4 col-form-label">Category</label>
+                                            <div class="col-sm-10">
+                                                <select type='email' class="select2" id="loCategoryAdd" onchange="successLO()" style="width: 100%">
+                                                    <option th:each="category: ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="buttonLO" onclick="addLO();" data-dismiss="modal" disabled>Add New</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade bd-example-modal-lg" id="addProgramModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addProgramLabel">Add New Course Entry (No entry can be empty)</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form>
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label for="courseNameAdd" class="col-sm-4 col-form-label">Program Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="programNameAdd" onchange="successProgram()" onkeyup="successProgram()"  placeholder="ex: Civil Engineering">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="loCategoryAdd" class="col-sm-4 col-form-label">Course</label>
+                                            <div class="col-sm-10">
+                                                <select type='email' class="select2" id="programCourseAdd" onchange="successProgram()" style="width: 100%" multiple="multiple">
+                                                    <option th:each="course: ${courses}" th:value="${course.name}" th:text="${course.name}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="buttonProgram" onclick="addProgram();" data-dismiss="modal" disabled>Add New</button>
                                     </div>
                                 </form>
                             </div>

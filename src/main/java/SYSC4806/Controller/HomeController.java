@@ -102,35 +102,55 @@ public class HomeController {
     }
 
     /**
-     * Request Mapping for handling adding a new entry in the admin table
+     * Request Mapping for handling adding a new course entry in the admin table
      * @param model Model to add attributes and update view
      * @param requestWrapper The wrapper object that holds a Course, Category, LearningOutcome, and Program
      * @return The request wrapper and a valid http status
      */
-    @RequestMapping(value="add", method=RequestMethod.POST, headers = "Content-Type=application/json")
-    public String addData(Model model, @RequestBody RequestWrapper requestWrapper) {
+    @RequestMapping(value="addCourse", method=RequestMethod.POST, headers = "Content-Type=application/json")
+    public String addCourse(Model model, @RequestBody RequestWrapper requestWrapper) {
         // Get all the submitted info from the wrapper
         Course course = requestWrapper.getCourse();
-        LearningOutcome outcome = requestWrapper.getLearningOutcome();
-        Category cat = requestWrapper.getCategory();
-        Program pro = requestWrapper.getProgram();
-
+        ArrayList<String> loList = requestWrapper.getLearningOutcomeList();
+        ArrayList<String> programList = requestWrapper.getProgramList();
         // Build the model relationships
-        course.addLO(outcome);
-        outcome.setCategory(cat);
-        pro.addCourse(course);
+        for (String s: loList){
+            course.addLO(learningOutcomeRepository.findByName(s));
+        }
+        for(String s: programList){
+            programRepository.findByName(s).addCourse(course);
+        }
 
         // Save the new object to the db
         courseRepository.save(course);
-        learningOutcomeRepository.save(outcome);
-        categoryRepository.save(cat);
-        programRepository.save(pro);
+        return "fragments/adminResults :: resultsTable";
+    }
 
-        // Update the list of courses for table
-        Iterable<Course> coursesIter = courseRepository.findAll();
-        List<Course> courses = new ArrayList<Course>();
-        coursesIter.forEach(courses::add);
-        model.addAttribute("courses", courses);
+    @RequestMapping(value="addCategory", method=RequestMethod.POST, headers = "Content-Type=application/json")
+    public String addCategory(Model model, @RequestBody RequestWrapper requestWrapper) {
+        Category category = requestWrapper.getCategory();
+        categoryRepository.save(category);
+
+        return "fragments/adminResults :: resultsTable";
+    }
+
+    @RequestMapping(value="addLO", method=RequestMethod.POST, headers = "Content-Type=application/json")
+    public String addLO(Model model, @RequestBody RequestWrapper requestWrapper) {
+        LearningOutcome lo = requestWrapper.getLearningOutcome();
+        lo.setCategory(categoryRepository.findByName(requestWrapper.getCategory().getName()));
+        learningOutcomeRepository.save(lo);
+        System.out.println(lo.getCategory().getName());
+        return "fragments/adminResults :: resultsTable";
+    }
+
+    @RequestMapping(value="addProgram", method=RequestMethod.POST, headers = "Content-Type=application/json")
+    public String addProgram(Model model, @RequestBody RequestWrapper requestWrapper) {
+        Program program = requestWrapper.getProgram();
+        ArrayList<String> list = requestWrapper.getCourseList();
+        for (String s: list){
+            program.addCourse(courseRepository.findByName(s));
+        }
+        programRepository.save(program);
 
         return "fragments/adminResults :: resultsTable";
     }
