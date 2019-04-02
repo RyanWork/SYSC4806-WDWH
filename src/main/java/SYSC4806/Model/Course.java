@@ -1,5 +1,8 @@
 package SYSC4806.Model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +23,13 @@ public class Course {
 
     @ManyToMany(mappedBy = "courses",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<LearningOutcome> learningOutcomes = new ArrayList<>();
 
     @ManyToMany(
             mappedBy = "courses",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Program> programs = new ArrayList<>();
 
     public Course() {

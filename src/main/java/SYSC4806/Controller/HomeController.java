@@ -136,6 +136,17 @@ public class HomeController {
     }
 
     /*
+     * Request Mapping for handling deletion on selected course ID
+     * @param String id to find in database
+     * @return the new table without the deleted id
+     */
+    @RequestMapping(value = "/delete_entity/{id}", method = RequestMethod.GET)
+    public String deleteData(@PathVariable Long id) {
+        courseRepository.deleteById(id);
+        return "redirect:/admin";
+    }
+
+    /*
     *   Selects years that exists for a given program
     *   @param p Name of program selected
     *   @return List of years
