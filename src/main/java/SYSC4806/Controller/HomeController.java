@@ -229,4 +229,39 @@ public class HomeController {
     public String getLogin() {
         return "login";
     }
+
+    /*
+     * Request Mapping for handling deletion on selected program
+     * @param String id to find in database
+     * @return the new table without the deleted id
+     */
+    @RequestMapping(value = "/delete_entity/program/{name}",
+            method = {RequestMethod.GET, RequestMethod.DELETE})
+    public String deleteProgram(@PathVariable String name) {
+        programRepository.deleteById(programRepository.findByName(name).getId());
+        return "redirect:/admin";
+    }
+
+    /*
+     * Request Mapping for handling deletion on selected learning outcomes
+     * @param String id to find in database
+     * @return the new table without the deleted id
+     */
+    @RequestMapping(value = "/delete_entity/LO/{name}",
+            method = {RequestMethod.GET, RequestMethod.DELETE})
+    public String deleteLO(@PathVariable String name) {
+        learningOutcomeRepository.deleteById(learningOutcomeRepository.findByName(name).getId());
+        return "redirect:/admin";
+    }
+
+    /*
+     * Request Mapping for handling deletion on selected category
+     * @param String id to find in database
+     * @return the new table without the deleted id
+     */
+    @DeleteMapping("/delete_entity/category/{name}")
+    public String deleteCategory(@PathVariable String name) {
+        categoryRepository.deleteById(categoryRepository.findByName(name).getId());
+        return "redirect:/admin";
+    }
 }
