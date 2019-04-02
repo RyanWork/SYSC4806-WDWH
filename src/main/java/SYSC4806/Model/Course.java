@@ -1,9 +1,7 @@
 package SYSC4806.Model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +20,10 @@ public class Course {
     @Max(value = 4, message = "Year should not be greater than 4")
     private int year;
 
-    @NotNull(message = "Name cannot be null")
+    @NotBlank(message = "Name cannot be blank")
     private String name;
 
-    @NotNull(message = "Code cannot be null")
+    @NotBlank(message = "Code cannot be blank")
     private String code;
 
     @ManyToMany(mappedBy = "courses",

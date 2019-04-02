@@ -13,6 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.junit.runner.RunWith;
 import org.junit.Test;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+
+import java.util.Set;
+
 import static org.junit.Assert.*;
 
 /**
@@ -39,6 +45,11 @@ public class ProgramTest implements InstanceTestClassListener {
      * Test course to be used for tests
      */
     private Course c = new Course(1, "TEST_PROGRAM_COURSE_NAME", "TEST_PROGRAM_COURSE_CODE");
+
+    /**
+     * Validator use to validate constraints on Program attributes
+     */
+    private Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     /**
      * Setting up dummy information for programs
@@ -81,5 +92,23 @@ public class ProgramTest implements InstanceTestClassListener {
         assertNotNull(prog1);
         assertNotNull(prog1.getCourses());
         assertFalse(prog1.getCourses().isEmpty());
+    }
+
+    @Test
+    public void testBlankProgramName(){
+        Program blankNameTestProg = new Program("");
+        Set<ConstraintViolation<Program>> violations = validator.validate(blankNameTestProg);
+
+        //1 violation is expected since the Program name is blank
+        assertEquals(violations.size(),1);
+    }
+
+    @Test
+    public void testNullProgramName(){
+        Program nullNameTestProg = new Program(null);
+        Set<ConstraintViolation<Program>> violations = validator.validate(nullNameTestProg);
+
+        //1 violation is expected since the Program name is null
+        assertEquals(violations.size(),1);
     }
 }

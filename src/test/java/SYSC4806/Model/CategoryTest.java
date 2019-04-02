@@ -13,6 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.junit.runner.RunWith;
 import org.junit.Test;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+
+import java.util.Set;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringInstanceTestClassRunner.class)
@@ -35,6 +41,11 @@ public class CategoryTest implements InstanceTestClassListener {
      * Learning outcome to be used for tests
      */
     private LearningOutcome lo = new LearningOutcome("TEST_CATEGORY_LEARNING_OUTCOME", c);
+
+    /**
+     * Validator use to validate constraints on Category attributes
+     */
+    private Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     /**
      * Add the test category to the repository
@@ -69,5 +80,23 @@ public class CategoryTest implements InstanceTestClassListener {
         assertNotNull(testCategory);
         assertNotNull(testCategory.getLearningOutcomes());
         assertFalse(testCategory.getLearningOutcomes().isEmpty());
+    }
+
+    @Test
+    public void testBlankCategoryName(){
+        Category blankNameTestCat = new Category("");
+        Set<ConstraintViolation<Category>> violations = validator.validate(blankNameTestCat);
+
+        //1 violation is expected since the category name is blank
+        assertEquals(violations.size(),1);
+    }
+
+    @Test
+    public void testNullCategoryName(){
+        Category nullNameTestCat = new Category(null);
+        Set<ConstraintViolation<Category>> violations = validator.validate(nullNameTestCat);
+
+        //1 violation is expected since the category name is null
+        assertEquals(violations.size(),1);
     }
 }

@@ -13,6 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.junit.runner.RunWith;
 import org.junit.Test;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+
+import java.util.Set;
+
 import static org.junit.Assert.*;
 /**
  * Tests for the LearningOutcomes Model class to ensure that the category and courses persist in the database.
@@ -43,6 +49,11 @@ public class LearningOutcomeTest implements InstanceTestClassListener {
      * Instance of learning outcome to add to repo
      */
     private LearningOutcome testLO = new LearningOutcome("TEST_LEARNING_OUTCOME", category);
+
+    /**
+     * Validator use to validate constraints on Learning Outcome attributes
+     */
+    private Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     /**
      * Setting up dummy information for learningoutcomes
@@ -83,5 +94,23 @@ public class LearningOutcomeTest implements InstanceTestClassListener {
 
         assertNotNull(lo);
         assertFalse(lo.getCourses().isEmpty());
+    }
+
+    @Test
+    public void testBlankLearningOutcomeName(){
+        LearningOutcome blankNameTestLo = new LearningOutcome("", category);
+        Set<ConstraintViolation<LearningOutcome>> violations = validator.validate(blankNameTestLo);
+
+        //1 violation is expected since the Learning Outcome name is blank
+        assertEquals(violations.size(),1);
+    }
+
+    @Test
+    public void testNullLearningOutcomeName(){
+        LearningOutcome nullNameTestLo = new LearningOutcome(null, category);
+        Set<ConstraintViolation<LearningOutcome>> violations = validator.validate(nullNameTestLo);
+
+        //1 violation is expected since the Learning Outcome name is null
+        assertEquals(violations.size(),1);
     }
 }
