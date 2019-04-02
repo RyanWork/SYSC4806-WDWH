@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learning Outcomes Management System</title>
+</head>
+<body>
+    <div class="results card-body" id="results" th:fragment="resultsTable">
+        <table id="results-table" class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Course ID</th>
+                <th scope="col">Course</th>
+                <th scope="col">Code</th>
+                <th scope="col">Program</th>
+                <th scope="col">Category</th>
+                <th scope="col">Learning Outcomes</th>
+                <th scope="col">Edit/Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <form>
+                <tr th:each = "course: ${courses}">
+                    <th th:text = "${course.id}"></th>
+                    <td th:text = "${course.name}"></td>
+                    <td th:text = "${course.code}"></td>
+                    <td>
+                        <span th:each="allPrograms: ${course.programs}" th:utext = "${allPrograms.name + '&lt;br /&gt;'} "></span>
+                    </td>
+                    <td>
+                        <span th:each="allOutcomes: ${course.learningOutcomes}" th:utext="${allOutcomes.category.name + '&lt;br /&gt;'}"></span>
+                    </td>
+                    <td>
+                        <span th:each="allOutcomes: ${course.learningOutcomes}" th:utext = "${allOutcomes.name + '&lt;br /&gt;'}"></span>
+                    </td>
+                    <td>
+                        <button class="btn btn-dark"  type="submit"><i style="height: 20px; width: 20px;" class="fas fa-pencil-alt"></i></button>
+                        <a class="btn btn-danger" th:href="@{'/delete_entity/' + ${course.id}}" onClick="return confirm('Are you sure you want to delete this?')" type="button"><i style="height: 20px; width: 20px;" class="fas fa-times"></i></a>
+                    </td>
+                </tr>
+            </form>
+            </tbody>
+        </table>
+    </div>
+    <!-- ======================================================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
+    <script src="/js/index.js" th:href="@{/js/index.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+</body>
+</html>

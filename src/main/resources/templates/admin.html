@@ -17,9 +17,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 </head>
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-info justify-content-between">
-        <a class="navbar-brand" href="#"><i class="fas fa-graduation-cap"></i> Learning Outcomes Management System</a>
+        <a class="navbar-brand" href="/"><i class="fas fa-graduation-cap"></i> Learning Outcomes Management System</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,31 +32,43 @@
             </form>
         </div>
     </nav>
-    <div class="results" id="results">
+    <div class="results">
         <div class="col">
             <div class="card" onlick="active();">
                 <div class="card-header">
-                    Data Editor - Full Results
-                    <!-- Button trigger modal -->
-                    <!-- This apply filter is different than the first. We want to Filter even more specific data -->
-                    <div class="my-2 my-sm-0 offset-lg-8">
-                        <button id="addBtn" type="button" class="btn btn-dark" data-toggle="modal" data-target="#addModal">
-                            Add <i class="fas fa-plus"></i>
-                        </button>
-                        <button id="filterBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#filterModalCenter">
-                            Apply Filter(s) <i class="fas fa-sync"></i>
-                        </button>
-                        <button id="populateBtn" type="button" class="btn btn-info">
-                            Populate Table <i class="far fa-paper-plane"></i>
-                        </button>
-                    </div>
+                    <div class="row">
+                        <div class="my-2 col-4">Data Editor - Full Results</div>
+                        <div class="col-2">
+                            <button id="addCourseBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addCourseModal">
+                                Add Course <i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="col-2">
+                            <button id="addCategoryBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addCategoryModal">
+                                Add Category <i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="col-2">
+                            <button id="addLearningOBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addLOModal">
+                                Add Learning Outcome <i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="col-2">
+                            <button id="addProgramBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addProgramModal">
+                                Add Program <i class="fas fa-plus"></i></button>
+                        </div>
 
-                    <!-- Modal Add - Once Add button is pressed this will open up -->
-                    <div class="modal fade bd-example-modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+
+                    </div>
+                    <!--Data Editor - Full Results-->
+                    <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
+                    <!--<button id="addBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addModal">-->
+                        <!--Add <i class="fas fa-plus"></i>-->
+                    <!--</button>-->
+
+                    <!-- Modal Adds - Once the different Add buttons are pressed one of these modals will open up -->
+                    <div class="modal fade bd-example-modal-lg" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="addModalLabel">Add New Data Entry</h5>
+                                    <h5 class="modal-title" id="addCourseLabel">Add New Course Entry (No entry can be empty)</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -67,62 +78,140 @@
                                         <div class="form-group row">
                                             <label for="courseNameAdd" class="col-sm-4 col-form-label">Course Name</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="courseNameAdd" placeholder="ex: Operating Systems">
+                                                <input type="email" class="form-control" id="courseNameAdd" onchange="successCourse()" onkeyup="successCourse()"  placeholder="ex: Operating Systems">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="codeAdd" class="col-sm-4 col-form-label">Course Code</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="codeAdd" placeholder="ex: 4001">
+                                                <input type="email" class="form-control" id="codeAdd" onchange="successCourse()" onkeyup="successCourse()"  placeholder="ex: 4001">
                                             </div>
                                         </div>
-                                        <fieldset class="form-group">
-                                            <div class="row">
-                                                <legend class="col-form-label col-sm-4 pt-0">Course Year</legend>
-                                                <div class="col-sm-10">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                                                        <label class="form-check-label" for="gridRadios1">
-                                                            Year 1
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                                                        <label class="form-check-label" for="gridRadios2">
-                                                            Year 2
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option2">
-                                                        <label class="form-check-label" for="gridRadios3">
-                                                            Year 3
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios4" value="option2">
-                                                        <label class="form-check-label" for="gridRadios4">
-                                                            Year 4
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
                                         <div class="form-group row">
-                                            <label for="categoryAdd" class="col-sm-4 col-form-label">Category</label>
+                                            <label for="yearAdd" class="col-sm-4 col-form-label"> Choose year:</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="categoryAdd" placeholder="ex: Programming">
+                                                <select class="custom-select select2 mr-sm-2" id="yearAdd">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="loAdd" class="col-sm-4 col-form-label">Learning Outcomes</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="loAdd" placeholder="ex: Web Application Coding">
+                                                <select type='email' class="select2" id="loAdd" onchange="successCourse()" style="width: 100%" multiple="multiple">
+                                                    <option th:each="learningO: ${learningoutcomes}" th:value="${learningO.name}" th:text="${learningO.name}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="programAdd" class="col-sm-4 col-form-label" style="align-self: end">Program</label>
+                                            <div class="col-sm-10">
+                                                <select type='email' class="select2" id="programAdd" onchange="successCourse()" style="width: 100%" multiple="multiple">
+                                                    <option th:each="program: ${programs}" th:value="${program.name}" th:text="${program.name}"></option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Add New</button>
+                                        <button type="button" class="btn btn-primary" id="buttonCourse" onclick="addCourse();" data-dismiss="modal" disabled>Add New</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade bd-example-modal-lg" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addCategoryLabel">Add New Category Entry (No entry can be empty)</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form>
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label for="courseNameAdd" class="col-sm-4 col-form-label">Category Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="categoryNameAdd" onchange="successCategory()" onkeyup="successCategory()"  placeholder="ex: Software Architecture">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="buttonCategory" onclick="addCategory();" data-dismiss="modal" disabled>Add New</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade bd-example-modal-lg" id="addLOModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addLOLabel">Add New Learning Outcome Entry (No entry can be empty)</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form>
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label for="courseNameAdd" class="col-sm-4 col-form-label">Learning Outcome Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="loNameAdd" onchange="successLO()" onkeyup="successLO()"  placeholder="ex: Design Software Systems">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="loCategoryAdd" class="col-sm-4 col-form-label">Category</label>
+                                            <div class="col-sm-10">
+                                                <select type='email' class="select2" id="loCategoryAdd" onchange="successLO()" style="width: 100%">
+                                                    <option th:each="category: ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="buttonLO" onclick="addLO();" data-dismiss="modal" disabled>Add New</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade bd-example-modal-lg" id="addProgramModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addProgramLabel">Add New Course Entry (No entry can be empty)</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form>
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label for="courseNameAdd" class="col-sm-4 col-form-label">Program Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="programNameAdd" onchange="successProgram()" onkeyup="successProgram()"  placeholder="ex: Civil Engineering">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="loCategoryAdd" class="col-sm-4 col-form-label">Course</label>
+                                            <div class="col-sm-10">
+                                                <select type='email' class="select2" id="programCourseAdd" onchange="successProgram()" style="width: 100%" multiple="multiple">
+                                                    <option th:each="course: ${courses}" th:value="${course.name}" th:text="${course.name}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="buttonProgram" onclick="addProgram();" data-dismiss="modal" disabled>Add New</button>
                                     </div>
                                 </form>
                             </div>
@@ -130,155 +219,9 @@
                     </div>
                     <!-- End of Modal Add Code -->
 
-                    <!-- Modal Filter - Once Filter button is pressed this will open up -->
-                    <div class="modal fade" id="filterModalCenter" tabindex="-1" role="dialog" aria-labelledby="filterModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="filterModalCenterTitle">Filter</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-
-                                    <!-- Form for Filter -->
-                                    <form>
-                                        <!-- Programs -->
-                                        <div class="card bg-light">
-                                            <div class="card bg-light">
-                                                <div class="card-header">
-                                                    Programs
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="form-group">
-
-                                                        <!-- We will want database to populate these options-->
-                                                        <label for="testSelect1"> Select Program(s)</label>
-                                                        <select multiple class="form-control" id='testSelect1'>
-                                                            <option value='1'>Item 1</option>
-                                                            <option value='2'>Item 2</option>
-                                                            <option value='3'>Item 3</option>
-                                                            <option value='4'>Item 4</option>
-                                                            <option value='5'>Item 5</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Course Code -->
-                                        <div class="card bg-light">
-                                            <div class="card-header">
-                                                Course Code
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="form-check form-check-inline">
-                                                    <input type="checkbox" class="form-check-input" id="courseYr1Check" unchecked>
-                                                    <label class="form-check-label" for="courseYr1Check">1xxx</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input type="checkbox" class="form-check-input" id="courseYr2Check" unchecked>
-                                                    <label class="form-check-label" for="courseYr2Check">2xxx</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input type="checkbox" class="form-check-input" id="courseYr3Check" unchecked>
-                                                    <label class="form-check-label" for="courseYr3Check">3xxx</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input type="checkbox" class="form-check-input" id="courseYr4Check" unchecked>
-                                                    <label class="form-check-label" for="courseYr4Check">4xxx</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Category -->
-                                        <div class="card bg-light">
-                                            <div class="card-header">
-                                                Category
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="form-group">
-
-                                                    <!-- We will want database to populate these options-->
-                                                    <label for="testSelect2"> Select Category(s)</label>
-                                                    <select multiple class="form-control" id='testSelect2'>
-                                                        <option value='1'>Item 1</option>
-                                                        <option value='2'>Item 2</option>
-                                                        <option value='3'>Item 3</option>
-                                                        <option value='4'>Item 4</option>
-                                                        <option value='5'>Item 5</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Learning Outcomes -->
-                                        <div class="card bg-light">
-                                            <div class="card-header">
-                                                Learning Outcomes
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="form-group">
-
-                                                    <!-- We will want database to populate these options-->
-                                                    <label for="testSelect3"> Select Learning Outcome(s)</label>
-                                                    <select multiple class="form-control" id='testSelect3'>
-                                                        <option value='1'>Item 1</option>
-                                                        <option value='2'>Item 2</option>
-                                                        <option value='3'>Item 3</option>
-                                                        <option value='4'>Item 4</option>
-                                                        <option value='5'>Item 5</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Apply</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End of Modal Filter Code -->
-
-                    <!-- Direct Copy n Paste from index.html -->
-                    <!-- Will need to change this part -->
-                    <!-- We will want the table to populate based on the filter we made from above and once Populate button is pressed, show data -->
-                    <!-- We will want Edit to appear beside each row of data to allow edit option -->
                 </div>
                 <div class="card-body">
-                    <table id="results-table" class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th scope="col">Course ID</th>
-                            <th scope="col">Course</th>
-                            <th scope="col">Code</th>
-                            <th scope="col">Program</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Learning Outcomes</th>
-                            <th scope="col">Edit</th> <!-- We want to add edit on each row to allow edits on the data -->
-                        </tr>
-                        </thead>
-                        <!--<tbody>-->
-                        <!--<tr th:each = "course: ${courses}">-->
-                            <!--&lt;!&ndash;<th th:text = "${course.id}"></th>&ndash;&gt;-->
-                            <!--<td th:text = "${course.name}"></td>-->
-                            <!--<td th:text = "${course.code}"></td>-->
-                            <!--&lt;!&ndash;<td>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<span th:each="allPrograms: ${course.programs}" th:utext = "${allPrograms.name + '&lt;br /&gt;'} "></span>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</td>&ndash;&gt;-->
-                            <!--<td>-->
-                                <!--<span th:each="allOutcomes: ${course.learningOutcomes}" th:utext="${allOutcomes.category.name + '&lt;br /&gt;'}"></span>-->
-                            <!--</td>-->
-                            <!--<td>-->
-                                <!--<span th:each="allOutcomes: ${course.learningOutcomes}" th:utext = "${allOutcomes.name + '&lt;br /&gt;'}"></span>-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                        <!--</tbody>-->
-                    </table>
+                    <div class="row results" th:replace="fragments/adminResults :: resultsTable"></div>
                 </div>
             </div>
         </div>
@@ -287,8 +230,8 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
+    <script src="/js/index.js" th:href="@{/js/index.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-    <script src="/js/index.js" th:href="@{/js/index.js}"></script>
 </body>
 </html>

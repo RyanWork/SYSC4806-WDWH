@@ -1,6 +1,9 @@
 package SYSC4806.Controller;
 
+import SYSC4806.Model.Category;
 import SYSC4806.Model.Course;
+import SYSC4806.Model.LearningOutcome;
+import SYSC4806.Model.Program;
 import SYSC4806.Repository.CategoryRepository;
 import SYSC4806.Repository.CourseRepository;
 import SYSC4806.Repository.LearningOutcomeRepository;
@@ -10,15 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import SYSC4806.Model.RequestWrapper;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class HomeController {
@@ -53,10 +52,9 @@ public class HomeController {
      * to refresh results table
      */
     @GetMapping("/results/{program}/{year}")
-    public String showResults(Model model, @PathVariable("program") String p, @PathVariable String year,
+    public String showResults(Model model, @PathVariable("program") String p, @PathVariable("year") String year,
                               @RequestParam(value = "courses", required = false) String co,
                               @RequestParam(value = "categories", required = false) String ca) {
-
         long p_id = programRepository.findByName(p).getId();
         List<String> courseNames = courseRepository.findCourseByProgramAndYear(p_id, Integer.parseInt(year));
 
@@ -103,6 +101,105 @@ public class HomeController {
         return "fragments/results :: resultsTable";
     }
 
+    /**
+     * Request Mapping for handling adding a new course entry in the admin table
+     * @param model Model to add attributes and update view
+     * @param requestWrapper The wrapper object that holds a Course, learningOutcomeList, and programList
+     * @return The request wrapper and a valid http status
+     */
+    @RequestMapping(value="addCourse", method=RequestMethod.POST, headers = "Content-Type=application/json")
+    public String addCourse(Model model, @RequestBody RequestWrapper requestWrapper) {
+        // Get all the submitted info from the wrapper
+        Course course = requestWrapper.getCourse();
+        ArrayList<String> loList = requestWrapper.getLearningOutcomeList();
+        ArrayList<String> programList = requestWrapper.getProgramList();
+
+        // add the model relationships for the learning outcomes and programs
+        for (String s: loList){
+            course.addLO(learningOutcomeRepository.findByName(s));
+        }
+        for(String s: programList){
+            programRepository.findByName(s).addCourse(course);
+        }
+
+        //add object to repository.
+        courseRepository.save(course);
+
+        return "fragments/adminResults :: resultsTable";
+    }
+
+    /**
+     * Request Mapping for handling adding a new category entry in the admin table
+     * @param model Model to add attributes and update view
+     * @param requestWrapper The wrapper object that holds a Category
+     * @return The request wrapper and a valid http status
+     */
+    @RequestMapping(value="addCategory", method=RequestMethod.POST, headers = "Content-Type=application/json")
+    public String addCategory(Model model, @RequestBody RequestWrapper requestWrapper) {
+        // Get all the submitted info from the wrapper
+        Category category = requestWrapper.getCategory();
+
+        //add object to repository.
+        categoryRepository.save(category);
+
+        return "fragments/adminResults :: resultsTable";
+    }
+
+    /**
+     * Request Mapping for handling adding a new Learning Outcome entry in the admin table
+     * @param model Model to add attributes and update view
+     * @param requestWrapper The wrapper object that holds a learning outcome and a category
+     * @return The request wrapper and a valid http status
+     */
+    @RequestMapping(value="addLO", method=RequestMethod.POST, headers = "Content-Type=application/json")
+    public String addLO(Model model, @RequestBody RequestWrapper requestWrapper) {
+        // Get all the submitted info from the wrapper
+        LearningOutcome lo = requestWrapper.getLearningOutcome();
+
+        //add category relationship to learning outcome
+        lo.setCategory(categoryRepository.findByName(requestWrapper.getCategory().getName()));
+
+        //add object to repository.
+        learningOutcomeRepository.save(lo);
+
+        return "fragments/adminResults :: resultsTable";
+    }
+
+
+    /**
+     * Request Mapping for handling adding a new Program entry in the admin table
+     * @param model Model to add attributes and update view
+     * @param requestWrapper The wrapper object that holds a program and courseList
+     * @return The request wrapper and a valid http status
+     */
+    @RequestMapping(value="addProgram", method=RequestMethod.POST, headers = "Content-Type=application/json")
+    public String addProgram(Model model, @RequestBody RequestWrapper requestWrapper) {
+        // Get all the submitted info from the wrapper
+        Program program = requestWrapper.getProgram();
+        ArrayList<String> list = requestWrapper.getCourseList();
+
+        //add all the course relationships to the program object
+        for (String s: list){
+            program.addCourse(courseRepository.findByName(s));
+        }
+
+        //add object to repository.
+        programRepository.save(program);
+
+        return "fragments/adminResults :: resultsTable";
+    }
+
+    /*
+     * Request Mapping for handling deletion on selected course ID
+     * @param String id to find in database
+     * @return the new table without the deleted id
+     */
+    @RequestMapping(value = "/delete_entity/{id}", method = RequestMethod.GET)
+    public String deleteData(@PathVariable Long id) {
+        courseRepository.deleteById(id);
+        return "redirect:/admin";
+    }
+
     /*
     *   Selects years that exists for a given program
     *   @param p Name of program selected
@@ -118,9 +215,13 @@ public class HomeController {
         return new ResponseEntity<Object>(years, HttpStatus.OK);
     }
 
-
     @GetMapping("/admin")
-    public String getAdmin() {
+    public String getAdmin(Model model)
+    {
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("courses", courseRepository.findAll());
+        model.addAttribute("learningoutcomes", learningOutcomeRepository.findAll());
+        model.addAttribute("programs", programRepository.findAll());
         return "admin";
     }
 
