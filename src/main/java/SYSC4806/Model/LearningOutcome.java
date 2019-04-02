@@ -1,6 +1,7 @@
 package SYSC4806.Model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,8 @@ public class LearningOutcome {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
+
+    @NotBlank(message = "Name cannot be blank")
     private String name;
 
     @ManyToOne(cascade = CascadeType.ALL)

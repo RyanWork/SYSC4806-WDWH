@@ -1,6 +1,7 @@
 package SYSC4806.Model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,15 @@ public class Course {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
+
+    @Min(value = 1, message = "Year should not be less than 1")
+    @Max(value = 4, message = "Year should not be greater than 4")
     private int year;
+
+    @NotBlank(message = "Name cannot be blank")
     private String name;
+
+    @NotBlank(message = "Code cannot be blank")
     private String code;
 
     @ManyToMany(mappedBy = "courses",

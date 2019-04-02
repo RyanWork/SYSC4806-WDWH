@@ -13,7 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.junit.runner.RunWith;
 import org.junit.Test;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -47,12 +51,19 @@ public class CourseTest implements InstanceTestClassListener {
      */
     private Program p = new Program();
 
+    /**
+     * Validator use to validate constraints on Course attributes
+     */
+    private Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+
 
     /**
      * Add the test category to the repository
      */
     @Override
     public void beforeClassSetup() {
+        lo.setName("lo1");
+        p.setName("p1");
         c.addLO(lo);
         c.addProgram(p);
         courseRepository.save(c);
@@ -119,5 +130,24 @@ public class CourseTest implements InstanceTestClassListener {
         assertNotNull(course);
         assertNotNull(course.getPrograms());
         assertTrue(course.getPrograms().isEmpty());
+    }
+
+    @Test
+    public void testBlankCourseNameAndYearConstraint(){
+        Course blankNameTestCo = new Course(5, "", "");
+        Set<ConstraintViolation<Course>> violations = validator.validate(blankNameTestCo);
+
+        //3 violation are expected since the course name and code are blank.
+        //Also, year is greater than 4 so that throws a violation for the max value.
+        assertEquals(violations.size(),3);
+    }
+
+    @Test
+    public void testNullCourseName(){
+        Course nullNameTestCo = new Course(1, null, null);
+        Set<ConstraintViolation<Course>> violations = validator.validate(nullNameTestCo);
+
+        //2 violation is expected since the course name and code are null.
+        assertEquals(violations.size(),2);
     }
 }
