@@ -104,7 +104,7 @@ public class HomeController {
     /**
      * Request Mapping for handling adding a new course entry in the admin table
      * @param model Model to add attributes and update view
-     * @param requestWrapper The wrapper object that holds a Course, Category, LearningOutcome, and Program
+     * @param requestWrapper The wrapper object that holds a Course, learningOutcomeList, and programList
      * @return The request wrapper and a valid http status
      */
     @RequestMapping(value="addCourse", method=RequestMethod.POST, headers = "Content-Type=application/json")
@@ -113,7 +113,8 @@ public class HomeController {
         Course course = requestWrapper.getCourse();
         ArrayList<String> loList = requestWrapper.getLearningOutcomeList();
         ArrayList<String> programList = requestWrapper.getProgramList();
-        // Build the model relationships
+
+        // add the model relationships for the learning outcomes and programs
         for (String s: loList){
             course.addLO(learningOutcomeRepository.findByName(s));
         }
@@ -121,35 +122,68 @@ public class HomeController {
             programRepository.findByName(s).addCourse(course);
         }
 
-        // Save the new object to the db
+        //add object to repository.
         courseRepository.save(course);
+
         return "fragments/adminResults :: resultsTable";
     }
 
+    /**
+     * Request Mapping for handling adding a new category entry in the admin table
+     * @param model Model to add attributes and update view
+     * @param requestWrapper The wrapper object that holds a Category
+     * @return The request wrapper and a valid http status
+     */
     @RequestMapping(value="addCategory", method=RequestMethod.POST, headers = "Content-Type=application/json")
     public String addCategory(Model model, @RequestBody RequestWrapper requestWrapper) {
+        // Get all the submitted info from the wrapper
         Category category = requestWrapper.getCategory();
+
+        //add object to repository.
         categoryRepository.save(category);
 
         return "fragments/adminResults :: resultsTable";
     }
 
+    /**
+     * Request Mapping for handling adding a new Learning Outcome entry in the admin table
+     * @param model Model to add attributes and update view
+     * @param requestWrapper The wrapper object that holds a learning outcome and a category
+     * @return The request wrapper and a valid http status
+     */
     @RequestMapping(value="addLO", method=RequestMethod.POST, headers = "Content-Type=application/json")
     public String addLO(Model model, @RequestBody RequestWrapper requestWrapper) {
+        // Get all the submitted info from the wrapper
         LearningOutcome lo = requestWrapper.getLearningOutcome();
+
+        //add category relationship to learning outcome
         lo.setCategory(categoryRepository.findByName(requestWrapper.getCategory().getName()));
+
+        //add object to repository.
         learningOutcomeRepository.save(lo);
-        System.out.println(lo.getCategory().getName());
+
         return "fragments/adminResults :: resultsTable";
     }
 
+
+    /**
+     * Request Mapping for handling adding a new Program entry in the admin table
+     * @param model Model to add attributes and update view
+     * @param requestWrapper The wrapper object that holds a program and courseList
+     * @return The request wrapper and a valid http status
+     */
     @RequestMapping(value="addProgram", method=RequestMethod.POST, headers = "Content-Type=application/json")
     public String addProgram(Model model, @RequestBody RequestWrapper requestWrapper) {
+        // Get all the submitted info from the wrapper
         Program program = requestWrapper.getProgram();
         ArrayList<String> list = requestWrapper.getCourseList();
+
+        //add all the course relationships to the program object
         for (String s: list){
             program.addCourse(courseRepository.findByName(s));
         }
+
+        //add object to repository.
         programRepository.save(program);
 
         return "fragments/adminResults :: resultsTable";
