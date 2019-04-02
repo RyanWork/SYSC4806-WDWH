@@ -1,10 +1,12 @@
 INSERT INTO category (name) VALUES ('Programming');
 INSERT INTO CATEGORY (name) VALUES ('Software Architecture');
 INSERT INTO CATEGORY (name) VALUES ('Logic Algorithm');
+INSERT INTO CATEGORY (name) VALUES ('TEST');
 
 INSERT INTO LEARNING_OUTCOME (name, category_id) VALUES ('Web Application Coding', 1);
 INSERT INTO LEARNING_OUTCOME (name, category_id) VALUES ('Design Software System', 2);
 INSERT INTO LEARNING_OUTCOME (name, category_id) VALUES ('Logic Gates', 3);
+INSERT INTO LEARNING_OUTCOME (name, category_id) VALUES ('TEST LO', 4);
 
 INSERT INTO COURSE (year, name, code) VALUES (4, 'Software Engineering Lab', '4806');
 INSERT INTO COURSE (year, name, code) VALUES (3, 'Real-Time Concurrent System', '3303');
@@ -29,6 +31,7 @@ INSERT INTO LEARNING_OUTCOME_COURSES (courses_id, learning_outcomes_id) VALUES (
 INSERT INTO LEARNING_OUTCOME_COURSES (courses_id, learning_outcomes_id) VALUES (5, 3);
 INSERT INTO LEARNING_OUTCOME_COURSES (courses_id, learning_outcomes_id) VALUES (6, 1);
 INSERT INTO LEARNING_OUTCOME_COURSES (courses_id, learning_outcomes_id) VALUES (7, 2);
+INSERT INTO LEARNING_OUTCOME_COURSES (courses_id, learning_outcomes_id) VALUES (7, 4);
 
 INSERT INTO PROGRAM_COURSES (programs_id, courses_id) VALUES (1, 1);
 INSERT INTO PROGRAM_COURSES (programs_id, courses_id) VALUES (1, 2);
