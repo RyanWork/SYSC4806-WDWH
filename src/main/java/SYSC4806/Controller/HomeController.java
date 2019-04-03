@@ -190,17 +190,6 @@ public class HomeController {
     }
 
     /**
-     * Request Mapping for handling deletion on selected course ID
-     * @param String id to find in database
-     * @return the new table without the deleted id
-     */
-    @RequestMapping(value = "/delete_entity/{id}", method = RequestMethod.GET)
-    public String deleteData(@PathVariable Long id) {
-        courseRepository.deleteById(id);
-        return "redirect:/admin";
-    }
-
-    /**
      * PUT request Method to change a course entry in both the admin and user tables.
      * @param courseId The course id to change
      * @param wrapper The wrapper object that contains all the changed/unchanged fields

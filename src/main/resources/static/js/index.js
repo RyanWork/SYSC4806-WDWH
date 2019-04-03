@@ -91,3 +91,17 @@ function getFilterResults() {
         }
     );
 }
+
+function deleteObject(type) {
+    let name = $("#delSelect" + type + " option:selected").val();
+    let url = '/delete_entity/' + type + '/' + name;
+    $.ajax({
+        url: url,
+        type: 'DELETE',
+        success: function() {
+            location.reload();
+            alert(name + ' successfully deleted!');
+        }
+    });
+}
+
