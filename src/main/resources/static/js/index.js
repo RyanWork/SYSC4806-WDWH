@@ -27,6 +27,8 @@ $('#programSelect').change( function() {
         });
 
         $('#yearSelect').empty().select2({
+            placeholder: 'Choose...',
+            allowClear: true,
             data: newOptions
         });
     }

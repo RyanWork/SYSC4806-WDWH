@@ -101,22 +101,31 @@
             <div class="card" onlick="active();">
                 <div class="card-header">
                     <div class="row">
-                        <div class="my-2 col-4">Data Editor - Full Results</div>
+                        <div class="my-2 col-8">Data Editor - Full Results</div>
                         <div class="col-2">
-                            <button id="addCourseBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addCourseModal">
-                                Add Course <i class="fas fa-plus"></i></button>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle btn-block" type="button" id="addDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Add New
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="addDropdown">
+                                    <button id="addCourseBtn" type="button" class="dropdown-item" data-toggle="modal" data-target="#addCourseModal">Course </button>
+                                    <button id="addCategoryBtn" type="button" class="dropdown-item" data-toggle="modal" data-target="#addCategoryModal">Category</button>
+                                    <button id="addLearningOBtn" type="button" class="dropdown-item" data-toggle="modal" data-target="#addLOModal">Learning Outcome</button>
+                                    <button id="addProgramBtn" type="button" class="dropdown-item" data-toggle="modal" data-target="#addProgramModal">Program</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-2">
-                            <button id="addCategoryBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addCategoryModal">
-                                Add Category <i class="fas fa-plus"></i></button>
-                        </div>
-                        <div class="col-2">
-                            <button id="addLearningOBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addLOModal">
-                                Add Learning Outcome <i class="fas fa-plus"></i></button>
-                        </div>
-                        <div class="col-2">
-                            <button id="addProgramBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addProgramModal">
-                                Add Program <i class="fas fa-plus"></i></button>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle btn-block" type="button" id="deleteDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Delete
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="deleteDropdown">
+                                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delLO">Learning Outcome</button>
+                                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delCategory">Category</button>
+                                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delProgram">Program</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -148,6 +157,7 @@
                                             <label for="yearAdd" class="col-sm-4 col-form-label"> Choose year:</label>
                                             <div class="col-sm-10">
                                                 <select class="custom-select select2 mr-sm-2" id="yearAdd">
+                                                    <option></option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -159,6 +169,7 @@
                                             <label for="loAdd" class="col-sm-4 col-form-label">Learning Outcomes</label>
                                             <div class="col-sm-10">
                                                 <select type='text' class="select2" id="loAdd" onchange="successCourse()" style="width: 100%" multiple="multiple">
+                                                    <option></option>
                                                     <option th:each="learningO: ${learningoutcomes}" th:value="${learningO.name}" th:text="${learningO.name}"></option>
                                                 </select>
                                             </div>
@@ -167,6 +178,7 @@
                                             <label for="programAdd" class="col-sm-4 col-form-label" style="align-self: end">Program</label>
                                             <div class="col-sm-10">
                                                 <select type='text' class="select2" id="programAdd" onchange="successCourse()" style="width: 100%" multiple="multiple">
+                                                    <option></option>
                                                     <option th:each="program: ${programs}" th:value="${program.name}" th:text="${program.name}"></option>
                                                 </select>
                                             </div>
@@ -227,6 +239,7 @@
                                             <label for="loCategoryAdd" class="col-sm-4 col-form-label">Category</label>
                                             <div class="col-sm-10">
                                                 <select type='text' class="select2" id="loCategoryAdd" onchange="successLO()" style="width: 100%">
+                                                    <option></option>
                                                     <option th:each="category: ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
                                                 </select>
                                             </div>
@@ -261,6 +274,7 @@
                                             <label for="loCategoryAdd" class="col-sm-4 col-form-label">Course</label>
                                             <div class="col-sm-10">
                                                 <select type='text' class="select2" id="programCourseAdd" onchange="successProgram()" style="width: 100%" multiple="multiple">
+                                                    <option></option>
                                                     <option th:each="course: ${courses}" th:value="${course.name}" th:text="${course.name}"></option>
                                                 </select>
                                             </div>
@@ -275,6 +289,85 @@
                         </div>
                     </div>
                     <!-- End of Modal Add Code -->
+
+                    <!-- Modal Deletes-->
+                    <div class="modal fade" id="delLO" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header bg-primary">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Delete Learning Outcome</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-md col-lg-4">
+                                            <label for="delSelectLO">Learning Outcomes</label>
+                                            <select id="delSelectLO" class="custom-select select2" style="width: 100%">
+                                                <option></option>
+                                                <option th:each="learningO: ${learningoutcomes}" th:value="${learningO.name}" th:text="${learningO.name}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" onclick="deleteObject('LO')">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="delCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header bg-primary">
+                                    <h5 class="modal-title">Delete Category</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <label for="delSelectcategory">Categories</label>
+                                    <select id="delSelectcategory" class="custom-select select2" style="width: 100%">
+                                        <option></option>
+                                        <option th:each="category: ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" onclick="deleteObject('category')">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="delProgram" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header bg-primary">
+                                    <h5 class="modal-title">Delete Program</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <label for="delSelectprogram">Programs</label>
+                                    <select id="delSelectprogram" class="custom-select select2" style="width: 100%">
+                                        <option></option>
+                                        <option th:each="program: ${programs}" th:value="${program.name}" th:text="${program.name}"></option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" onclick="deleteObject('program')">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Modal Deletes -->
+
                 </div>
                 <div class="card-body">
                     <div class="row results" th:replace="fragments/adminResults :: resultsTable"></div>
@@ -285,6 +378,7 @@
     <!-- ======================================================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
     <script src="/js/index.js" th:href="@{/js/index.js}"></script>
     <script src="/js/admin.js" th:href="@{/js/admin.js}"></script>

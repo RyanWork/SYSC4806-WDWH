@@ -270,6 +270,7 @@ public class HomeController {
     }
 
     /**
+    /*
     *   Selects years that exists for a given program
     *   @param p Name of program selected
     *   @return List of years
@@ -300,15 +301,25 @@ public class HomeController {
     }
 
     /*
+     * Request Mapping for handling deletion on selected course ID
+     * @param String id to find in database
+     * @return the new table without the deleted id
+     */
+    @RequestMapping(value = "/delete_entity/{id}", method = RequestMethod.GET)
+    public String deleteCourse(@PathVariable Long id) {
+        courseRepository.deleteById(id);
+        return "redirect:/admin";
+    }
+
+    /*
      * Request Mapping for handling deletion on selected program
      * @param String id to find in database
      * @return the new table without the deleted id
      */
-    @RequestMapping(value = "/delete_entity/program/{name}",
-            method = {RequestMethod.GET, RequestMethod.DELETE})
+    @DeleteMapping("/delete_entity/program/{name}")
     public String deleteProgram(@PathVariable String name) {
-        programRepository.deleteById(programRepository.findByName(name).getId());
-        return "redirect:/admin";
+        programRepository.delete(programRepository.findByName(name));
+        return "admin";
     }
 
     /*
@@ -316,11 +327,11 @@ public class HomeController {
      * @param String id to find in database
      * @return the new table without the deleted id
      */
-    @RequestMapping(value = "/delete_entity/LO/{name}",
-            method = {RequestMethod.GET, RequestMethod.DELETE})
+    @DeleteMapping("/delete_entity/LO/{name}")
     public String deleteLO(@PathVariable String name) {
-        learningOutcomeRepository.deleteById(learningOutcomeRepository.findByName(name).getId());
-        return "redirect:/admin";
+        LearningOutcome lo = learningOutcomeRepository.findByName(name);
+        learningOutcomeRepository.delete(lo);
+        return "admin";
     }
 
     /*
@@ -330,7 +341,7 @@ public class HomeController {
      */
     @DeleteMapping("/delete_entity/category/{name}")
     public String deleteCategory(@PathVariable String name) {
-        categoryRepository.deleteById(categoryRepository.findByName(name).getId());
-        return "redirect:/admin";
+        categoryRepository.delete(categoryRepository.findByName(name));
+        return "admin";
     }
 }
