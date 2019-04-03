@@ -16,5 +16,4 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
      * @return      The category with the specified name
      */
     Category findByName(@Param("name") String name);
-    void deleteByName(@Param("name") String name);
 }
