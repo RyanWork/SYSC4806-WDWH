@@ -190,17 +190,6 @@ public class HomeController {
     }
 
     /**
-     * Request Mapping for handling deletion on selected course ID
-     * @param String id to find in database
-     * @return the new table without the deleted id
-     */
-    @RequestMapping(value = "/delete_entity/{id}", method = RequestMethod.GET)
-    public String deleteData(@PathVariable Long id) {
-        courseRepository.deleteById(id);
-        return "redirect:/admin";
-    }
-
-    /**
      * PUT request Method to change a course entry in both the admin and user tables.
      * @param courseId The course id to change
      * @param wrapper The wrapper object that contains all the changed/unchanged fields
@@ -270,6 +259,7 @@ public class HomeController {
     }
 
     /**
+    /*
     *   Selects years that exists for a given program
     *   @param p Name of program selected
     *   @return List of years
@@ -297,5 +287,50 @@ public class HomeController {
     @GetMapping("/login")
     public String getLogin() {
         return "login";
+    }
+
+    /*
+     * Request Mapping for handling deletion on selected course ID
+     * @param String id to find in database
+     * @return the new table without the deleted id
+     */
+    @RequestMapping(value = "/delete_entity/{id}", method = RequestMethod.GET)
+    public String deleteCourse(@PathVariable Long id) {
+        courseRepository.deleteById(id);
+        return "redirect:/admin";
+    }
+
+    /*
+     * Request Mapping for handling deletion on selected program
+     * @param String id to find in database
+     * @return the new table without the deleted id
+     */
+    @DeleteMapping("/delete_entity/program/{name}")
+    public String deleteProgram(@PathVariable String name) {
+        programRepository.delete(programRepository.findByName(name));
+        return "admin";
+    }
+
+    /*
+     * Request Mapping for handling deletion on selected learning outcomes
+     * @param String id to find in database
+     * @return the new table without the deleted id
+     */
+    @DeleteMapping("/delete_entity/LO/{name}")
+    public String deleteLO(@PathVariable String name) {
+        LearningOutcome lo = learningOutcomeRepository.findByName(name);
+        learningOutcomeRepository.delete(lo);
+        return "admin";
+    }
+
+    /*
+     * Request Mapping for handling deletion on selected category
+     * @param String id to find in database
+     * @return the new table without the deleted id
+     */
+    @DeleteMapping("/delete_entity/category/{name}")
+    public String deleteCategory(@PathVariable String name) {
+        categoryRepository.delete(categoryRepository.findByName(name));
+        return "admin";
     }
 }

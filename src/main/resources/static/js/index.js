@@ -27,6 +27,8 @@ $('#programSelect').change( function() {
         });
 
         $('#yearSelect').empty().select2({
+            placeholder: 'Choose...',
+            allowClear: true,
             data: newOptions
         });
     }
@@ -89,3 +91,17 @@ function getFilterResults() {
         }
     );
 }
+
+function deleteObject(type) {
+    let name = $("#delSelect" + type + " option:selected").val();
+    let url = '/delete_entity/' + type + '/' + name;
+    $.ajax({
+        url: url,
+        type: 'DELETE',
+        success: function() {
+            location.reload();
+            alert(name + ' successfully deleted!');
+        }
+    });
+}
+
