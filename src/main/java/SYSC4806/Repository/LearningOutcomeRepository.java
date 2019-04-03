@@ -36,7 +36,4 @@ public interface LearningOutcomeRepository extends PagingAndSortingRepository<Le
      */
     @Query(value = "SELECT lo.id  FROM LEARNING_OUTCOME  as lo LEFT JOIN CATEGORY  as c ON lo.category_id  = c.id WHERE c.name = ?1", nativeQuery = true)
     List<BigInteger> findByCategoryName(String name);
-
-//    @Query(value = "DELETE FROM LEARNING_OUTCOME WHERE name = ?1", nativeQuery = true)
-    void deleteByName(@Param("name") String name);
 }
