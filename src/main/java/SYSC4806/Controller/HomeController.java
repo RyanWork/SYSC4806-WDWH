@@ -38,33 +38,6 @@ public class HomeController {
         this.programRepository = programRepository;
     }
 
-    @RequestMapping(value = "/results/allLO", produces = "application/json")
-    public ResponseEntity<Object> findLearningOutcomes() {
-        List<String> los = new ArrayList<>();
-        for(LearningOutcome lo: learningOutcomeRepository.findAll()) {
-            los.add(lo.getId() + " " + lo.getName());
-        }
-        return new ResponseEntity<Object>(los, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/results/allCategory", produces = "application/json")
-    public ResponseEntity<Object> findCategories() {
-        List<String> categories = new ArrayList<>();
-        for(Category cat: categoryRepository.findAll()) {
-            categories.add(cat.getId() + " " + cat.getName());
-        }
-        return new ResponseEntity<Object>(categories, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/results/allProgram", produces = "application/json")
-    public ResponseEntity<Object> findPrograms() {
-        List<String> programs = new ArrayList<>();
-        for(Program p : programRepository.findAll()) {
-            programs.add(p.getId() + " " + p.getName());
-        }
-        return new ResponseEntity<Object>(programs, HttpStatus.OK);
-    }
-
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
