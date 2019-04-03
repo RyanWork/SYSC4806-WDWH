@@ -1,5 +1,7 @@
 package SYSC4806.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
@@ -20,12 +22,14 @@ public class LearningOutcome {
     @NotBlank(message = "Name cannot be blank")
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="category_id")
+    @JsonIgnoreProperties("learningOutcomes")
     private Category category;
 
     @ManyToMany(
             cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnoreProperties("learningOutcomes")
     private List<Course> courses = new ArrayList<>();
 
     public LearningOutcome() {

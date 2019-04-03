@@ -1,5 +1,7 @@
 package SYSC4806.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class Program {
 
     @ManyToMany(
             cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnoreProperties("programs")
     private List<Course> courses = new ArrayList<>();
 
     public Program() {

@@ -4,6 +4,7 @@ import SYSC4806.Model.Category;
 import SYSC4806.Model.Course;
 import SYSC4806.Model.LearningOutcome;
 import SYSC4806.Model.Program;
+import SYSC4806.Model.RequestWrapper;
 import SYSC4806.Repository.CategoryRepository;
 import SYSC4806.Repository.CourseRepository;
 import SYSC4806.Repository.LearningOutcomeRepository;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import SYSC4806.Model.RequestWrapper;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -189,7 +189,7 @@ public class HomeController {
         return "fragments/adminResults :: resultsTable";
     }
 
-    /*
+    /**
      * Request Mapping for handling deletion on selected course ID
      * @param String id to find in database
      * @return the new table without the deleted id
@@ -200,7 +200,76 @@ public class HomeController {
         return "redirect:/admin";
     }
 
-    /*
+    /**
+     * PUT request Method to change a course entry in both the admin and user tables.
+     * @param courseId The course id to change
+     * @param wrapper The wrapper object that contains all the changed/unchanged fields
+     * @return      An object that has the updated course
+     */
+    @RequestMapping(value = "/admin/{courseId}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateEntry(Model model,
+                              @PathVariable("courseId") String courseId,
+                              @RequestBody RequestWrapper wrapper){
+
+        long courseIdParsed = Long.parseLong(courseId);
+
+        // Find the course requested to edit
+        Optional<Course> courseOptional = this.courseRepository.findById(courseIdParsed);
+        if(courseOptional.isPresent()){
+            Course c = courseOptional.get();
+
+            // Empty the bidirectional relationship to remove the intermediary relationship table for learning outcomes
+            List<LearningOutcome> courseLOs = c.getLearningOutcomes();
+            courseLOs.forEach((lo) -> {
+                lo.getCourses().remove(c);
+                this.learningOutcomeRepository.save(lo);
+            });
+            courseLOs.clear();
+
+            // Empty the bidirectional relationship to remove the intermediary relationship table for programs
+            List<Program> coursePrograms = c.getPrograms();
+            coursePrograms.forEach((program) -> {
+                program.getCourses().remove(c);
+                this.programRepository.save(program);
+            });
+            coursePrograms.clear();
+
+            // Set all the values
+            c.setName(wrapper.getCourse().getName());
+            c.setYear(wrapper.getCourse().getYear());
+            c.setCode(wrapper.getCourse().getCode());
+
+            // Add Learning Outcomes to the course
+            wrapper.getLearningOutcomeList().forEach((loName) -> {
+                LearningOutcome lo = this.learningOutcomeRepository.findByName(loName);
+                c.addLO(lo);
+            });
+
+            // Add all programs
+            wrapper.getProgramList().forEach((programName) -> {
+                Program p = this.programRepository.findByName(programName);
+                p.addCourse(c);
+                programRepository.save(p);
+            });
+
+            courseRepository.save(c);
+
+            return new ResponseEntity<Object>(c, HttpStatus.OK);
+        } else {
+            // If for some reason the user requests an ID that isn't found, return a bad requeste
+            return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/adminResults")
+    public String renderAdminTable(Model model){
+        Iterable<Course> courses = courseRepository.findAll();
+        model.addAttribute("courses", courses);
+
+        return "fragments/adminResults :: resultsTable";
+    }
+
+    /**
     *   Selects years that exists for a given program
     *   @param p Name of program selected
     *   @return List of years

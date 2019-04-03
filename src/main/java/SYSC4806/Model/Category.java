@@ -1,5 +1,7 @@
 package SYSC4806.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
@@ -19,7 +21,8 @@ public class Category {
     @NotBlank(message = "Name cannot be blank")
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @JsonIgnoreProperties("category")
     private List<LearningOutcome> learningOutcomes = new ArrayList<>();
 
     public Category() {

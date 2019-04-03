@@ -32,7 +32,71 @@
             </form>
         </div>
     </nav>
-    <div class="results">
+    <!-- Modal Edit -->
+    <div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Course</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <input id="editId" type="hidden" value="-1" />
+                        <!-- Select Course Name -->
+                        <div class="form-group row">
+                            <label for="courseNameEdit" class="col-sm-4 col-form-label">Course Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="courseNameEdit" placeholder="ex: Operating Systems">
+                            </div>
+                        </div>
+                        <!-- Select Course Code -->
+                        <div class="form-group row">
+                            <label for="courseCodeEdit" class="col-sm-4 col-form-label">Course Code</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="courseCodeEdit" placeholder="ex: 4001">
+                            </div>
+                        </div>
+                        <!-- Select Year -->
+                        <div class="form-group row">
+                            <div class="col-md col-lg-10">
+                                <label for="courseYearSelectEdit"> Choose Year</label>
+                                <select class="custom-select mr-sm-2" id="courseYearSelectEdit">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Select Programs -->
+                        <div class="form-group row">
+                            <div class="col-md col-lg-10">
+                                <label for="programSelectEdit"> Choose Programs</label>
+                                <select style="width:100%;" class="form-control select2" id="programSelectEdit" multiple="multiple"></select>
+                            </div>
+                        </div>
+                        <!-- Select Learning Outcomes -->
+                        <div class="form-group row">
+                            <div class="col-md col-lg-10">
+                                <label for="loSelectEdit"> Choose Learning Outcomes</label>
+                                <select style="width:100%;" class="form-control select2" id="loSelectEdit" multiple="multiple"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="editConfirm()" data-dismiss="modal">Confirm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End of Modal Edit Code -->
+
+    <div class="results" id="resultsPage">
         <div class="col">
             <div class="card" onlick="active();">
                 <div class="card-header">
@@ -54,14 +118,7 @@
                             <button id="addProgramBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addProgramModal">
                                 Add Program <i class="fas fa-plus"></i></button>
                         </div>
-
-
                     </div>
-                    <!--Data Editor - Full Results-->
-                    <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
-                    <!--<button id="addBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#addModal">-->
-                        <!--Add <i class="fas fa-plus"></i>-->
-                    <!--</button>-->
 
                     <!-- Modal Adds - Once the different Add buttons are pressed one of these modals will open up -->
                     <div class="modal fade bd-example-modal-lg" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -78,13 +135,13 @@
                                         <div class="form-group row">
                                             <label for="courseNameAdd" class="col-sm-4 col-form-label">Course Name</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="courseNameAdd" onchange="successCourse()" onkeyup="successCourse()"  placeholder="ex: Operating Systems">
+                                                <input type="text" class="form-control" id="courseNameAdd" onchange="successCourse()" onkeyup="successCourse()"  placeholder="ex: Operating Systems">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="codeAdd" class="col-sm-4 col-form-label">Course Code</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="codeAdd" onchange="successCourse()" onkeyup="successCourse()"  placeholder="ex: 4001">
+                                                <input type="text" class="form-control" id="codeAdd" onchange="successCourse()" onkeyup="successCourse()"  placeholder="ex: 4001">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -101,7 +158,7 @@
                                         <div class="form-group row">
                                             <label for="loAdd" class="col-sm-4 col-form-label">Learning Outcomes</label>
                                             <div class="col-sm-10">
-                                                <select type='email' class="select2" id="loAdd" onchange="successCourse()" style="width: 100%" multiple="multiple">
+                                                <select type='text' class="select2" id="loAdd" onchange="successCourse()" style="width: 100%" multiple="multiple">
                                                     <option th:each="learningO: ${learningoutcomes}" th:value="${learningO.name}" th:text="${learningO.name}"></option>
                                                 </select>
                                             </div>
@@ -109,7 +166,7 @@
                                         <div class="form-group row">
                                             <label for="programAdd" class="col-sm-4 col-form-label" style="align-self: end">Program</label>
                                             <div class="col-sm-10">
-                                                <select type='email' class="select2" id="programAdd" onchange="successCourse()" style="width: 100%" multiple="multiple">
+                                                <select type='text' class="select2" id="programAdd" onchange="successCourse()" style="width: 100%" multiple="multiple">
                                                     <option th:each="program: ${programs}" th:value="${program.name}" th:text="${program.name}"></option>
                                                 </select>
                                             </div>
@@ -137,7 +194,7 @@
                                         <div class="form-group row">
                                             <label for="courseNameAdd" class="col-sm-4 col-form-label">Category Name</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="categoryNameAdd" onchange="successCategory()" onkeyup="successCategory()"  placeholder="ex: Software Architecture">
+                                                <input type="text" class="form-control" id="categoryNameAdd" onchange="successCategory()" onkeyup="successCategory()"  placeholder="ex: Software Architecture">
                                             </div>
                                         </div>
                                     </div>
@@ -163,13 +220,13 @@
                                         <div class="form-group row">
                                             <label for="courseNameAdd" class="col-sm-4 col-form-label">Learning Outcome Name</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="loNameAdd" onchange="successLO()" onkeyup="successLO()"  placeholder="ex: Design Software Systems">
+                                                <input type="text" class="form-control" id="loNameAdd" onchange="successLO()" onkeyup="successLO()"  placeholder="ex: Design Software Systems">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="loCategoryAdd" class="col-sm-4 col-form-label">Category</label>
                                             <div class="col-sm-10">
-                                                <select type='email' class="select2" id="loCategoryAdd" onchange="successLO()" style="width: 100%">
+                                                <select type='text' class="select2" id="loCategoryAdd" onchange="successLO()" style="width: 100%">
                                                     <option th:each="category: ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
                                                 </select>
                                             </div>
@@ -197,13 +254,13 @@
                                         <div class="form-group row">
                                             <label for="courseNameAdd" class="col-sm-4 col-form-label">Program Name</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="programNameAdd" onchange="successProgram()" onkeyup="successProgram()"  placeholder="ex: Civil Engineering">
+                                                <input type="text" class="form-control" id="programNameAdd" onchange="successProgram()" onkeyup="successProgram()"  placeholder="ex: Civil Engineering">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="loCategoryAdd" class="col-sm-4 col-form-label">Course</label>
                                             <div class="col-sm-10">
-                                                <select type='email' class="select2" id="programCourseAdd" onchange="successProgram()" style="width: 100%" multiple="multiple">
+                                                <select type='text' class="select2" id="programCourseAdd" onchange="successProgram()" style="width: 100%" multiple="multiple">
                                                     <option th:each="course: ${courses}" th:value="${course.name}" th:text="${course.name}"></option>
                                                 </select>
                                             </div>
@@ -218,7 +275,6 @@
                         </div>
                     </div>
                     <!-- End of Modal Add Code -->
-
                 </div>
                 <div class="card-body">
                     <div class="row results" th:replace="fragments/adminResults :: resultsTable"></div>
@@ -231,6 +287,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
     <script src="/js/index.js" th:href="@{/js/index.js}"></script>
+    <script src="/js/admin.js" th:href="@{/js/admin.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 </body>

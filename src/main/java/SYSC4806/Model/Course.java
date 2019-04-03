@@ -1,5 +1,6 @@
 package SYSC4806.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -32,12 +33,14 @@ public class Course {
     @ManyToMany(mappedBy = "courses",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnoreProperties("courses")
     private List<LearningOutcome> learningOutcomes = new ArrayList<>();
 
     @ManyToMany(
             mappedBy = "courses",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnoreProperties("courses")
     private List<Program> programs = new ArrayList<>();
 
     public Course() {
