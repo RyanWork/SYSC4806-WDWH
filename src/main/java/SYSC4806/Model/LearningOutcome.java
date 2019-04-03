@@ -20,7 +20,7 @@ public class LearningOutcome {
     @NotBlank(message = "Name cannot be blank")
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="category_id")
     private Category category;
 

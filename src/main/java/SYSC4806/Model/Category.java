@@ -19,7 +19,7 @@ public class Category {
     @NotBlank(message = "Name cannot be blank")
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", orphanRemoval = true, cascade = CascadeType.PERSIST)
     private List<LearningOutcome> learningOutcomes = new ArrayList<>();
 
     public Category() {

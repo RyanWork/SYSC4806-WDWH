@@ -38,6 +38,33 @@ public class HomeController {
         this.programRepository = programRepository;
     }
 
+    @RequestMapping(value = "/results/allLO", produces = "application/json")
+    public ResponseEntity<Object> findLearningOutcomes() {
+        List<String> los = new ArrayList<>();
+        for(LearningOutcome lo: learningOutcomeRepository.findAll()) {
+            los.add(lo.getId() + " " + lo.getName());
+        }
+        return new ResponseEntity<Object>(los, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/results/allCategory", produces = "application/json")
+    public ResponseEntity<Object> findCategories() {
+        List<String> categories = new ArrayList<>();
+        for(Category cat: categoryRepository.findAll()) {
+            categories.add(cat.getId() + " " + cat.getName());
+        }
+        return new ResponseEntity<Object>(categories, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/results/allProgram", produces = "application/json")
+    public ResponseEntity<Object> findPrograms() {
+        List<String> programs = new ArrayList<>();
+        for(Program p : programRepository.findAll()) {
+            programs.add(p.getId() + " " + p.getName());
+        }
+        return new ResponseEntity<Object>(programs, HttpStatus.OK);
+    }
+
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
@@ -190,17 +217,6 @@ public class HomeController {
     }
 
     /*
-     * Request Mapping for handling deletion on selected course ID
-     * @param String id to find in database
-     * @return the new table without the deleted id
-     */
-    @RequestMapping(value = "/delete_entity/{id}", method = RequestMethod.GET)
-    public String deleteData(@PathVariable Long id) {
-        courseRepository.deleteById(id);
-        return "redirect:/admin";
-    }
-
-    /*
     *   Selects years that exists for a given program
     *   @param p Name of program selected
     *   @return List of years
@@ -231,15 +247,25 @@ public class HomeController {
     }
 
     /*
+     * Request Mapping for handling deletion on selected course ID
+     * @param String id to find in database
+     * @return the new table without the deleted id
+     */
+    @RequestMapping(value = "/delete_entity/{id}", method = RequestMethod.GET)
+    public String deleteCourse(@PathVariable Long id) {
+        courseRepository.deleteById(id);
+        return "redirect:/admin";
+    }
+
+    /*
      * Request Mapping for handling deletion on selected program
      * @param String id to find in database
      * @return the new table without the deleted id
      */
-    @RequestMapping(value = "/delete_entity/program/{name}",
-            method = {RequestMethod.GET, RequestMethod.DELETE})
+    @DeleteMapping("/delete_entity/program/{name}")
     public String deleteProgram(@PathVariable String name) {
-        programRepository.deleteById(programRepository.findByName(name).getId());
-        return "redirect:/admin";
+        programRepository.delete(programRepository.findByName(name));
+        return "admin";
     }
 
     /*
@@ -247,11 +273,11 @@ public class HomeController {
      * @param String id to find in database
      * @return the new table without the deleted id
      */
-    @RequestMapping(value = "/delete_entity/LO/{name}",
-            method = {RequestMethod.GET, RequestMethod.DELETE})
+    @DeleteMapping("/delete_entity/LO/{name}")
     public String deleteLO(@PathVariable String name) {
-        learningOutcomeRepository.deleteById(learningOutcomeRepository.findByName(name).getId());
-        return "redirect:/admin";
+        LearningOutcome lo = learningOutcomeRepository.findByName(name);
+        learningOutcomeRepository.delete(lo);
+        return "admin";
     }
 
     /*
@@ -261,7 +287,7 @@ public class HomeController {
      */
     @DeleteMapping("/delete_entity/category/{name}")
     public String deleteCategory(@PathVariable String name) {
-        categoryRepository.deleteById(categoryRepository.findByName(name).getId());
-        return "redirect:/admin";
+        categoryRepository.delete(categoryRepository.findByName(name));
+        return "admin";
     }
 }

@@ -42,14 +42,16 @@
                         <form>
                             <div class="form-row align-items-center">
                                 <div class="col-md col-lg-4">
-                                    <label  for="programSelect"> Choose program: </label>
+                                    <label for="programSelect"> Choose program: </label>
                                     <select class="custom-select select2 mr-sm-2" id="programSelect">
+                                        <option></option>
                                         <option th:each="program: ${programs}" th:text="${program.name}"></option>
                                     </select>
                                 </div>
                                 <div class="col-md col-lg-4">
                                     <label for="yearSelect"> Choose year:</label>
-                                    <select class="custom-select mr-sm-2" id="yearSelect">
+                                    <select class="custom-select select2 mr-sm-2" id="yearSelect">
+                                        <option></option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
