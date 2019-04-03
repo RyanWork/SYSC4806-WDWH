@@ -12,22 +12,12 @@ A user should be able to list, for a given year and for a given program: all the
 
 **_Current State of the Project_** <br>
 The features that have been implemented are: <br>
-  * filter by program and year
-  * sorting of columns
-  * filter by course and categories
-  * export with CSV
-  
-The features that are currently being reviewed are: <br>
-  * admin's add feature
+  * filter by program, year, course, categories
+  * sort & search through data
+  * export to CSV
+  * ADMIN FEATURE: add, edit, delete program, course, category, LO
 
-**_Plan for Final Sprint_** <br>
- * finishing admin features including adding/removing/editing courses, programs, categories and LO's
- * improve UI to for more data
- * finalize the features being reviewed 
- * implement validation for data being entered
- * fixing any other bugs we find along the way 
-
-<br>**_Current DB Schema_**<br>
+<br>**_DB Schema_**<br>
 ![image](https://user-images.githubusercontent.com/15951317/53824917-0faf0d80-3f43-11e9-8e2b-ee262940208a.png)
 
 <br>**_UML Class Diagram_**<br>
