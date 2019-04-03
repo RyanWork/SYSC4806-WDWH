@@ -15,7 +15,7 @@ The features that have been implemented are: <br>
   * filter by program, year, course, categories
   * sort & search through data
   * export to CSV
-  * ADMIN FEATURE: add, edit, delete program, course, category, LO
+  * ADMIN FEATURES: add, edit, delete program, course, category, LO
 
 <br>**_DB Schema_**<br>
 ![image](https://user-images.githubusercontent.com/15951317/53824917-0faf0d80-3f43-11e9-8e2b-ee262940208a.png)
