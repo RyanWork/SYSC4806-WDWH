@@ -7,7 +7,7 @@ function prePopulateEditModal(){
     $.ajax({
         type: "GET",
         contentType: "application/json",
-        url: "http://localhost:8080/api/programs",
+        url: encodeURI("/api/programs"),
         async: true,
         success: function (programResult) {
             // Populate the select with the entire list
@@ -26,7 +26,7 @@ function prePopulateEditModal(){
     $.ajax({
         type: "GET",
         contentType: "application/json",
-        url: "http://localhost:8080/api/learningoutcomes",
+        url: encodeURI("/api/learningoutcomes"),
         async: true,
         success: function (loResult) {
             // Populate the select with the entire list
@@ -120,7 +120,7 @@ function getSelectedCourse(id){
     $.ajax({
         type: "GET",
         contentType: "application/json",
-        url: "http://localhost:8080/api/courses/" + id,
+        url: encodeURI("/api/courses/" + id),
         async: true,
         success: function (courseResult) {
             $('#courseNameEdit').val(courseResult.name);
